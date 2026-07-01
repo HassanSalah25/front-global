@@ -138,7 +138,7 @@ export default function ServicesPage() {
                     }}>
                       {t.common.readMore}
                     </Link>
-                    <Link href="/contact" style={{
+                    <Link href={`/contact?service=${encodeURIComponent(s.id)}`} style={{
                       textDecoration: "none",
                       background: hovered === s.id ? "var(--primary)" : "#0a0a0a",
                       color: "#fff",

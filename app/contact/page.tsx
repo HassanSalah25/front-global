@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import type { InfoItem as OfficeItem } from "../lib/data";
@@ -22,7 +23,26 @@ const whyContactUs = {
   ],
 };
 
-export default function ContactPage() {
+function ServicePrefill({
+  onService,
+}: {
+  onService: (serviceId: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  const { t } = useLanguage();
+
+  useEffect(() => {
+    const serviceParam = searchParams.get("service")?.trim();
+    if (!serviceParam) return;
+
+    const isValid = t.servicesData.some((s) => s.id === serviceParam);
+    if (isValid) onService(serviceParam);
+  }, [searchParams, t.servicesData, onService]);
+
+  return null;
+}
+
+function ContactPageContent() {
   const { locale, t } = useLanguage();
   const cp = t.contactPage;
   const offices = cp.offices;
@@ -33,6 +53,11 @@ export default function ContactPage() {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  const handleServicePrefill = useCallback((serviceId: string) => {
+    setForm((prev) => (prev.service === serviceId ? prev : { ...prev, service: serviceId }));
+    setStep(3);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -125,6 +150,9 @@ export default function ContactPage() {
 
   return (
     <div>
+      <Suspense fallback={null}>
+        <ServicePrefill onService={handleServicePrefill} />
+      </Suspense>
       {/* ── Hero ─────────────────────────────── */}
       <section style={{
         background: "#0a0a0a",
@@ -530,4 +558,8 @@ export default function ContactPage() {
       `}</style>
     </div>
   );
+}
+
+export default function ContactPage() {
+  return <ContactPageContent />;
 }

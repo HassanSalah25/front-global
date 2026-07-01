@@ -280,7 +280,7 @@ export default function ServiceDetailClient() {
                   </div>
                 )}
 
-                <Link href="/contact" style={{
+                <Link href={`/contact?service=${encodeURIComponent(serviceId)}`} style={{
                   display: "block", textAlign: "center",
                   background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
                   color: "#fff", padding: "14px 24px", borderRadius: 0,
