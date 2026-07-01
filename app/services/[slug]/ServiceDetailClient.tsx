@@ -17,6 +17,12 @@ export default function ServiceDetailClient() {
   const [service, setService] = useState<ServiceDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
+
+  const sp = t.servicesPage;
+  const qf = sp.quoteForm;
 
   useEffect(() => {
     if (!slug) return;
@@ -25,6 +31,10 @@ export default function ServiceDetailClient() {
     fetchService(slug, locale as ApiLocale)
       .then((data) => {
         setService(data);
+        setForm((prev) => ({
+          ...prev,
+          service: String(data.slug ?? data.id ?? slug),
+        }));
         setLoading(false);
       })
       .catch(() => {
@@ -32,6 +42,32 @@ export default function ServiceDetailClient() {
         setLoading(false);
       });
   }, [slug, locale]);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const { submitQuote } = await import("../../lib/api");
+      await submitQuote({
+        name: form.name,
+        email: form.email,
+        phone: form.phone || undefined,
+        service: form.service || undefined,
+        message: form.message,
+        locale,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Quote submission failed:", err);
+      alert(
+        locale === "ar"
+          ? "تعذر إرسال الطلب. حاول مرة أخرى."
+          : "Could not submit your request. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -143,15 +179,18 @@ export default function ServiceDetailClient() {
       </section>
 
       {imageUrl && (
-        <div style={{ background: "var(--bg-muted)", overflow: "hidden" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", height: 480 }}>
+        <Reveal direction="up">
+          <div style={{ background: "var(--bg-muted)", width: "100%", lineHeight: 0 }}>
             <Image
-              src={imageUrl} alt={service.title}
-              fill unoptimized
-              style={{ objectFit: "cover" }}
+              src={imageUrl}
+              alt={service.title}
+              width={1920}
+              height={1080}
+              unoptimized
+              style={{ width: "100%", height: "auto", display: "block" }}
             />
           </div>
-        </div>
+        </Reveal>
       )}
 
       <section style={{ padding: "72px 24px 100px", background: "var(--bg)" }}>
@@ -279,6 +318,133 @@ export default function ServiceDetailClient() {
         </div>
       </section>
 
+      <section style={{ padding: "100px 24px", background: "var(--bg-muted)" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <Reveal direction="down">
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)", marginBottom: 12 }}>
+                {sp.quoteTitle}
+              </h2>
+              <p style={{ color: "var(--text-muted)", fontSize: 16.5, lineHeight: 1.8, maxWidth: 560, margin: "0 auto" }}>
+                {sp.quoteSubtext}
+              </p>
+              <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", marginTop: 24, fontSize: 15 }}>
+                <div>
+                  <strong>{sp.quoteEmailLabel}:</strong>{" "}
+                  <a href={`mailto:${sp.quoteEmail}`} style={{ color: "var(--primary)" }}>{sp.quoteEmail}</a>
+                </div>
+                <div>
+                  <strong>{sp.quotePhoneLabel}:</strong>{" "}
+                  <a
+                    href={`tel:${sp.quotePhone.replace(/\s/g, "")}`}
+                    style={{ color: "var(--primary)", direction: "ltr", display: "inline-block" }}
+                  >
+                    {sp.quotePhone}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {submitted ? (
+            <Reveal direction="up">
+              <div style={{ textAlign: "center", background: "var(--bg-card)", padding: "48px 32px", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: 56, marginBottom: 16 }}>✓</div>
+                <h3 style={{ fontWeight: 800, fontSize: 22, marginBottom: 12 }}>{t.common.successTitle}</h3>
+                <p style={{ color: "var(--text-muted)", lineHeight: 1.8 }}>{t.common.successDesc}</p>
+              </div>
+            </Reveal>
+          ) : (
+            <Reveal direction="up" delay={150}>
+              <form
+                onSubmit={handleSubmit}
+                style={{
+                  background: "var(--bg-card)",
+                  padding: "40px 36px",
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow-lg)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 20,
+                }}
+              >
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="form-row-2">
+                  <div style={{ textAlign: "start" }}>
+                    <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, marginBottom: 8 }}>{qf.fullName} *</label>
+                    <input
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      style={{ width: "100%", padding: "14px 16px", border: "1.5px solid var(--border)", borderRadius: 0, fontFamily: "inherit", background: "var(--bg)" }}
+                    />
+                  </div>
+                  <div style={{ textAlign: "start" }}>
+                    <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, marginBottom: 8 }}>{qf.email} *</label>
+                    <input
+                      required
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      style={{ width: "100%", padding: "14px 16px", border: "1.5px solid var(--border)", borderRadius: 0, fontFamily: "inherit", background: "var(--bg)" }}
+                    />
+                  </div>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="form-row-2">
+                  <div style={{ textAlign: "start" }}>
+                    <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, marginBottom: 8 }}>{qf.phone}</label>
+                    <input
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      style={{ width: "100%", padding: "14px 16px", border: "1.5px solid var(--border)", borderRadius: 0, fontFamily: "inherit", background: "var(--bg)" }}
+                    />
+                  </div>
+                  <div style={{ textAlign: "start" }}>
+                    <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, marginBottom: 8 }}>{qf.interestedIn}</label>
+                    <select
+                      value={form.service}
+                      onChange={(e) => setForm({ ...form, service: e.target.value })}
+                      style={{ width: "100%", padding: "14px 16px", border: "1.5px solid var(--border)", borderRadius: 0, fontFamily: "inherit", background: "var(--bg)" }}
+                    >
+                      <option value="">{qf.chooseService}</option>
+                      {t.servicesData.map((s) => (
+                        <option key={s.id} value={s.id}>{s.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div style={{ textAlign: "start" }}>
+                  <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, marginBottom: 8 }}>{qf.message} *</label>
+                  <textarea
+                    required
+                    rows={5}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    style={{ width: "100%", padding: "14px 16px", border: "1.5px solid var(--border)", borderRadius: 0, fontFamily: "inherit", background: "var(--bg)", resize: "vertical" }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  style={{
+                    border: "none",
+                    cursor: submitting ? "not-allowed" : "pointer",
+                    background: submitting ? "var(--border)" : "#0a0a0a",
+                    color: "#fff",
+                    padding: "16px 32px",
+                    borderRadius: 0,
+                    fontWeight: 800,
+                    fontSize: 16,
+                    fontFamily: "inherit",
+                  }}
+                >
+                  {submitting ? t.common.loading : qf.submit}
+                </button>
+              </form>
+            </Reveal>
+          )}
+        </div>
+      </section>
+
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
         .back-link:hover { color: var(--primary) !important; }
@@ -292,6 +458,9 @@ export default function ServiceDetailClient() {
         .service-body a { color: var(--primary); text-decoration: underline; }
         @media (max-width: 900px) {
           .service-detail-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 768px) {
+          .form-row-2 { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>
