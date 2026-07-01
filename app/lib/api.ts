@@ -33,7 +33,24 @@ export function getApiBaseUrl(): string {
 
 export function resolveMediaUrl(url?: string | null): string {
   if (!url) return "";
-  return url;
+
+  let resolved = url.trim();
+
+  // Backend occasionally returns duplicated storage path segments.
+  resolved = resolved.replace(
+    /\/api\/public\/storage\/api\/public\/storage\//g,
+    "/api/public/storage/"
+  );
+
+  if (resolved.startsWith("/")) {
+    const origin = EXTERNAL_API.replace(/\/api\/v1\/?$/, "");
+    resolved = `${origin}${resolved}`;
+  } else if (!/^https?:\/\//i.test(resolved) && resolved.startsWith("storage/")) {
+    const origin = EXTERNAL_API.replace(/\/api\/v1\/?$/, "");
+    resolved = `${origin}/${resolved}`;
+  }
+
+  return resolved;
 }
 
 export async function apiFetch<T>(
@@ -145,10 +162,19 @@ export function subscribeNewsletter(payload: { email: string; locale: ApiLocale 
 }
 
 export interface AboutPayload {
-  team?: Array<{ name: string; role: string; bio: string; image: string }>;
-  timeline?: Array<{ year: string; title: string; desc: string; icon?: string }>;
+  page?: {
+    title?: string;
+    subtitle?: string;
+    badge?: string;
+    image?: string;
+    story_image?: string;
+  };
+  story_image?: string;
+  storyImage?: string;
+  team?: Array<{ name: string; role: string; bio: string; image: string; slug?: string }>;
+  timeline?: Array<{ year: string; title: string; desc?: string; description?: string; icon?: string }>;
   skills?: Array<{ label: string; percent: number; color?: string }>;
-  values?: Array<{ icon: string; title: string; desc: string }>;
+  values?: Array<{ icon: string; title: string; desc?: string; description?: string }>;
   stats?: Array<{ value: string; label: string; icon?: string }>;
   partnerLabels?: string[];
 }

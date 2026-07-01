@@ -100,7 +100,12 @@ export default function AboutPage() {
   }, [locale]);
 
   const timeline =
-    (cmsAbout?.timeline?.length ? cmsAbout.timeline : null) ??
+    (cmsAbout?.timeline?.length
+      ? cmsAbout.timeline.map((item) => ({
+          ...item,
+          desc: item.desc ?? item.description ?? "",
+        }))
+      : null) ??
     (locale === "ar" ? timelineData.ar : timelineData.en);
 
   const skills =
@@ -109,13 +114,34 @@ export default function AboutPage() {
       : null) ??
     (locale === "ar" ? skillsData.ar : skillsData.en);
 
-  const teamList: TeamMember[] =
-    (cmsAbout?.team?.length ? (cmsAbout.team as TeamMember[]) : null) ??
-    ad.teamList;
+  const teamList: TeamMember[] = cmsAbout?.team?.length
+    ? cmsAbout.team.map((member) => ({
+        name: member.name,
+        role: member.role,
+        bio: member.bio,
+        image: resolveMediaUrl(member.image),
+      }))
+    : ad.teamList.map((member) => ({
+        ...member,
+        image: resolveMediaUrl(member.image),
+      }));
 
-  const valuesList: ValueItem[] =
-    (cmsAbout?.values?.length ? (cmsAbout.values as ValueItem[]) : null) ??
-    ad.valuesList;
+  const valuesList: ValueItem[] = cmsAbout?.values?.length
+    ? cmsAbout.values.map((value) => ({
+        icon: value.icon,
+        title: value.title,
+        desc: value.desc ?? value.description ?? "",
+      }))
+    : ad.valuesList;
+
+  const storyImage = resolveMediaUrl(
+    cmsAbout?.page?.image ??
+      cmsAbout?.page?.story_image ??
+      cmsAbout?.story_image ??
+      cmsAbout?.storyImage ??
+      cmsAbout?.team?.[0]?.image ??
+      ad.storyImage
+  );
 
   return (
     <div>
@@ -248,8 +274,8 @@ export default function AboutPage() {
               <Reveal direction="left" delay={200}>
                 <div style={{ position: "relative", width: "100%", minHeight: 280 }}>
                   <Image
-                    src={resolveMediaUrl(ad.storyImage)}
-                    alt="Our Creative Journey"
+                    src={storyImage}
+                    alt={cmsAbout?.page?.subtitle ?? ad.storyTitle}
                     width={800} height={450}
                     unoptimized
                     style={{
