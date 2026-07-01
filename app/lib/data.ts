@@ -2,6 +2,8 @@
 // TRANSLATION DATA FILE — Edit once to update both versions
 // ==========================================
 
+import { withServiceImages } from "./serviceImages";
+
 export const translations = {
   ar: {
     siteConfig: {
@@ -687,10 +689,19 @@ export const translations = {
   }
 };
 
+translations.ar.servicesData = withServiceImages(translations.ar.servicesData);
+translations.en.servicesData = withServiceImages(translations.en.servicesData);
+
 export type Locale = keyof typeof translations;
-export type Translation = typeof translations.ar;
-export type ServiceDataItem = typeof translations.ar.servicesData[number] & {
+export type ServiceDataItem = Omit<
+  (typeof translations.ar.servicesData)[number],
+  "features"
+> & {
+  features: string[];
   imageUrl?: string;
+};
+export type Translation = Omit<typeof translations.ar, "servicesData"> & {
+  servicesData: ServiceDataItem[];
 };
 export type StatDataItem = typeof translations.ar.statsData[number];
 export type ProcessStep = typeof translations.ar.processData.steps[number];

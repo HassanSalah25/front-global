@@ -1,22 +1,37 @@
 import type { HomePayload, LayoutPayload } from "./api";
 import { resolveMediaUrl } from "./api";
 import type { Translation } from "./data";
+import { getServiceImageUrl } from "./serviceImages";
 
 type LocaleKey = "en" | "ar";
 
 function mapServicesData(
   services: Array<Record<string, unknown>>
 ): Translation["servicesData"] {
-  return services.map((service, index) => ({
-    id: String(service.id ?? service.slug ?? `service-${index + 1}`),
+  return services.map((service, index) => {
+    const id = String(service.id ?? service.slug ?? `service-${index + 1}`);
+    const apiImage = resolveMediaUrl(
+      String(
+        service.imageUrl ??
+          service.image_url ??
+          service.image ??
+          service.featured_image ??
+          service.featuredImage ??
+          ""
+      )
+    );
+
+    return {
+    id,
     icon: String(service.icon ?? "📌"),
-    imageUrl: resolveMediaUrl(String(service.imageUrl ?? "")) || undefined,
+    imageUrl: getServiceImageUrl(id, apiImage || undefined),
     title: String(service.title ?? ""),
     shortDesc: String(service.shortDesc ?? ""),
     price: String(service.price ?? ""),
     fullDesc: String(service.fullDesc ?? ""),
     features: Array.isArray(service.features) ? (service.features as string[]) : [],
-  })) as Translation["servicesData"];
+  };
+  }) as Translation["servicesData"];
 }
 
 function mapCommonLabels(labels: Record<string, string>): Partial<Translation["common"]> {

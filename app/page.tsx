@@ -41,6 +41,7 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
     >
       <ServiceCardMedia
         imageUrl={s.imageUrl}
+        serviceId={s.id}
         icon={s.icon}
         title={s.title}
         hovered={hovered}

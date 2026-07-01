@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { getServiceImageUrl } from "../lib/serviceImages";
 
 type ServiceCardMediaProps = {
   imageUrl?: string;
+  serviceId?: string;
   icon: string;
   title: string;
   hovered?: boolean;
@@ -12,12 +14,15 @@ type ServiceCardMediaProps = {
 
 export default function ServiceCardMedia({
   imageUrl,
+  serviceId,
   icon,
   title,
   hovered = false,
   variant = "page",
 }: ServiceCardMediaProps) {
-  if (imageUrl) {
+  const resolvedImageUrl = getServiceImageUrl(serviceId ?? "", imageUrl);
+
+  if (resolvedImageUrl) {
     return (
       <div
         style={{
@@ -31,7 +36,7 @@ export default function ServiceCardMedia({
         }}
       >
         <Image
-          src={imageUrl}
+          src={resolvedImageUrl}
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, 400px"
