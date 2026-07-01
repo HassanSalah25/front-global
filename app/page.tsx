@@ -355,7 +355,7 @@ export default function Home() {
           </div>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 32 }}>
-            {t.servicesData.map((s: ServiceDataItem, i: number) => (
+            {t.servicesData.slice(0, 4).map((s: ServiceDataItem, i: number) => (
               <Reveal key={s.id} delay={i * 100} direction="up">
                 <ServiceCard s={s} />
               </Reveal>

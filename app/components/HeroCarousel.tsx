@@ -107,25 +107,9 @@ export default function HeroCarousel() {
           transition: "opacity 0.6s ease, background 0.8s ease",
         }} />
 
-        <div style={{
-          position: "absolute", inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          padding: "clamp(32px, 5vw, 80px)",
-          color: "#fff",
-        }}>
-          <div style={{
-            display: "inline-block",
-            background: "rgba(255,255,255,0.18)",
-            backdropFilter: "blur(12px)",
-            border: "1px solid rgba(255,255,255,0.3)",
-            padding: "8px 22px",
-            borderRadius: 0,
-            fontSize: 13,
-            fontWeight: 700,
-            marginBottom: 28,
-            width: "fit-content",
+        <div className="hero-carousel-overlay">
+          <div className="hero-carousel-content">
+          <div className="hero-carousel-badge" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(-16px)" : "translateY(0)",
             transition: "all 0.5s ease 0.1s",
@@ -133,11 +117,7 @@ export default function HeroCarousel() {
             {slide.badge}
           </div>
 
-          <h2 style={{
-            fontSize: "clamp(2.4rem, 6vw, 5rem)",
-            fontWeight: 900,
-            lineHeight: 1.1,
-            marginBottom: 12,
+          <h2 className="hero-carousel-title" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(24px)" : "translateY(0)",
             transition: "all 0.55s ease 0.15s",
@@ -154,11 +134,7 @@ export default function HeroCarousel() {
             )}
           </h2>
 
-          <h3 style={{
-            fontSize: "clamp(1.1rem, 2.5vw, 1.8rem)",
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.85)",
-            marginBottom: 20,
+          <h3 className="hero-carousel-subtitle" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(20px)" : "translateY(0)",
             transition: "all 0.55s ease 0.22s",
@@ -166,12 +142,7 @@ export default function HeroCarousel() {
             {slide.subtitle}
           </h3>
 
-          <p style={{
-            fontSize: "clamp(14px, 2vw, 18px)",
-            color: "rgba(255,255,255,0.8)",
-            maxWidth: 580,
-            lineHeight: 1.8,
-            marginBottom: 40,
+          <p className="hero-carousel-desc" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(16px)" : "translateY(0)",
             transition: "all 0.55s ease 0.3s",
@@ -179,10 +150,7 @@ export default function HeroCarousel() {
             {slide.desc}
           </p>
 
-          <div style={{
-            display: "flex",
-            gap: 16,
-            flexWrap: "wrap",
+          <div className="hero-carousel-ctas" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(12px)" : "translateY(0)",
             transition: "all 0.55s ease 0.38s",
@@ -216,6 +184,7 @@ export default function HeroCarousel() {
             }}>
               {slide.ctaSecondary}
             </Link>
+          </div>
           </div>
         </div>
 
@@ -296,6 +265,92 @@ export default function HeroCarousel() {
       </div>
 
       <style>{`
+        .hero-carousel-overlay {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: clamp(24px, 4vw, 64px);
+          padding-bottom: clamp(64px, 10vw, 88px);
+          color: #fff;
+          overflow: hidden;
+        }
+        .hero-carousel-content {
+          width: 100%;
+          max-width: min(600px, 52%);
+          max-height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.35) transparent;
+        }
+        .hero-carousel-content::-webkit-scrollbar {
+          width: 4px;
+        }
+        .hero-carousel-content::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.35);
+          border-radius: 2px;
+        }
+        .hero-carousel-badge {
+          display: inline-block;
+          background: rgba(255,255,255,0.18);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255,255,255,0.3);
+          padding: 8px 22px;
+          border-radius: 0;
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: clamp(16px, 3vw, 28px);
+          max-width: 100%;
+          word-wrap: break-word;
+          overflow-wrap: anywhere;
+        }
+        .hero-carousel-title {
+          font-size: clamp(1.65rem, 3.8vw, 3.25rem);
+          font-weight: 900;
+          line-height: 1.15;
+          margin: 0 0 clamp(8px, 1.5vw, 12px);
+          max-width: 100%;
+          word-wrap: break-word;
+          overflow-wrap: anywhere;
+        }
+        .hero-carousel-subtitle {
+          font-size: clamp(1rem, 2vw, 1.5rem);
+          font-weight: 600;
+          color: rgba(255,255,255,0.85);
+          margin: 0 0 clamp(12px, 2vw, 20px);
+          max-width: 100%;
+          line-height: 1.35;
+          word-wrap: break-word;
+          overflow-wrap: anywhere;
+        }
+        .hero-carousel-desc {
+          font-size: clamp(14px, 1.8vw, 17px);
+          color: rgba(255,255,255,0.8);
+          line-height: 1.7;
+          margin: 0 0 clamp(20px, 3vw, 32px);
+          max-width: 100%;
+          word-wrap: break-word;
+          overflow-wrap: anywhere;
+        }
+        .hero-carousel-ctas {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+          .hero-carousel-content {
+            max-width: 100%;
+          }
+          .hero-carousel-title {
+            font-size: clamp(1.5rem, 6.5vw, 2.25rem);
+          }
+          .hero-carousel-overlay {
+            justify-content: flex-end;
+            padding-bottom: clamp(72px, 14vw, 96px);
+          }
+        }
         .carousel-btn-primary:hover {
           transform: translateY(-3px) scale(1.03) !important;
           box-shadow: 0 14px 36px rgba(0,0,0,0.35) !important;

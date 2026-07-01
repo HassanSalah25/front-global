@@ -28,7 +28,7 @@ export default function ServiceCardMedia({
         style={{
           width: "100%",
           aspectRatio: "800 / 540",
-          borderRadius: variant === "page" ? 12 : 0,
+          borderRadius: 0,
           overflow: "hidden",
           marginBottom: variant === "page" ? 20 : 16,
           position: "relative",
@@ -54,7 +54,7 @@ export default function ServiceCardMedia({
         width: size,
         height: size,
         background: hovered ? "rgba(255,255,255,0.2)" : "var(--primary-light)",
-        borderRadius: variant === "page" ? 18 : 0,
+        borderRadius: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
