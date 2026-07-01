@@ -49,7 +49,7 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
       />
       <h3 style={{ fontWeight: 800, fontSize: 19, color: hovered ? "#fff" : "var(--text)" }}>{s.title}</h3>
       <p style={{ color: hovered ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{s.shortDesc}</p>
-      <Link href="/services" style={{
+      <Link href={`/services/${s.id}`} style={{
         marginTop: "auto",
         color: hovered ? "#fff" : "var(--primary)",
         fontWeight: 700, fontSize: 14,

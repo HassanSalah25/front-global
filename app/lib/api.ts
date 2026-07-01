@@ -125,6 +125,25 @@ export function fetchServices(locale: ApiLocale) {
   );
 }
 
+export interface ServiceDetail {
+  id: string;
+  slug: string;
+  icon: string;
+  imageUrl?: string;
+  title: string;
+  shortDesc: string;
+  fullDesc: string;
+  price: string;
+  features: string[];
+  isFeatured?: boolean;
+  sortOrder?: number;
+  seo?: Record<string, unknown>;
+}
+
+export function fetchService(slug: string, locale: ApiLocale = "en") {
+  return apiFetch<ServiceDetail>(`/services/${slug}`, { locale });
+}
+
 export function submitContact(payload: {
   name: string;
   email: string;

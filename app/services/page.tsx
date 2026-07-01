@@ -100,7 +100,6 @@ export default function ServicesPage() {
             {t.servicesData.map((s: ServiceDataItem, i: number) => (
               <Reveal key={s.id} delay={i * 80} direction="up">
                 <div
-                  id={s.id}
                   onMouseEnter={() => setHovered(s.id)}
                   onMouseLeave={() => setHovered(null)}
                   style={{
@@ -111,33 +110,48 @@ export default function ServicesPage() {
                     transform: hovered === s.id ? "translateY(-10px) scale(1.02)" : "none",
                     transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                     display: "flex", flexDirection: "column", height: "100%",
-                    scrollMarginTop: 100,
                   }}
                 >
-                  <ServiceCardMedia
-                    imageUrl={s.imageUrl}
-                    serviceId={s.id}
-                    icon={s.icon}
-                    title={s.title}
-                    hovered={hovered === s.id}
-                    variant="page"
-                  />
-                  <h2 style={{ fontWeight: 800, fontSize: 21, color: hovered === s.id ? "#fff" : "var(--text)", marginBottom: 16 }}>{s.title}</h2>
-                  <p style={{ color: hovered === s.id ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.85, marginBottom: 32, flexGrow: 1 }}>{s.shortDesc}</p>
-                  <Link href="/contact" style={{
-                    marginTop: "auto",
-                    textDecoration: "none",
-                    background: hovered === s.id ? "var(--primary)" : "#0a0a0a",
-                    color: "#fff",
-                    padding: "14px 24px",
-                    borderRadius: 1,
-                    fontWeight: 800,
-                    fontSize: 15.5,
-                    textAlign: "center",
-                    border: hovered === s.id ? "2px solid var(--primary)" : "2px solid #0a0a0a",
-                  }}>
-                    {t.common.requestService}
+                  <Link href={`/services/${s.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                    <ServiceCardMedia
+                      imageUrl={s.imageUrl}
+                      serviceId={s.id}
+                      icon={s.icon}
+                      title={s.title}
+                      hovered={hovered === s.id}
+                      variant="page"
+                    />
+                    <h2 style={{ fontWeight: 800, fontSize: 21, color: hovered === s.id ? "#fff" : "var(--text)", marginBottom: 16 }}>{s.title}</h2>
+                    <p style={{ color: hovered === s.id ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.85, marginBottom: 32, flexGrow: 1 }}>{s.shortDesc}</p>
                   </Link>
+                  <div style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: 10 }}>
+                    <Link href={`/services/${s.id}`} style={{
+                      textDecoration: "none",
+                      background: hovered === s.id ? "rgba(255,255,255,0.12)" : "var(--primary-light)",
+                      color: hovered === s.id ? "#fff" : "var(--primary)",
+                      padding: "12px 24px",
+                      borderRadius: 1,
+                      fontWeight: 800,
+                      fontSize: 14.5,
+                      textAlign: "center",
+                      border: hovered === s.id ? "1.5px solid rgba(255,255,255,0.2)" : "1.5px solid transparent",
+                    }}>
+                      {t.common.readMore}
+                    </Link>
+                    <Link href="/contact" style={{
+                      textDecoration: "none",
+                      background: hovered === s.id ? "var(--primary)" : "#0a0a0a",
+                      color: "#fff",
+                      padding: "14px 24px",
+                      borderRadius: 1,
+                      fontWeight: 800,
+                      fontSize: 15.5,
+                      textAlign: "center",
+                      border: hovered === s.id ? "2px solid var(--primary)" : "2px solid #0a0a0a",
+                    }}>
+                      {t.common.requestService}
+                    </Link>
+                  </div>
                 </div>
               </Reveal>
             ))}
