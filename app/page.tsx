@@ -73,6 +73,39 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
   );
 }
 
+function ProcessStepCard({ p }: { p: ProcessStep }) {
+  return (
+    <div style={{
+      background: "var(--bg-card)",
+      borderRadius: "0",
+      padding: 32,
+      textAlign: "center",
+      border: "1px solid var(--border)",
+      position: "relative",
+      transition: "all 0.3s ease",
+      width: "100%",
+    }}
+    className="process-card"
+    >
+      <div style={{
+        width: 58, height: 58,
+        background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
+        borderRadius: "0",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        margin: "0 auto 20px",
+        color: "#fff",
+        fontWeight: 900,
+        fontSize: 22,
+        boxShadow: "0 4px 12px rgba(99, 102, 241, 0.2)"
+      }}>
+        {p.step}
+      </div>
+      <h3 style={{ fontWeight: 800, fontSize: 18, color: "var(--text)", marginBottom: 12 }}>{p.title}</h3>
+      <p style={{ color: "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{p.desc}</p>
+    </div>
+  );
+}
+
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -355,7 +388,7 @@ export default function Home() {
           </div>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 32 }}>
-            {t.servicesData.slice(0, 4).map((s: ServiceDataItem, i: number) => (
+            {t.servicesData.slice(0, 6).map((s: ServiceDataItem, i: number) => (
               <Reveal key={s.id} delay={i * 100} direction="up">
                 <ServiceCard s={s} />
               </Reveal>
@@ -398,39 +431,21 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 32 }}>
-            {t.processData.steps.map((p: ProcessStep, i: number) => (
-              <Reveal key={i} delay={i * 100} direction="up" style={{ flex: "0 1 220px", maxWidth: 280, width: "100%" }}>
-                <div style={{
-                  background: "var(--bg-card)",
-                  borderRadius: "0",
-                  padding: 32,
-                  textAlign: "center",
-                  border: "1px solid var(--border)",
-                  position: "relative",
-                  transition: "all 0.3s ease",
-                  width: "100%",
-                }}
-                className="process-card"
-                >
-                  <div style={{
-                    width: 58, height: 58,
-                    background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
-                    borderRadius: "0",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    margin: "0 auto 20px",
-                    color: "#fff",
-                    fontWeight: 900,
-                    fontSize: 22,
-                    boxShadow: "0 4px 12px rgba(99, 102, 241, 0.2)"
-                  }}>
-                    {p.step}
-                  </div>
-                  <h3 style={{ fontWeight: 800, fontSize: 18, color: "var(--text)", marginBottom: 12 }}>{p.title}</h3>
-                  <p style={{ color: "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{p.desc}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="process-grid">
+            <div className="process-row process-row-top">
+              {t.processData.steps.slice(0, 3).map((p: ProcessStep, i: number) => (
+                <Reveal key={i} delay={i * 100} direction="up">
+                  <ProcessStepCard p={p} />
+                </Reveal>
+              ))}
+            </div>
+            <div className="process-row process-row-bottom">
+              {t.processData.steps.slice(3).map((p: ProcessStep, i: number) => (
+                <Reveal key={i + 3} delay={(i + 3) * 100} direction="up">
+                  <ProcessStepCard p={p} />
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -512,7 +527,7 @@ export default function Home() {
               src={hd.photographyImage}
               alt={hd.photographyTitle}
               width={800} height={500} unoptimized
-              style={{ width: "100%", borderRadius: 0, boxShadow: "var(--shadow-lg)", border: "1px solid var(--border)" }}
+              style={{ width: "100%", borderRadius: 0 }}
             />
           </Reveal>
         </div>
@@ -673,6 +688,26 @@ export default function Home() {
           border-color: var(--primary) !important;
           box-shadow: var(--shadow-md);
         }
+        .process-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+          align-items: center;
+        }
+        .process-row-top {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          width: 100%;
+          max-width: 900px;
+        }
+        .process-row-bottom {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 32px;
+          width: 100%;
+          max-width: 600px;
+        }
         .testimonial-card:hover {
           transform: translateY(-8px);
           border-color: var(--primary) !important;
@@ -709,6 +744,11 @@ export default function Home() {
           }
         }
         @media (max-width: 768px) {
+          .process-row-top,
+          .process-row-bottom {
+            grid-template-columns: 1fr;
+            max-width: 320px;
+          }
           .hero-split {
             gap: 32px !important;
           }
