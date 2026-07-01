@@ -4,6 +4,21 @@ import type { Translation } from "./data";
 
 type LocaleKey = "en" | "ar";
 
+function mapServicesData(
+  services: Array<Record<string, unknown>>
+): Translation["servicesData"] {
+  return services.map((service, index) => ({
+    id: String(service.id ?? service.slug ?? `service-${index + 1}`),
+    icon: String(service.icon ?? "📌"),
+    imageUrl: resolveMediaUrl(String(service.imageUrl ?? "")) || undefined,
+    title: String(service.title ?? ""),
+    shortDesc: String(service.shortDesc ?? ""),
+    price: String(service.price ?? ""),
+    fullDesc: String(service.fullDesc ?? ""),
+    features: Array.isArray(service.features) ? (service.features as string[]) : [],
+  })) as Translation["servicesData"];
+}
+
 function mapCommonLabels(labels: Record<string, string>): Partial<Translation["common"]> {
   return {
     dashboardBtn: labels.dashboardBtn,
@@ -53,9 +68,9 @@ export function mergeHomeIntoTranslation(
 
   const servicesData =
     services.length > 0
-      ? (services as Translation["servicesData"])
+      ? mapServicesData(services)
       : home.services?.length
-        ? (home.services as Translation["servicesData"])
+        ? mapServicesData(home.services)
         : base.servicesData;
 
   const blogPosts =

@@ -12,6 +12,7 @@ import WorkShowcase from "./components/WorkShowcase";
 import type { ServiceDataItem, FaqItem, ProcessStep, TestimonialItem } from "./lib/data";
 import { fetchFaqs } from "./lib/api";
 import type { ApiLocale } from "./lib/api";
+import ServiceCardMedia from "./components/ServiceCardMedia";
 
 function ServiceCard({ s }: { s: ServiceDataItem }) {
   const [hovered, setHovered] = useState(false);
@@ -38,17 +39,13 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
         gap: 16,
       }}
     >
-      <div style={{
-        width: 60, height: 60,
-        background: hovered ? "rgba(255,255,255,0.2)" : "var(--primary-light)",
-        borderRadius: 0,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 30, transition: "all 0.3s ease",
-        color: hovered ? "#fff" : "var(--primary)",
-        boxShadow: hovered ? "0 4px 16px rgba(255,255,255,0.2)" : "none",
-      }}>
-        {s.icon}
-      </div>
+      <ServiceCardMedia
+        imageUrl={s.imageUrl}
+        icon={s.icon}
+        title={s.title}
+        hovered={hovered}
+        variant="home"
+      />
       <h3 style={{ fontWeight: 800, fontSize: 19, color: hovered ? "#fff" : "var(--text)" }}>{s.title}</h3>
       <p style={{ color: hovered ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{s.shortDesc}</p>
       <Link href="/services" style={{

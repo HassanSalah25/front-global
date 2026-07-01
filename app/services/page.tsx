@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import type { ServiceDataItem, WhyListItem } from "../lib/data";
+import ServiceCardMedia from "../components/ServiceCardMedia";
 
 export default function ServicesPage() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -113,15 +114,13 @@ export default function ServicesPage() {
                     scrollMarginTop: 100,
                   }}
                 >
-                  <div style={{
-                    width: 64, height: 64,
-                    background: hovered === s.id ? "rgba(255,255,255,0.2)" : "var(--primary-light)",
-                    borderRadius: 18,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 32, marginBottom: 20,
-                    transition: "all 0.3s ease",
-                    color: hovered === s.id ? "#fff" : "var(--primary)",
-                  }}>{s.icon}</div>
+                  <ServiceCardMedia
+                    imageUrl={s.imageUrl}
+                    icon={s.icon}
+                    title={s.title}
+                    hovered={hovered === s.id}
+                    variant="page"
+                  />
                   <h2 style={{ fontWeight: 800, fontSize: 21, color: hovered === s.id ? "#fff" : "var(--text)", marginBottom: 16 }}>{s.title}</h2>
                   <p style={{ color: hovered === s.id ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.85, marginBottom: 32, flexGrow: 1 }}>{s.shortDesc}</p>
                   <Link href="/contact" style={{

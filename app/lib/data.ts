@@ -689,7 +689,9 @@ export const translations = {
 
 export type Locale = keyof typeof translations;
 export type Translation = typeof translations.ar;
-export type ServiceDataItem = typeof translations.ar.servicesData[number];
+export type ServiceDataItem = typeof translations.ar.servicesData[number] & {
+  imageUrl?: string;
+};
 export type StatDataItem = typeof translations.ar.statsData[number];
 export type ProcessStep = typeof translations.ar.processData.steps[number];
 export type TestimonialItem = typeof translations.ar.testimonialsData.list[number];
