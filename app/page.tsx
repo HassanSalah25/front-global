@@ -19,10 +19,13 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
   const { t } = useLanguage();
 
   return (
-    <div
+    <Link
+      href={`/services/${s.id}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
+        textDecoration: "none",
+        color: "inherit",
         background: hovered
           ? "#0a0a0a"
           : "var(--bg-card)",
@@ -33,10 +36,11 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
         boxShadow: hovered ? "0 20px 50px rgba(0,0,0,0.25)" : "var(--shadow-sm)",
         transform: hovered ? "translateY(-10px) scale(1.02)" : "none",
         transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-        cursor: "default",
+        cursor: "pointer",
         display: "flex",
         flexDirection: "column",
         gap: 16,
+        height: "100%",
       }}
     >
       <ServiceCardMedia
@@ -48,28 +52,22 @@ function ServiceCard({ s }: { s: ServiceDataItem }) {
         variant="home"
       />
       <h3 style={{ fontWeight: 800, fontSize: 19, color: hovered ? "#fff" : "var(--text)" }}>{s.title}</h3>
-      <p style={{ color: hovered ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{s.shortDesc}</p>
-      <Link href={`/services/${s.id}`} style={{
-        marginTop: "auto",
-        color: hovered ? "#fff" : "var(--primary)",
-        fontWeight: 700, fontSize: 14,
-        textDecoration: "none",
-        display: "inline-flex", alignItems: "center", gap: 6,
-        transition: "gap 0.2s",
-      }}
-      onMouseEnter={(e) => {
-        const arrow = e.currentTarget.querySelector(".arrow");
-        if (arrow) (arrow as HTMLElement).style.transform = "translateX(4px)";
-      }}
-      onMouseLeave={(e) => {
-        const arrow = e.currentTarget.querySelector(".arrow");
-        if (arrow) (arrow as HTMLElement).style.transform = "translateX(0)";
-      }}
+      <p style={{ color: hovered ? "rgba(255,255,255,0.85)" : "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8, flexGrow: 1 }}>{s.shortDesc}</p>
+      <span
+        style={{
+          marginTop: "auto",
+          color: hovered ? "#fff" : "var(--primary)",
+          fontWeight: 700,
+          fontSize: 14,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+        }}
       >
         <span>{t.common.readMore}</span>
-        <span className="arrow" style={{ transition: "transform 0.2s", display: "inline-block" }}>→</span>
-      </Link>
-    </div>
+        <span style={{ transform: hovered ? "translateX(4px)" : "translateX(0)", transition: "transform 0.2s", display: "inline-block" }}>→</span>
+      </span>
+    </Link>
   );
 }
 
