@@ -79,7 +79,7 @@ export default function HeroCarousel() {
         margin: "0 auto",
         borderRadius: 0,
         overflow: "hidden",
-        height: "clamp(520px, 75vh, 720px)",
+        height: "clamp(560px, 78vh, 760px)",
         position: "relative",
         boxShadow: "0 32px 80px rgba(0,0,0,0.2)",
       }}>
@@ -278,19 +278,9 @@ export default function HeroCarousel() {
         }
         .hero-carousel-content {
           width: 100%;
-          max-width: min(600px, 52%);
-          max-height: 100%;
-          overflow-y: auto;
-          overflow-x: hidden;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255,255,255,0.35) transparent;
-        }
-        .hero-carousel-content::-webkit-scrollbar {
-          width: 4px;
-        }
-        .hero-carousel-content::-webkit-scrollbar-thumb {
-          background: rgba(255,255,255,0.35);
-          border-radius: 2px;
+          max-width: min(680px, 62%);
+          flex-shrink: 1;
+          min-width: 0;
         }
         .hero-carousel-badge {
           display: inline-block;
@@ -301,38 +291,39 @@ export default function HeroCarousel() {
           border-radius: 0;
           font-size: 13px;
           font-weight: 700;
-          margin-bottom: clamp(16px, 3vw, 28px);
+          margin-bottom: clamp(12px, 2vw, 20px);
           max-width: 100%;
           word-wrap: break-word;
-          overflow-wrap: anywhere;
+          overflow-wrap: break-word;
         }
         .hero-carousel-title {
-          font-size: clamp(1.65rem, 3.8vw, 3.25rem);
+          font-size: clamp(1.35rem, 2.6vw, 2.5rem);
           font-weight: 900;
-          line-height: 1.15;
-          margin: 0 0 clamp(8px, 1.5vw, 12px);
+          line-height: 1.2;
+          margin: 0 0 clamp(6px, 1.2vw, 10px);
           max-width: 100%;
           word-wrap: break-word;
-          overflow-wrap: anywhere;
+          overflow-wrap: break-word;
+          text-wrap: balance;
         }
         .hero-carousel-subtitle {
-          font-size: clamp(1rem, 2vw, 1.5rem);
+          font-size: clamp(0.95rem, 1.8vw, 1.35rem);
           font-weight: 600;
           color: rgba(255,255,255,0.85);
-          margin: 0 0 clamp(12px, 2vw, 20px);
+          margin: 0 0 clamp(8px, 1.5vw, 14px);
           max-width: 100%;
           line-height: 1.35;
           word-wrap: break-word;
-          overflow-wrap: anywhere;
+          overflow-wrap: break-word;
         }
         .hero-carousel-desc {
-          font-size: clamp(14px, 1.8vw, 17px);
+          font-size: clamp(13px, 1.5vw, 16px);
           color: rgba(255,255,255,0.8);
-          line-height: 1.7;
-          margin: 0 0 clamp(20px, 3vw, 32px);
+          line-height: 1.65;
+          margin: 0 0 clamp(16px, 2.5vw, 24px);
           max-width: 100%;
           word-wrap: break-word;
-          overflow-wrap: anywhere;
+          overflow-wrap: break-word;
         }
         .hero-carousel-ctas {
           display: flex;
@@ -344,7 +335,7 @@ export default function HeroCarousel() {
             max-width: 100%;
           }
           .hero-carousel-title {
-            font-size: clamp(1.5rem, 6.5vw, 2.25rem);
+            font-size: clamp(1.25rem, 5.5vw, 1.85rem);
           }
           .hero-carousel-overlay {
             justify-content: flex-end;
