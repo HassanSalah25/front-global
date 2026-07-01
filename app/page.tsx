@@ -511,7 +511,7 @@ export default function Home() {
           </Reveal>
           <Reveal direction="left" delay={150}>
             <Image
-              src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop"
+              src={hd.photographyImage}
               alt={hd.photographyTitle}
               width={800} height={500} unoptimized
               style={{ width: "100%", borderRadius: 0, boxShadow: "var(--shadow-lg)", border: "1px solid var(--border)" }}

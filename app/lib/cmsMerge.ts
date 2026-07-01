@@ -83,7 +83,13 @@ export function mergeHomeIntoTranslation(
     },
     statsData: home.stats?.length ? (home.stats as Translation["statsData"]) : base.statsData,
     servicesData,
-    homeData: { ...base.homeData, ...homeData },
+    homeData: {
+      ...base.homeData,
+      ...homeData,
+      ...(homeData.photographyImage
+        ? { photographyImage: resolveMediaUrl(String(homeData.photographyImage)) }
+        : {}),
+    },
     processData: {
       badge: process?.badge ?? base.processData.badge,
       title: process?.title ?? base.processData.title,
