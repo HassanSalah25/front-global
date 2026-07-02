@@ -173,9 +173,10 @@ export default function ServiceDetailClient() {
 
           {service.shortDesc && (
             <Reveal direction="up" delay={200}>
-              <p style={{ color: "#94a3b8", fontSize: 18, lineHeight: 1.8, maxWidth: 760 }}>
-                {service.shortDesc}
-              </p>
+              <div
+                style={{ color: "#94a3b8", fontSize: 18, lineHeight: 1.8, maxWidth: 760 }}
+                dangerouslySetInnerHTML={{ __html: service.shortDesc }}
+              />
             </Reveal>
           )}
         </div>
@@ -205,14 +206,15 @@ export default function ServiceDetailClient() {
           }} className="service-detail-grid">
 
             <div>
-              {(!service.features || service.features.length === 0) && service.shortDesc && (
+              {(!service.features || service.features.length === 0) && service.fullDesc && (
                 <Reveal direction="up">
-                  <p style={{
-                    color: "var(--text-muted)", fontSize: 16.5,
-                    lineHeight: 1.9, marginBottom: 36,
-                  }}>
-                    {service.shortDesc}
-                  </p>
+                  <div
+                    style={{
+                      color: "var(--text-muted)", fontSize: 16.5,
+                      lineHeight: 1.9, marginBottom: 36,
+                    }}
+                    dangerouslySetInnerHTML={{ __html: service.fullDesc }}
+                  />
                 </Reveal>
               )}
 
