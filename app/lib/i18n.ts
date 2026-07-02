@@ -36,6 +36,27 @@ export const LOCALE_META = {
     dir: "ltr" as const,
     numberLocale: "es-ES",
   },
+  it: {
+    label: "Italian",
+    nativeLabel: "Italiano",
+    flag: "fi-it",
+    dir: "ltr" as const,
+    numberLocale: "it-IT",
+  },
+  pt: {
+    label: "Portuguese",
+    nativeLabel: "Português",
+    flag: "fi-pt",
+    dir: "ltr" as const,
+    numberLocale: "pt-PT",
+  },
+  tr: {
+    label: "Turkish",
+    nativeLabel: "Türkçe",
+    flag: "fi-tr",
+    dir: "ltr" as const,
+    numberLocale: "tr-TR",
+  },
 } as const;
 
 export type Locale = keyof typeof LOCALE_META;
@@ -55,7 +76,7 @@ const ENV_LOCALES = process.env.NEXT_PUBLIC_LOCALES?.split(",")
 export const SUPPORTED_LOCALES: Locale[] =
   ENV_LOCALES?.length
     ? (ENV_LOCALES as Locale[])
-    : (["en", "ar", "fr", "de", "es"] as Locale[]);
+    : (["en", "ar", "fr", "de", "es", "it", "pt", "tr"] as Locale[]);
 
 export type ApiLocale = Locale;
 

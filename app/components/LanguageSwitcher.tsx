@@ -84,7 +84,7 @@ export default function LanguageSwitcher({ variant = "desktop" }: LanguageSwitch
           left: menuPosition.left,
           width: menuPosition.width,
           minWidth: 200,
-          maxHeight: "min(320px, calc(100vh - 96px))",
+          maxHeight: "min(400px, calc(100vh - 96px))",
           overflowY: "auto",
           margin: 0,
           padding: 6,
