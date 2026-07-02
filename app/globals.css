@@ -97,6 +97,11 @@ html[lang="ar"] Link {
   to { transform: rotate(360deg); }
 }
 
+@keyframes preloader-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.98); }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   33% { transform: translateY(-12px) rotate(2deg); }
