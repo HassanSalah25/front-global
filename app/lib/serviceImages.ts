@@ -1,9 +1,9 @@
 const MEDIA_BASE =
-  "https://globaluntoldstory.com/api/public/storage/media/frontend/services";
+  "https://api.globaluntoldstory.com/storage/media/frontend/services";
 
 export const SERVICE_IMAGES: Record<string, string> = {
   "on-ground-egypt":
-    "https://globaluntoldstory.com/api/public/storage/media/2026/07/1782898547_on-ground-production-services-egypt.webp.webp",
+    "https://api.globaluntoldstory.com/storage/media/2026/07/1782898547_on-ground-production-services-egypt.webp.webp",
   commercial: `${MEDIA_BASE}/commercial-advertising-production-egypt.webp`,
   documentary: `${MEDIA_BASE}/documentary-production-egypt.webp`,
   corporate: `${MEDIA_BASE}/corporate-industrial-content-production.webp`,

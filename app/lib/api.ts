@@ -1,6 +1,6 @@
 const EXTERNAL_API =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
-  "https://globaluntoldstory.com/api/public/api/v1";
+  "https://api.globaluntoldstory.com/api/v1";
 
 // Static export: no server proxy available — call the external API directly.
 // Ensure your Laravel backend has CORS configured to allow your frontend domain.
