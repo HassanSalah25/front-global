@@ -187,11 +187,8 @@ export default function Home() {
 
   useEffect(() => {
     fetchFaqs(locale as ApiLocale)
-      .then((data) => {
-        const list = Array.isArray(data)
-          ? (data as Array<{ q: string; a: string }>)
-          : ((data as { data?: Array<{ q: string; a: string }> }).data ?? null);
-        if (list && list.length > 0) setCmsFaqs(list);
+      .then((list) => {
+        if (list.length > 0) setCmsFaqs(list);
       })
       .catch(() => setCmsFaqs(null));
   }, [locale]);

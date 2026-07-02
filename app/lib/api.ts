@@ -249,6 +249,13 @@ export interface FaqItem {
   a: string;
 }
 
+function normalizeFaqItem(item: Record<string, unknown>): FaqItem {
+  return {
+    q: String(item.q ?? item.question ?? ""),
+    a: String(item.a ?? item.answer ?? ""),
+  };
+}
+
 export function fetchAbout(locale: ApiLocale = "en") {
   return apiFetch<AboutPayload>("/about", { locale });
 }
@@ -269,8 +276,10 @@ export function fetchBlogPost(slug: string, locale: ApiLocale = "en") {
   return apiFetch<BlogPost>(`/blog/${slug}`, { locale });
 }
 
-export function fetchFaqs(locale: ApiLocale = "en") {
-  return apiFetch<FaqItem[] | { data: FaqItem[] }>("/faqs", { locale });
+export async function fetchFaqs(locale: ApiLocale = "en"): Promise<FaqItem[]> {
+  const data = await apiFetch<Array<Record<string, unknown>>>("/faqs", { locale });
+  const list = Array.isArray(data) ? data : [];
+  return list.map(normalizeFaqItem).filter((item) => item.q && item.a);
 }
 
 export function fetchTestimonials(locale: ApiLocale = "en") {
