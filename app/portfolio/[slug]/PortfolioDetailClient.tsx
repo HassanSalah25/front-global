@@ -8,6 +8,7 @@ import { useLanguage } from "../../components/LanguageContext";
 import Reveal from "../../components/Reveal";
 import { fetchPortfolioItem, resolveMediaUrl } from "../../lib/api";
 import type { PortfolioItem, ApiLocale } from "../../lib/api";
+import { tx } from "../../lib/i18n";
 
 export default function PortfolioDetailClient() {
   const params = useParams();
@@ -46,7 +47,7 @@ export default function PortfolioDetailClient() {
             margin: "0 auto 20px",
           }} />
           <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-            {locale === "ar" ? "جارٍ التحميل..." : "Loading..."}
+            {tx(locale, { ar: "جارٍ التحميل...", en: "Loading..." })}
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -62,12 +63,13 @@ export default function PortfolioDetailClient() {
       }}>
         <div style={{ fontSize: 72 }}>🗂️</div>
         <h1 style={{ color: "var(--text)", fontSize: 28, fontWeight: 900, textAlign: "center" }}>
-          {locale === "ar" ? "المشروع غير موجود" : "Project Not Found"}
+          {tx(locale, { ar: "المشروع غير موجود", en: "Project Not Found" })}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-          {locale === "ar"
-            ? "لم نتمكن من العثور على هذا المشروع."
-            : "We couldn't find this project."}
+          {tx(locale, {
+            ar: "لم نتمكن من العثور على هذا المشروع.",
+            en: "We couldn't find this project.",
+          })}
         </p>
         <Link href="/portfolio" style={{
           display: "inline-flex", alignItems: "center", gap: 8,
@@ -75,7 +77,7 @@ export default function PortfolioDetailClient() {
           color: "#fff", padding: "12px 28px", borderRadius: 0,
           fontWeight: 700, fontSize: 15, textDecoration: "none",
         }}>
-          ← {locale === "ar" ? "العودة إلى الأعمال" : "Back to Portfolio"}
+          ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
         </Link>
       </div>
     );
@@ -114,7 +116,7 @@ export default function PortfolioDetailClient() {
               fontWeight: 600, fontSize: 14, marginBottom: 32,
               transition: "color 0.2s ease",
             }} className="back-link">
-              ← {locale === "ar" ? "العودة إلى الأعمال" : "Back to Portfolio"}
+              ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
             </Link>
           </Reveal>
 
@@ -140,7 +142,7 @@ export default function PortfolioDetailClient() {
           {item.client && (
             <Reveal direction="up" delay={200}>
               <p style={{ color: "#94a3b8", fontSize: 17, fontWeight: 600 }}>
-                {locale === "ar" ? "العميل:" : "Client:"}{" "}
+                {tx(locale, { ar: "العميل:", en: "Client:" })}{" "}
                 <span style={{ color: "#e2e8f0" }}>{item.client}</span>
               </p>
             </Reveal>
@@ -206,7 +208,7 @@ export default function PortfolioDetailClient() {
                     fontWeight: 800, fontSize: 18, color: "var(--text)",
                     marginBottom: 20,
                   }}>
-                    {locale === "ar" ? "النتائج الرئيسية" : "Key Results"}
+                    {tx(locale, { ar: "النتائج الرئيسية", en: "Key Results" })}
                   </h3>
                   <div style={{
                     display: "grid",
@@ -246,14 +248,14 @@ export default function PortfolioDetailClient() {
                   marginBottom: 24, paddingBottom: 16,
                   borderBottom: "1px solid var(--border)",
                 }}>
-                  {locale === "ar" ? "تفاصيل المشروع" : "Project Details"}
+                  {tx(locale, { ar: "تفاصيل المشروع", en: "Project Details" })}
                 </h3>
 
                 {[
-                  { label: locale === "ar" ? "العميل" : "Client", value: item.client },
-                  { label: locale === "ar" ? "الفئة" : "Category", value: item.category },
-                  { label: locale === "ar" ? "المدة" : "Duration", value: item.duration },
-                  { label: locale === "ar" ? "الميزانية" : "Budget", value: item.budget },
+                  { label: tx(locale, { ar: "العميل", en: "Client" }), value: item.client },
+                  { label: tx(locale, { ar: "الفئة", en: "Category" }), value: item.category },
+                  { label: tx(locale, { ar: "المدة", en: "Duration" }), value: item.duration },
+                  { label: tx(locale, { ar: "الميزانية", en: "Budget" }), value: item.budget },
                 ].filter((d) => d.value).map((detail, i) => (
                   <div key={i} style={{
                     display: "flex", justifyContent: "space-between",
@@ -280,7 +282,7 @@ export default function PortfolioDetailClient() {
                   boxShadow: "0 4px 16px rgba(99,102,241,0.25)",
                   transition: "all 0.25s ease",
                 }} className="detail-cta">
-                  {locale === "ar" ? "ابدأ مشروعاً مشابهاً" : "Start a Similar Project"} →
+                  {tx(locale, { ar: "ابدأ مشروعاً مشابهاً", en: "Start a Similar Project" })} →
                 </Link>
               </div>
             </Reveal>
@@ -294,7 +296,7 @@ export default function PortfolioDetailClient() {
                   fontWeight: 800, fontSize: 24, color: "var(--text)",
                   marginBottom: 32, paddingBottom: 16, borderBottom: "1px solid var(--border)",
                 }}>
-                  {locale === "ar" ? "معرض الصور" : "Project Gallery"}
+                  {tx(locale, { ar: "معرض الصور", en: "Project Gallery" })}
                 </h2>
               </Reveal>
               <div style={{
@@ -330,7 +332,7 @@ export default function PortfolioDetailClient() {
               color: "var(--primary)", textDecoration: "none",
               fontWeight: 700, fontSize: 15, transition: "gap 0.2s ease",
             }} className="back-link-bottom">
-              ← {locale === "ar" ? "العودة إلى الأعمال" : "Back to Portfolio"}
+              ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
             </Link>
           </div>
         </div>

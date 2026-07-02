@@ -8,6 +8,7 @@ import { useLanguage } from "../../components/LanguageContext";
 import Reveal from "../../components/Reveal";
 import { fetchBlogPost, resolveMediaUrl } from "../../lib/api";
 import type { BlogPost, ApiLocale } from "../../lib/api";
+import { tx } from "../../lib/i18n";
 
 export default function BlogPostClient() {
   const params = useParams();
@@ -46,7 +47,7 @@ export default function BlogPostClient() {
             margin: "0 auto 20px",
           }} />
           <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-            {locale === "ar" ? "جارٍ التحميل..." : "Loading..."}
+            {tx(locale, { ar: "جارٍ التحميل...", en: "Loading..." })}
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -62,12 +63,13 @@ export default function BlogPostClient() {
       }}>
         <div style={{ fontSize: 72 }}>📭</div>
         <h1 style={{ color: "var(--text)", fontSize: 28, fontWeight: 900, textAlign: "center" }}>
-          {locale === "ar" ? "المقالة غير موجودة" : "Post Not Found"}
+          {tx(locale, { ar: "المقالة غير موجودة", en: "Post Not Found" })}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-          {locale === "ar"
-            ? "لم نتمكن من العثور على هذه المقالة."
-            : "We couldn't find this article."}
+          {tx(locale, {
+            ar: "لم نتمكن من العثور على هذه المقالة.",
+            en: "We couldn't find this article.",
+          })}
         </p>
         <Link href="/blog" style={{
           display: "inline-flex", alignItems: "center", gap: 8,
@@ -75,7 +77,7 @@ export default function BlogPostClient() {
           color: "#fff", padding: "12px 28px", borderRadius: 0,
           fontWeight: 700, fontSize: 15, textDecoration: "none",
         }}>
-          ← {locale === "ar" ? "العودة إلى المدونة" : "Back to Blog"}
+          ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
         </Link>
       </div>
     );
@@ -111,7 +113,7 @@ export default function BlogPostClient() {
               fontWeight: 600, fontSize: 14, marginBottom: 32,
               transition: "color 0.2s ease",
             }} className="back-link">
-              ← {locale === "ar" ? "العودة إلى المدونة" : "Back to Blog"}
+              ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
             </Link>
           </Reveal>
 
@@ -222,7 +224,7 @@ export default function BlogPostClient() {
               fontWeight: 700, fontSize: 15,
               transition: "gap 0.2s ease",
             }} className="back-link-bottom">
-              ← {locale === "ar" ? "العودة إلى المدونة" : "Back to Blog"}
+              ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
             </Link>
             <Link href="/contact" style={{
               background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
@@ -231,7 +233,7 @@ export default function BlogPostClient() {
               boxShadow: "0 4px 16px rgba(99,102,241,0.25)",
               transition: "all 0.25s ease",
             }} className="contact-cta">
-              {locale === "ar" ? "تواصل معنا" : "Contact Us"} →
+              {tx(locale, { ar: "تواصل معنا", en: "Contact Us" })} →
             </Link>
           </div>
         </div>

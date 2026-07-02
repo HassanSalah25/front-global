@@ -4,11 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useLanguage } from "./LanguageContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { locale, t, toggleLocale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <div style={{
@@ -99,30 +100,7 @@ export default function Navbar() {
           <div style={{ width: 1, height: 20, background: "var(--border)", margin: "0 12px" }} />
 
           {/* Language Switcher */}
-          <button
-            onClick={toggleLocale}
-            style={{
-              background: "#ffffff",
-              border: "1.5px solid #ffffff",
-              color: "#fff",
-              padding: "6px 12px",
-              borderRadius: 0,
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              transition: "all 0.2s ease",
-            }}
-            className="lang-toggle-btn"
-            title={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-          >
-            <span
-              className={locale === "ar" ? "fi fi-us" : "fi fi-sa"}
-              style={{ fontSize: 22, lineHeight: 1, borderRadius: 3, boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }}
-            />
-          </button>
+          <LanguageSwitcher variant="desktop" />
 
           {/* Dashboard Button */}
           {/* <Link href="/dashboard" style={{
@@ -144,27 +122,7 @@ export default function Navbar() {
         {/* Mobile Actions (Language Toggle + Hamburger) */}
         <div style={{ display: "none", gap: 12, alignItems: "center" }} className="mobile-actions">
           {/* Language Switcher Mobile */}
-          <button
-            onClick={toggleLocale}
-            style={{
-              background: "#0a0a0a",
-              border: "1px solid #0a0a0a",
-              color: "#fff",
-              padding: "5px 10px",
-              borderRadius: 0,
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-            }}
-            title={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-          >
-            <span
-              className={locale === "ar" ? "fi fi-us" : "fi fi-sa"}
-              style={{ fontSize: 20, lineHeight: 1, borderRadius: 3, boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }}
-            />
-          </button>
+          <LanguageSwitcher variant="mobile" />
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}

@@ -6,6 +6,7 @@ import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import type { ServiceDataItem, WhyListItem } from "../lib/data";
 import ServiceCardMedia from "../components/ServiceCardMedia";
+import { tx } from "../lib/i18n";
 
 export default function ServicesPage() {
   const [hovered, setHovered] = useState<string | null>(null);
@@ -32,7 +33,7 @@ export default function ServicesPage() {
       setSubmitted(true);
     } catch (err) {
       console.error("Quote submission failed:", err);
-      alert(locale === "ar" ? "تعذر إرسال الطلب. حاول مرة أخرى." : "Could not submit your request. Please try again.");
+      alert(tx(locale, { ar: "تعذر إرسال الطلب. حاول مرة أخرى.", en: "Could not submit your request. Please try again." }));
     } finally {
       setLoading(false);
     }

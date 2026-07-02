@@ -1,9 +1,8 @@
 import type { HomePayload, LayoutPayload } from "./api";
 import { resolveMediaUrl } from "./api";
 import type { Translation } from "./data";
+import type { Locale } from "./i18n";
 import { getServiceImageUrl } from "./serviceImages";
-
-type LocaleKey = "en" | "ar";
 
 function mapServicesData(
   services: Array<Record<string, unknown>>
@@ -217,7 +216,7 @@ export function mapWorkShowcase(data: Record<string, unknown>): CmsWorkShowcase 
 }
 
 export async function loadCmsForLocale(
-  locale: LocaleKey,
+  locale: Locale,
   base: Translation
 ): Promise<{
   translation: Translation;

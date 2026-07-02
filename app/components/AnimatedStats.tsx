@@ -3,13 +3,14 @@
 import { useState, useEffect, useRef } from "react";
 import { Trophy, Users, TrendingUp, Star } from "lucide-react";
 import { useLanguage } from "./LanguageContext";
+import { getNumberLocale, pickLocalized, tx, type Locale } from "../lib/i18n";
 
 interface CounterProps {
   end: number;
   suffix?: string;
   prefix?: string;
   duration?: number;
-  locale?: "ar" | "en";
+  locale?: Locale;
 }
 
 function AnimatedCounter({ end, suffix = "", prefix = "", duration = 2000, locale = "en" }: CounterProps) {
@@ -43,7 +44,7 @@ function AnimatedCounter({ end, suffix = "", prefix = "", duration = 2000, local
     requestAnimationFrame(step);
   }, [started, end, duration]);
 
-  const numberLocale = locale === "ar" ? "ar-EG" : "en-US";
+  const numberLocale = getNumberLocale(locale);
   return <span ref={ref}>{prefix}{count.toLocaleString(numberLocale)}{suffix}</span>;
 }
 
@@ -71,7 +72,7 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
 
 export default function AnimatedStats() {
   const { locale } = useLanguage();
-  const currentStats = statsData[locale === "ar" ? "ar" : "en"];
+  const currentStats = pickLocalized(statsData, locale);
 
   return (
     <section style={{
@@ -103,7 +104,7 @@ export default function AnimatedStats() {
             marginBottom: 20,
             borderLeft: "3px solid var(--primary)",
           }}>
-            {locale === "ar" ? "🎬 The Untold Story" : "🎬 The Untold Story"}
+            {tx(locale, { en: "🎬 The Untold Story", ar: "🎬 The Untold Story" })}
           </span>
           <h2 style={{
             fontSize: "clamp(2rem, 3.5vw, 2.8rem)",
@@ -111,12 +112,13 @@ export default function AnimatedStats() {
             color: "var(--text)",
             marginBottom: 16,
           }}>
-            {locale === "ar" ? "إنجازاتنا بالأرقام" : "Production by the Numbers"}
+            {tx(locale, { en: "Production by the Numbers", ar: "إنجازاتنا بالأرقام" })}
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: 16.5, maxWidth: 480, margin: "0 auto" }}>
-            {locale === "ar"
-              ? "مكاتب في مصر ودبي وجدة — نخدم المنطقة والعملاء حول العالم"
-              : "Offices in Egypt, Dubai, and Jeddah — serving MENA and clients worldwide"}
+            {tx(locale, {
+              en: "Offices in Egypt, Dubai, and Jeddah — serving MENA and clients worldwide",
+              ar: "مكاتب في مصر ودبي وجدة — نخدم المنطقة والعملاء حول العالم",
+            })}
           </p>
         </div>
 

@@ -1,5 +1,6 @@
 import ServiceDetailClient from "./ServiceDetailClient";
 import { fetchServices } from "../../lib/api";
+import { SUPPORTED_LOCALES } from "../../lib/i18n";
 
 const STATIC_SLUGS = [
   "on-ground-egypt",
@@ -20,7 +21,7 @@ const STATIC_SLUGS = [
 export async function generateStaticParams() {
   const collected = new Set<string>(STATIC_SLUGS);
   try {
-    for (const locale of ["en", "ar"] as const) {
+    for (const locale of SUPPORTED_LOCALES) {
       const items = await fetchServices(locale);
       items.forEach((service) => {
         const slug = String(service.slug ?? service.id ?? "");

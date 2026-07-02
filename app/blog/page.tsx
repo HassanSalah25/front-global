@@ -7,6 +7,7 @@ import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import { fetchBlog, resolveMediaUrl } from "../lib/api";
 import type { BlogPost, BlogListPayload, ApiLocale } from "../lib/api";
+import { pickLocalized, tx } from "../lib/i18n";
 
 const staticFeaturedPost = {
   ar: {
@@ -73,7 +74,7 @@ function normalisePosts(raw: BlogPost[]): PostShape[] {
 export default function BlogPage() {
   const { locale, t } = useLanguage();
   const blog = t.blogPage;
-  const topics = locale === "ar" ? newsletterTopics.ar : newsletterTopics.en;
+  const topics = pickLocalized(newsletterTopics, locale);
   const [hoveredPost, setHoveredPost] = useState<number | string | null>(null);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -99,7 +100,7 @@ export default function BlogPage() {
       });
   }, [locale]);
 
-  const staticFeatured = locale === "ar" ? staticFeaturedPost.ar : staticFeaturedPost.en;
+  const staticFeatured = pickLocalized(staticFeaturedPost, locale);
   const featured = cmsFeatured ?? staticFeatured;
 
   const staticPostList: PostShape[] = blog.posts.map((p) => ({
@@ -112,9 +113,10 @@ export default function BlogPage() {
   }));
   const posts: PostShape[] = cmsPosts ?? staticPostList;
 
-  const allTags = locale === "ar"
-    ? ["الكل", "التسويق الرقمي", "السوشيال ميديا", "الهوية البصرية", "SEO", "الإعلانات"]
-    : ["All", "Digital Marketing", "Social Media", "Brand Identity", "SEO", "Advertising"];
+  const allTags = pickLocalized({
+    ar: ["الكل", "التسويق الرقمي", "السوشيال ميديا", "الهوية البصرية", "SEO", "الإعلانات"],
+    en: ["All", "Digital Marketing", "Social Media", "Brand Identity", "SEO", "Advertising"],
+  }, locale);
 
   return (
     <div>
@@ -228,7 +230,7 @@ export default function BlogPage() {
                   color: "#fff", padding: "6px 16px", borderRadius: 0,
                   fontSize: 12, fontWeight: 700,
                 }}>
-                  ⭐ {locale === "ar" ? "المقالة المميزة" : "Featured Post"}
+                  ⭐ {tx(locale, { ar: "المقالة المميزة", en: "Featured Post" })}
                 </div>
               </div>
 
@@ -269,7 +271,7 @@ export default function BlogPage() {
                 }}
                 className="featured-cta"
                 >
-                  {locale === "ar" ? "اقرأ المقالة الكاملة" : "Read Full Article"} →
+                  {tx(locale, { ar: "اقرأ المقالة الكاملة", en: "Read Full Article" })} →
                 </Link>
               </div>
             </div>
@@ -327,10 +329,10 @@ export default function BlogPage() {
                         fontWeight: 700, fontSize: 13.5,
                         transition: "all 0.3s ease",
                       }}>
-                        {locale === "ar" ? "اقرأ المزيد" : "Read More"} →
+                        {tx(locale, { ar: "اقرأ المزيد", en: "Read More" })} →
                       </Link>
                       <span style={{ fontSize: 12, color: "var(--text-light)", fontWeight: 600 }}>
-                        {post.read_time ?? (locale === "ar" ? `${3 + index} دقائق قراءة` : `${3 + index} min read`)}
+                        {post.read_time ?? tx(locale, { ar: `${3 + index} دقائق قراءة`, en: `${3 + index} min read` })}
                       </span>
                     </div>
                   </div>
@@ -355,14 +357,15 @@ export default function BlogPage() {
           </Reveal>
           <Reveal direction="up" delay={100}>
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fff", marginBottom: 16 }}>
-              {locale === "ar" ? "اشترك في نشرتنا الأسبوعية" : "Subscribe to Our Weekly Newsletter"}
+              {tx(locale, { ar: "اشترك في نشرتنا الأسبوعية", en: "Subscribe to Our Weekly Newsletter" })}
             </h2>
           </Reveal>
           <Reveal direction="up" delay={200}>
             <p style={{ color: "#94a3b8", fontSize: 16.5, marginBottom: 32, lineHeight: 1.8 }}>
-              {locale === "ar"
-                ? "احصل على أفضل المقالات والنصائح التسويقية مباشرة في بريدك الإلكتروني كل أسبوع"
-                : "Get the best articles and marketing tips delivered to your inbox every week"}
+              {tx(locale, {
+                ar: "احصل على أفضل المقالات والنصائح التسويقية مباشرة في بريدك الإلكتروني كل أسبوع",
+                en: "Get the best articles and marketing tips delivered to your inbox every week",
+              })}
             </p>
           </Reveal>
 
@@ -391,10 +394,10 @@ export default function BlogPage() {
               }}>
                 <div style={{ fontSize: 52, marginBottom: 16 }}>🎉</div>
                 <h3 style={{ color: "#34d399", fontWeight: 800, fontSize: 22, marginBottom: 8 }}>
-                  {locale === "ar" ? "تم الاشتراك بنجاح!" : "Successfully Subscribed!"}
+                  {tx(locale, { ar: "تم الاشتراك بنجاح!", en: "Successfully Subscribed!" })}
                 </h3>
                 <p style={{ color: "#94a3b8", fontSize: 15 }}>
-                  {locale === "ar" ? "سيصلك أول عدد من النشرة قريباً 🚀" : "Your first newsletter edition is coming soon 🚀"}
+                  {tx(locale, { ar: "سيصلك أول عدد من النشرة قريباً 🚀", en: "Your first newsletter edition is coming soon 🚀" })}
                 </p>
               </div>
             </Reveal>
@@ -409,7 +412,7 @@ export default function BlogPage() {
                     setSubscribed(true);
                   } catch (err) {
                     console.error("Newsletter subscription failed:", err);
-                    alert(locale === "ar" ? "تعذر الاشتراك. حاول مرة أخرى." : "Could not subscribe. Please try again.");
+                    alert(tx(locale, { ar: "تعذر الاشتراك. حاول مرة أخرى.", en: "Could not subscribe. Please try again." }));
                   }
                 }}
                 style={{ display: "flex", gap: 12, maxWidth: 540, margin: "0 auto" }}
@@ -420,7 +423,7 @@ export default function BlogPage() {
                   required
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  placeholder={locale === "ar" ? "أدخل بريدك الإلكتروني..." : "Enter your email..."}
+                  placeholder={tx(locale, { ar: "أدخل بريدك الإلكتروني...", en: "Enter your email..." })}
                   style={{
                     flex: 1, padding: "14px 20px",
                     borderRadius: 0, border: "1.5px solid rgba(255,255,255,0.15)",
@@ -442,11 +445,11 @@ export default function BlogPage() {
                 }}
                 className="newsletter-btn"
                 >
-                  {locale === "ar" ? "اشترك الآن" : "Subscribe"}
+                  {tx(locale, { ar: "اشترك الآن", en: "Subscribe" })}
                 </button>
               </form>
               <p style={{ color: "#475569", fontSize: 12.5, marginTop: 14 }}>
-                {locale === "ar" ? "لا تحتوي نشرتنا على أي سبام. يمكنك إلغاء الاشتراك في أي وقت." : "No spam in our newsletter. Unsubscribe at any time."}
+                {tx(locale, { ar: "لا تحتوي نشرتنا على أي سبام. يمكنك إلغاء الاشتراك في أي وقت.", en: "No spam in our newsletter. Unsubscribe at any time." })}
               </p>
             </Reveal>
           )}
@@ -458,24 +461,24 @@ export default function BlogPage() {
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "var(--text)", textAlign: "center", marginBottom: 48 }}>
-              {locale === "ar" ? "📚 موارد مجانية لك" : "📚 Free Resources for You"}
+              {tx(locale, { ar: "📚 موارد مجانية لك", en: "📚 Free Resources for You" })}
             </h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
-            {(locale === "ar"
-              ? [
-                  { icon: "📖", title: "دليل التسويق الرقمي 2024", type: "PDF مجاني", color: "#6366f1" },
-                  { icon: "📊", title: "قالب تقرير الأداء الشهري", type: "Excel مجاني", color: "#10b981" },
-                  { icon: "🎯", title: "مصطلحات التسويق الأساسية", type: "قاموس مجاني", color: "#f59e0b" },
-                  { icon: "🎬", title: "ورشة عمل السوشيال ميديا", type: "فيديو مجاني", color: "#8b5cf6" },
-                ]
-              : [
-                  { icon: "📖", title: "Digital Marketing Guide 2024", type: "Free PDF", color: "#6366f1" },
-                  { icon: "📊", title: "Monthly Performance Report Template", type: "Free Excel", color: "#10b981" },
-                  { icon: "🎯", title: "Essential Marketing Terms Glossary", type: "Free Dictionary", color: "#f59e0b" },
-                  { icon: "🎬", title: "Social Media Workshop", type: "Free Video", color: "#8b5cf6" },
-                ]
-            ).map((r, i) => (
+            {pickLocalized({
+              ar: [
+                { icon: "📖", title: "دليل التسويق الرقمي 2024", type: "PDF مجاني", color: "#6366f1" },
+                { icon: "📊", title: "قالب تقرير الأداء الشهري", type: "Excel مجاني", color: "#10b981" },
+                { icon: "🎯", title: "مصطلحات التسويق الأساسية", type: "قاموس مجاني", color: "#f59e0b" },
+                { icon: "🎬", title: "ورشة عمل السوشيال ميديا", type: "فيديو مجاني", color: "#8b5cf6" },
+              ],
+              en: [
+                { icon: "📖", title: "Digital Marketing Guide 2024", type: "Free PDF", color: "#6366f1" },
+                { icon: "📊", title: "Monthly Performance Report Template", type: "Free Excel", color: "#10b981" },
+                { icon: "🎯", title: "Essential Marketing Terms Glossary", type: "Free Dictionary", color: "#f59e0b" },
+                { icon: "🎬", title: "Social Media Workshop", type: "Free Video", color: "#8b5cf6" },
+              ],
+            }, locale).map((r, i) => (
               <Reveal key={i} direction="up" delay={i * 80}>
                 <div style={{
                   background: "var(--bg-card)", borderRadius: 0,

@@ -1,14 +1,22 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { translations } from "../lib/data";
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
+import { translations, getStaticTranslation, type Translation } from "../lib/data";
 import type { CmsHeroSlide, CmsWorkShowcase } from "../lib/cmsMerge";
-
-type Locale = "ar" | "en";
+import {
+  type Locale,
+  SUPPORTED_LOCALES,
+  DEFAULT_LOCALE,
+  normalizeLocale,
+  getLocaleDirection,
+  getNextLocale,
+} from "../lib/i18n";
 
 interface LanguageContextProps {
   locale: Locale;
-  t: typeof translations.ar;
+  locales: Locale[];
+  t: Translation;
+  setLocale: (locale: Locale) => void;
   toggleLocale: () => void;
   dir: "rtl" | "ltr";
   cmsReady: boolean;
@@ -18,17 +26,26 @@ interface LanguageContextProps {
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
+function buildInitialTranslations(): Record<Locale, Translation> {
+  const initial = {} as Record<Locale, Translation>;
+  for (const code of SUPPORTED_LOCALES) {
+    initial[code] = getStaticTranslation(code);
+  }
+  return initial;
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
-  const [dynamicTrans, setDynamicTrans] = useState(translations);
+  const [locale, setLocaleState] = useState<Locale>(DEFAULT_LOCALE);
+  const [dynamicTrans, setDynamicTrans] = useState<Record<Locale, Translation>>(buildInitialTranslations);
   const [cmsReady, setCmsReady] = useState(false);
   const [heroSlides, setHeroSlides] = useState<CmsHeroSlide[] | null>(null);
   const [workShowcase, setWorkShowcase] = useState<CmsWorkShowcase | null>(null);
 
   const loadCms = useCallback(async (activeLocale: Locale) => {
+    setCmsReady(false);
     try {
       const { loadCmsForLocale } = await import("../lib/cmsMerge");
-      const base = translations[activeLocale];
+      const base = getStaticTranslation(activeLocale);
       const result = await loadCmsForLocale(activeLocale, base);
 
       setDynamicTrans((prev) => ({
@@ -46,8 +63,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = typeof window !== "undefined" ? localStorage.getItem("locale") : null;
-    if (saved === "ar" || saved === "en") {
-      setLocale(saved);
+    if (saved) {
+      setLocaleState(normalizeLocale(saved));
+      return;
+    }
+
+    if (typeof navigator !== "undefined") {
+      setLocaleState(normalizeLocale(navigator.language));
     }
   }, []);
 
@@ -56,22 +78,39 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [locale, loadCms]);
 
   useEffect(() => {
-    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+    document.documentElement.dir = getLocaleDirection(locale);
     document.documentElement.lang = locale;
     localStorage.setItem("locale", locale);
   }, [locale]);
 
-  const toggleLocale = () => {
-    setLocale((prev) => (prev === "ar" ? "en" : "ar"));
-  };
+  const setLocale = useCallback((nextLocale: Locale) => {
+    setLocaleState(nextLocale);
+  }, []);
 
-  const t = locale === "ar" ? dynamicTrans.ar : dynamicTrans.en;
-  const dir = locale === "ar" ? "rtl" : "ltr";
+  const toggleLocale = useCallback(() => {
+    setLocaleState((prev) => getNextLocale(prev));
+  }, []);
+
+  const t = dynamicTrans[locale] ?? dynamicTrans[DEFAULT_LOCALE];
+  const dir = getLocaleDirection(locale);
+
+  const value = useMemo(
+    () => ({
+      locale,
+      locales: SUPPORTED_LOCALES,
+      t,
+      setLocale,
+      toggleLocale,
+      dir,
+      cmsReady,
+      heroSlides,
+      workShowcase,
+    }),
+    [locale, t, setLocale, toggleLocale, dir, cmsReady, heroSlides, workShowcase]
+  );
 
   return (
-    <LanguageContext.Provider
-      value={{ locale, t, toggleLocale, dir, cmsReady, heroSlides, workShowcase }}
-    >
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );

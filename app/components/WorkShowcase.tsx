@@ -5,6 +5,7 @@ import Image from "next/image";
 import Reveal from "./Reveal";
 import Link from "next/link";
 import { useLanguage } from "./LanguageContext";
+import { pickLocalized, type Locale } from "../lib/i18n";
 
 const workShowcase = {
   ar: {
@@ -89,10 +90,10 @@ const workShowcase = {
   },
 };
 
-export default function WorkShowcase({ locale = "en", title }: { locale?: string; title?: string }) {
+export default function WorkShowcase({ locale = "en", title }: { locale?: Locale | string; title?: string }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { workShowcase: cmsShowcase } = useLanguage();
-  const staticData = locale === "ar" ? workShowcase.ar : workShowcase.en;
+  const staticData = pickLocalized(workShowcase, locale as Locale);
   const d = cmsShowcase ?? staticData;
   const displayTitle = title || d.title;
 

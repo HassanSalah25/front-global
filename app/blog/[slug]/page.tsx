@@ -1,6 +1,7 @@
 import BlogPostClient from "./BlogPostClient";
 import { fetchBlog } from "../../lib/api";
 import type { BlogPost } from "../../lib/api";
+import { SUPPORTED_LOCALES } from "../../lib/i18n";
 
 // Pre-render a static page for every blog slug known at build time.
 // New posts added to the backend after a build won't have a static page
@@ -8,7 +9,7 @@ import type { BlogPost } from "../../lib/api";
 export async function generateStaticParams() {
   try {
     const collected = new Set<string>();
-    for (const locale of ["en", "ar"] as const) {
+    for (const locale of SUPPORTED_LOCALES) {
       const payload = await fetchBlog(locale);
       const lists = [
         payload?.data,

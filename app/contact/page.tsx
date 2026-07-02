@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import type { InfoItem as OfficeItem } from "../lib/data";
+import { pickLocalized, tx } from "../lib/i18n";
 
 const whyContactUs = {
   ar: [
@@ -43,10 +44,10 @@ function ServicePrefill({
 }
 
 function ContactPageContent() {
-  const { locale, t } = useLanguage();
+  const { locale, t, dir } = useLanguage();
   const cp = t.contactPage;
   const offices = cp.offices;
-  const whyUs = locale === "ar" ? whyContactUs.ar : whyContactUs.en;
+  const whyUs = pickLocalized(whyContactUs, locale);
 
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "", budget: "" });
   const [submitted, setSubmitted] = useState(false);
@@ -77,7 +78,7 @@ function ContactPageContent() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error("Contact submission failed:", err);
-      alert(locale === "ar" ? "تعذر إرسال الرسالة. حاول مرة أخرى." : "Could not send your message. Please try again.");
+      alert(tx(locale, { ar: "تعذر إرسال الرسالة. حاول مرة أخرى.", en: "Could not send your message. Please try again." }));
     } finally {
       setLoading(false);
     }
@@ -99,7 +100,10 @@ function ContactPageContent() {
             <div style={{ fontSize: 80, marginBottom: 24, animation: "pop-in 0.5s cubic-bezier(0.16,1,0.3,1)" }}>🎉</div>
             <h2 style={{ fontWeight: 900, fontSize: 28, color: "var(--text)", marginBottom: 14 }}>{t.common.successTitle}</h2>
             <p style={{ color: "var(--text-muted)", fontSize: 16, lineHeight: 1.85, marginBottom: 36 }}>
-              {locale === "ar" ? `شكراً ${form.name}، ${t.common.successDesc}` : `Thank you ${form.name}, ${t.common.successDesc}`}
+              {tx(locale, {
+                ar: `شكراً ${form.name}، ${t.common.successDesc}`,
+                en: `Thank you ${form.name}, ${t.common.successDesc}`,
+              })}
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", service: "", message: "", budget: "" }); setStep(1); }}
@@ -126,7 +130,7 @@ function ContactPageContent() {
                 display: "inline-block",
                 transition: "all 0.25s ease",
               }}>
-                {locale === "ar" ? "← العودة للرئيسية" : "← Back to Home"}
+                {tx(locale, { ar: "← العودة للرئيسية", en: "← Back to Home" })}
               </Link>
             </div>
           </div>
@@ -143,8 +147,8 @@ function ContactPageContent() {
     background: focusedField === fieldName ? "rgba(99,102,241,0.04)" : "var(--bg)",
     color: "var(--text)",
     transition: "all 0.25s ease",
-    direction: locale === "ar" ? "rtl" : "ltr",
-    textAlign: locale === "ar" ? "right" : "left",
+    direction: dir,
+    textAlign: dir === "rtl" ? "right" : "left",
     boxShadow: focusedField === fieldName ? "0 0 0 3px rgba(99,102,241,0.12)" : "none",
   });
 
@@ -274,7 +278,7 @@ function ContactPageContent() {
                 }}>📧</div>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 12.5, color: "var(--text-muted)", marginBottom: 4 }}>
-                    {locale === "ar" ? "البريد الإلكتروني" : "Email Address"}
+                    {tx(locale, { ar: "البريد الإلكتروني", en: "Email Address" })}
                   </div>
                   <a href={`mailto:${cp.email}`} style={{ fontWeight: 700, fontSize: 15.5, color: "var(--text)", textDecoration: "none", direction: "ltr", display: "inline-block" }}>
                     {cp.email}
@@ -304,13 +308,13 @@ function ContactPageContent() {
                     <div style={{ fontWeight: 800, fontSize: 15.5, color: "var(--text)" }}>{office.title}</div>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: 12.5, color: "var(--text-muted)", marginBottom: 4 }}>
-                        {locale === "ar" ? "عنوان المكتب" : "Office Address"}
+                        {tx(locale, { ar: "عنوان المكتب", en: "Office Address" })}
                       </div>
                       <div style={{ fontWeight: 700, fontSize: 14.5, color: "var(--text)", lineHeight: 1.6 }}>{office.address}</div>
                     </div>
                     <div>
                       <div style={{ fontWeight: 600, fontSize: 12.5, color: "var(--text-muted)", marginBottom: 4 }}>
-                        {locale === "ar" ? "رقم الهاتف" : "Phone Number"}
+                        {tx(locale, { ar: "رقم الهاتف", en: "Phone Number" })}
                       </div>
                       <a href={`tel:${office.phone.replace(/\s/g, "")}`} style={{ fontWeight: 700, fontSize: 15.5, color: "var(--text)", textDecoration: "none", direction: "ltr", display: "inline-block" }}>
                         {office.phone}
@@ -319,7 +323,7 @@ function ContactPageContent() {
                     {"email" in office && office.email && (
                       <div>
                         <div style={{ fontWeight: 600, fontSize: 12.5, color: "var(--text-muted)", marginBottom: 4 }}>
-                          {locale === "ar" ? "البريد الإلكتروني" : "Email Address"}
+                          {tx(locale, { ar: "البريد الإلكتروني", en: "Email Address" })}
                         </div>
                         <a href={`mailto:${office.email}`} style={{ fontWeight: 700, fontSize: 14.5, color: "var(--text)", textDecoration: "none", direction: "ltr", display: "inline-block" }}>
                           {office.email}
@@ -335,7 +339,7 @@ function ContactPageContent() {
             <Reveal direction="right" delay={400}>
               <div style={{ marginTop: 8 }}>
                 <p style={{ fontWeight: 700, fontSize: 13.5, color: "var(--text-muted)", marginBottom: 16 }}>
-                  {locale === "ar" ? "تابعنا على:" : "Follow us on:"}
+                  {tx(locale, { ar: "تابعنا على:", en: "Follow us on:" })}
                 </p>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   {["LinkedIn", "Twitter", "Instagram", "Facebook"].map((sn, i) => (
@@ -377,7 +381,7 @@ function ContactPageContent() {
                 ))}
               </div>
               <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>
-                {locale === "ar" ? `الخطوة ${step} من 3` : `Step ${step} of 3`}
+                {tx(locale, { ar: `الخطوة ${step} من 3`, en: `Step ${step} of 3` })}
               </p>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="form-row-2">
@@ -422,13 +426,13 @@ function ContactPageContent() {
               {/* Budget selector */}
               <div style={{ textAlign: "start" }}>
                 <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, color: "var(--text)", marginBottom: 12 }}>
-                  {locale === "ar" ? "الميزانية التقريبية:" : "Approximate Budget:"}
+                  {tx(locale, { ar: "الميزانية التقريبية:", en: "Approximate Budget:" })}
                 </label>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                  {(locale === "ar"
-                    ? ["أقل من 5K ر.س", "5K - 20K ر.س", "20K - 50K ر.س", "أكثر من 50K ر.س"]
-                    : ["< $1,500", "$1,500 - $5,000", "$5,000 - $15,000", "$15,000+"]
-                  ).map((b, i) => (
+                  {pickLocalized({
+                    ar: ["أقل من 5K ر.س", "5K - 20K ر.س", "20K - 50K ر.س", "أكثر من 50K ر.س"],
+                    en: ["< $1,500", "$1,500 - $5,000", "$5,000 - $15,000", "$15,000+"],
+                  }, locale).map((b, i) => (
                     <button
                       key={i} type="button"
                       onClick={() => setForm({ ...form, budget: b })}
@@ -477,7 +481,7 @@ function ContactPageContent() {
                     {t.common.loading}
                   </>
                 ) : (
-                  `${t.common.submitBtn} ${locale === "ar" ? "←" : "→"}`
+                  `${t.common.submitBtn} ${tx(locale, { ar: "←", en: "→" })}`
                 )}
               </button>
             </form>

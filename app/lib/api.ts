@@ -1,3 +1,7 @@
+import type { ApiLocale } from "./i18n";
+
+export type { ApiLocale };
+
 const EXTERNAL_API =
   process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ||
   "https://api.globaluntoldstory.com/api/v1";
@@ -5,8 +9,6 @@ const EXTERNAL_API =
 // Static export: no server proxy available — call the external API directly.
 // Ensure your Laravel backend has CORS configured to allow your frontend domain.
 const API_BASE = EXTERNAL_API;
-
-export type ApiLocale = "en" | "ar";
 
 export interface ApiEnvelope<T> {
   success: boolean;

@@ -9,6 +9,7 @@ import Reveal from "../../components/Reveal";
 import { fetchService, resolveMediaUrl } from "../../lib/api";
 import type { ServiceDetail, ApiLocale } from "../../lib/api";
 import { getServiceImageUrl } from "../../lib/serviceImages";
+import { tx } from "../../lib/i18n";
 
 export default function ServiceDetailClient() {
   const params = useParams();
@@ -60,9 +61,10 @@ export default function ServiceDetailClient() {
     } catch (err) {
       console.error("Quote submission failed:", err);
       alert(
-        locale === "ar"
-          ? "تعذر إرسال الطلب. حاول مرة أخرى."
-          : "Could not submit your request. Please try again."
+        tx(locale, {
+          ar: "تعذر إرسال الطلب. حاول مرة أخرى.",
+          en: "Could not submit your request. Please try again.",
+        })
       );
     } finally {
       setSubmitting(false);
@@ -83,7 +85,7 @@ export default function ServiceDetailClient() {
             margin: "0 auto 20px",
           }} />
           <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-            {locale === "ar" ? "جارٍ التحميل..." : "Loading..."}
+            {tx(locale, { ar: "جارٍ التحميل...", en: "Loading..." })}
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -99,12 +101,13 @@ export default function ServiceDetailClient() {
       }}>
         <div style={{ fontSize: 72 }}>🔍</div>
         <h1 style={{ color: "var(--text)", fontSize: 28, fontWeight: 900, textAlign: "center" }}>
-          {locale === "ar" ? "الخدمة غير موجودة" : "Service Not Found"}
+          {tx(locale, { ar: "الخدمة غير موجودة", en: "Service Not Found" })}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-          {locale === "ar"
-            ? "لم نتمكن من العثور على هذه الخدمة."
-            : "We couldn't find this service."}
+          {tx(locale, {
+            ar: "لم نتمكن من العثور على هذه الخدمة.",
+            en: "We couldn't find this service.",
+          })}
         </p>
         <Link href="/services" style={{
           display: "inline-flex", alignItems: "center", gap: 8,
@@ -112,7 +115,7 @@ export default function ServiceDetailClient() {
           color: "#fff", padding: "12px 28px", borderRadius: 0,
           fontWeight: 700, fontSize: 15, textDecoration: "none",
         }}>
-          ← {locale === "ar" ? "العودة إلى الخدمات" : "Back to Services"}
+          ← {tx(locale, { ar: "العودة إلى الخدمات", en: "Back to Services" })}
         </Link>
       </div>
     );
@@ -144,7 +147,7 @@ export default function ServiceDetailClient() {
               fontWeight: 600, fontSize: 14, marginBottom: 32,
               transition: "color 0.2s ease",
             }} className="back-link">
-              ← {locale === "ar" ? "العودة إلى الخدمات" : "Back to Services"}
+              ← {tx(locale, { ar: "العودة إلى الخدمات", en: "Back to Services" })}
             </Link>
           </Reveal>
 
@@ -155,7 +158,7 @@ export default function ServiceDetailClient() {
               color: "#a5b4fc", padding: "5px 16px",
               borderRadius: 0, fontSize: 12, fontWeight: 700,
             }}>
-              {service.icon} {locale === "ar" ? "خدمة" : "Service"}
+              {service.icon} {tx(locale, { ar: "خدمة", en: "Service" })}
             </span>
           </div>
 
@@ -202,20 +205,12 @@ export default function ServiceDetailClient() {
           }} className="service-detail-grid">
 
             <div>
-              {service.fullDesc ? (
+              {(!service.features || service.features.length === 0) && service.shortDesc && (
                 <Reveal direction="up">
-                  <div
-                    className="service-body"
-                    style={{
-                      color: "var(--text-muted)", fontSize: 16.5,
-                      lineHeight: 1.9, marginBottom: 36,
-                    }}
-                    dangerouslySetInnerHTML={{ __html: service.fullDesc }}
-                  />
-                </Reveal>
-              ) : (
-                <Reveal direction="up">
-                  <p style={{ color: "var(--text-muted)", fontSize: 16.5, lineHeight: 1.9 }}>
+                  <p style={{
+                    color: "var(--text-muted)", fontSize: 16.5,
+                    lineHeight: 1.9, marginBottom: 36,
+                  }}>
                     {service.shortDesc}
                   </p>
                 </Reveal>
@@ -227,7 +222,7 @@ export default function ServiceDetailClient() {
                     fontWeight: 800, fontSize: 18, color: "var(--text)",
                     marginBottom: 20,
                   }}>
-                    {locale === "ar" ? "ما نقدمه" : "What We Offer"}
+                    {tx(locale, { ar: "ما نقدمه", en: "What We Offer" })}
                   </h3>
                   <ul style={{
                     listStyle: "none", padding: 0, margin: 0,
@@ -262,7 +257,7 @@ export default function ServiceDetailClient() {
                   marginBottom: 24, paddingBottom: 16,
                   borderBottom: "1px solid var(--border)",
                 }}>
-                  {locale === "ar" ? "تفاصيل الخدمة" : "Service Details"}
+                  {tx(locale, { ar: "تفاصيل الخدمة", en: "Service Details" })}
                 </h3>
 
                 {service.price && (
@@ -272,7 +267,7 @@ export default function ServiceDetailClient() {
                     borderBottom: "1px solid var(--border)", gap: 12,
                   }}>
                     <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 600 }}>
-                      {locale === "ar" ? "السعر" : "Pricing"}
+                      {tx(locale, { ar: "السعر", en: "Pricing" })}
                     </span>
                     <span style={{ color: "var(--text)", fontSize: 13.5, fontWeight: 700, textAlign: "end" }}>
                       {service.price}
@@ -298,7 +293,7 @@ export default function ServiceDetailClient() {
                   fontWeight: 700, fontSize: 14, textDecoration: "none",
                   marginTop: 12,
                 }}>
-                  {locale === "ar" ? "عرض جميع الخدمات" : "View All Services"}
+                  {tx(locale, { ar: "عرض جميع الخدمات", en: "View All Services" })}
                 </Link>
               </div>
             </Reveal>
@@ -312,7 +307,7 @@ export default function ServiceDetailClient() {
               color: "var(--primary)", textDecoration: "none",
               fontWeight: 700, fontSize: 15, transition: "gap 0.2s ease",
             }} className="back-link-bottom">
-              ← {locale === "ar" ? "العودة إلى الخدمات" : "Back to Services"}
+              ← {tx(locale, { ar: "العودة إلى الخدمات", en: "Back to Services" })}
             </Link>
           </div>
         </div>
@@ -450,12 +445,6 @@ export default function ServiceDetailClient() {
         .back-link:hover { color: var(--primary) !important; }
         .back-link-bottom:hover { gap: 14px !important; }
         .detail-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.4) !important; }
-        .service-body p { margin-bottom: 20px; }
-        .service-body h2, .service-body h3 { color: var(--text); font-weight: 800; margin: 28px 0 14px; }
-        .service-body strong { color: var(--text); font-weight: 700; }
-        .service-body ul, .service-body ol { padding-left: 24px; margin-bottom: 20px; }
-        .service-body li { margin-bottom: 8px; }
-        .service-body a { color: var(--primary); text-decoration: underline; }
         @media (max-width: 900px) {
           .service-detail-grid { grid-template-columns: 1fr !important; }
         }

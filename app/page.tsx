@@ -12,6 +12,7 @@ import WorkShowcase from "./components/WorkShowcase";
 import type { ServiceDataItem, FaqItem, ProcessStep, TestimonialItem } from "./lib/data";
 import { fetchFaqs } from "./lib/api";
 import type { ApiLocale } from "./lib/api";
+import { isRtlLocale } from "./lib/i18n";
 import ServiceCardMedia from "./components/ServiceCardMedia";
 
 function ServiceCard({ s }: { s: ServiceDataItem }) {
@@ -334,8 +335,8 @@ export default function Home() {
                   <div style={{
                     position: "absolute",
                     top: 15,
-                    left: locale === "ar" ? -15 : 15,
-                    right: locale === "ar" ? 15 : -15,
+                    left: isRtlLocale(locale) ? -15 : 15,
+                    right: isRtlLocale(locale) ? 15 : -15,
                     bottom: -15,
                     background: "rgba(99, 102, 241, 0.15)",
                     borderRadius: 0,
@@ -355,7 +356,7 @@ export default function Home() {
                       zIndex: 2,
                       boxShadow: "0 20px 40px rgba(0,0,0,0.12)",
                       border: "4px solid #fff",
-                      transform: locale === "ar" ? "rotate(-1.5deg)" : "rotate(1.5deg)",
+                      transform: isRtlLocale(locale) ? "rotate(-1.5deg)" : "rotate(1.5deg)",
                       transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                     }}
                     className="hero-image"

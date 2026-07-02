@@ -1,6 +1,7 @@
 import PortfolioDetailClient from "./PortfolioDetailClient";
 import { fetchPortfolio } from "../../lib/api";
 import type { PortfolioItem } from "../../lib/api";
+import { SUPPORTED_LOCALES } from "../../lib/i18n";
 
 // Slugs from the static fallback list so these always have a page even if the
 // API is unreachable at build time.
@@ -19,7 +20,7 @@ const STATIC_SLUGS = [
 export async function generateStaticParams() {
   const collected = new Set<string>(STATIC_SLUGS);
   try {
-    for (const locale of ["en", "ar"] as const) {
+    for (const locale of SUPPORTED_LOCALES) {
       const raw = await fetchPortfolio(locale);
       const list = Array.isArray(raw)
         ? raw

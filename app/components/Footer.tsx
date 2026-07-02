@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "./LanguageContext";
 
 export default function Footer() {
-  const { t, locale } = useLanguage();
+  const { t, dir } = useLanguage();
   const f = t.footer;
 
   return (
@@ -89,7 +89,7 @@ export default function Footer() {
       <style>{`
         .footer-link:hover {
           color: var(--primary) !important;
-          transform: translateX(${locale === "ar" ? "-4px" : "4px"});
+          transform: translateX(${dir === "rtl" ? "-4px" : "4px"});
         }
       `}</style>
     </footer>

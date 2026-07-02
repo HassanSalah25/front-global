@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
+import { pickLocalized, type Locale } from "../lib/i18n";
 
 const awardsData = {
   ar: {
@@ -39,9 +40,9 @@ const awardsData = {
   },
 };
 
-export default function AwardsSection({ locale = "en" }: { locale?: string }) {
+export default function AwardsSection({ locale = "en" }: { locale?: Locale | string }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const d = locale === "ar" ? awardsData.ar : awardsData.en;
+  const d = pickLocalized(awardsData, locale as Locale);
 
   return (
     <section style={{

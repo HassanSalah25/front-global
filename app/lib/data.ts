@@ -3,6 +3,7 @@
 // ==========================================
 
 import { withServiceImages } from "./serviceImages";
+import { FALLBACK_LOCALE, type Locale } from "./i18n";
 
 export const translations = {
   ar: {
@@ -692,7 +693,14 @@ export const translations = {
 translations.ar.servicesData = withServiceImages(translations.ar.servicesData);
 translations.en.servicesData = withServiceImages(translations.en.servicesData);
 
-export type Locale = keyof typeof translations;
+export type StaticLocale = keyof typeof translations;
+
+export function getStaticTranslation(locale: Locale): Translation {
+  if (locale in translations) {
+    return translations[locale as StaticLocale];
+  }
+  return translations[FALLBACK_LOCALE as StaticLocale];
+}
 export type ServiceDataItem = Omit<
   (typeof translations.ar.servicesData)[number],
   "features"

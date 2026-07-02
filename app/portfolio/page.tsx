@@ -7,6 +7,7 @@ import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import { fetchPortfolio, resolveMediaUrl } from "../lib/api";
 import type { PortfolioItem, ApiLocale } from "../lib/api";
+import { pickLocalized, tx, isRtlLocale } from "../lib/i18n";
 
 const staticProjects = {
   ar: [
@@ -91,9 +92,9 @@ export default function PortfolioPage() {
       .catch(() => setCmsProjects(null));
   }, [locale]);
 
-  const staticActive = locale === "ar" ? staticProjects.ar : staticProjects.en;
+  const staticActive = pickLocalized(staticProjects, locale);
   const activeProjects: ProjectShape[] = cmsProjects ?? staticActive;
-  const activeCats = locale === "ar" ? categories.ar : categories.en;
+  const activeCats = pickLocalized(categories, locale);
   const filtered = selectedCat === "all" ? activeProjects : activeProjects.filter(p => p.category === selectedCat);
 
   return (
@@ -132,19 +133,20 @@ export default function PortfolioPage() {
               fontWeight: 700, fontSize: 13,
               padding: "6px 20px", borderRadius: 0, marginBottom: 20,
             }}>
-              {locale === "ar" ? "🎨 معرض الأعمال" : "🎨 Our Portfolio"}
+              {tx(locale, { ar: "🎨 معرض الأعمال", en: "🎨 Our Portfolio" })}
             </span>
           </Reveal>
           <Reveal direction="up" delay={100}>
             <h1 style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 900, color: "#fff", marginBottom: 20, lineHeight: 1.1 }}>
-              {locale === "ar" ? "قصص نجاح صنعناها لعملائنا" : "Success Stories We Crafted"}
+              {tx(locale, { ar: "قصص نجاح صنعناها لعملائنا", en: "Success Stories We Crafted" })}
             </h1>
           </Reveal>
           <Reveal direction="up" delay={200}>
             <p style={{ color: "#94a3b8", fontSize: 17.5, maxWidth: 580, margin: "0 auto", lineHeight: 1.7 }}>
-              {locale === "ar"
-                ? "نستعرض هنا بعضاً من أفضل أعمالنا وحملاتنا الإعلانية الناجحة التي ساهمت في نمو العلامات التجارية لشركائنا."
-                : "Explore some of our premium projects and campaigns that successfully scaled our clients' business presence."}
+              {tx(locale, {
+                ar: "نستعرض هنا بعضاً من أفضل أعمالنا وحملاتنا الإعلانية الناجحة التي ساهمت في نمو العلامات التجارية لشركائنا.",
+                en: "Explore some of our premium projects and campaigns that successfully scaled our clients' business presence.",
+              })}
             </p>
           </Reveal>
 
@@ -152,9 +154,9 @@ export default function PortfolioPage() {
           <Reveal direction="up" delay={350}>
             <div style={{ display: "flex", justifyContent: "center", gap: 48, marginTop: 52, flexWrap: "wrap" }}>
               {[
-                { num: "500+", label: locale === "ar" ? "مشروع منجز" : "Projects Done" },
-                { num: "120+", label: locale === "ar" ? "عميل راضٍ" : "Happy Clients" },
-                { num: "15", label: locale === "ar" ? "دولة" : "Countries" },
+                { num: "500+", label: tx(locale, { ar: "مشروع منجز", en: "Projects Done" }) },
+                { num: "120+", label: tx(locale, { ar: "عميل راضٍ", en: "Happy Clients" }) },
+                { num: "15", label: tx(locale, { ar: "دولة", en: "Countries" }) },
               ].map((m, i) => (
                 <div key={i} style={{ textAlign: "center" }}>
                   <div style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", fontWeight: 900, color: "#fff", lineHeight: 1 }}>{m.num}</div>
@@ -170,7 +172,7 @@ export default function PortfolioPage() {
       <section style={{ padding: "40px 24px", background: "var(--bg-card)", borderBottom: "1px solid var(--border)" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
           <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 700, marginLeft: 16 }}>
-            {locale === "ar" ? "عملنا مع:" : "Worked with:"}
+            {tx(locale, { ar: "عملنا مع:", en: "Worked with:" })}
           </span>
           {clientLogosRow.map((c, i) => (
             <span key={i} style={{
@@ -254,7 +256,7 @@ export default function PortfolioPage() {
                     />
                     {/* Category tag */}
                     <div style={{
-                      position: "absolute", top: 16, left: locale === "ar" ? "auto" : 16, right: locale === "ar" ? 16 : "auto",
+                      position: "absolute", top: 16, left: isRtlLocale(locale) ? "auto" : 16, right: isRtlLocale(locale) ? 16 : "auto",
                       background: "linear-gradient(160deg, #dc2528 0%, #000000 50%, #000000e0 100%)", backdropFilter: "blur(6px)",
                       color: "#fff", padding: "5px 14px", borderRadius: 0,
                       fontSize: 12, fontWeight: 700,
@@ -306,7 +308,7 @@ export default function PortfolioPage() {
                     }}
                     className="portfolio-link"
                     >
-                      {locale === "ar" ? "تفاصيل المشروع" : "View Project"} →
+                      {tx(locale, { ar: "تفاصيل المشروع", en: "View Project" })} →
                     </Link>
                   </div>
                 </div>
@@ -327,12 +329,12 @@ export default function PortfolioPage() {
         <div style={{ position: "relative" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900, color: "#fff", marginBottom: 16 }}>
-              {locale === "ar" ? "هل أنت جاهز لقصة نجاح جديدة؟" : "Ready for the Next Success Story?"}
+              {tx(locale, { ar: "هل أنت جاهز لقصة نجاح جديدة؟", en: "Ready for the Next Success Story?" })}
             </h2>
           </Reveal>
           <Reveal direction="up" delay={100}>
             <p style={{ color: "#94a3b8", fontSize: 17.5, marginBottom: 44, maxWidth: 480, margin: "0 auto 44px" }}>
-              {locale === "ar" ? "تواصل معنا وسنضع مشروعك في قائمة أعمالنا الناجحة القادمة" : "Contact us and we'll add your project to our next success stories"}
+              {tx(locale, { ar: "تواصل معنا وسنضع مشروعك في قائمة أعمالنا الناجحة القادمة", en: "Contact us and we'll add your project to our next success stories" })}
             </p>
           </Reveal>
           <Reveal direction="up" delay={200}>
@@ -347,7 +349,7 @@ export default function PortfolioPage() {
             }}
             className="portfolio-cta-btn"
             >
-              {locale === "ar" ? "ابدأ مشروعك الآن" : "Start Your Project Now"} →
+              {tx(locale, { ar: "ابدأ مشروعك الآن", en: "Start Your Project Now" })} →
             </Link>
           </Reveal>
         </div>

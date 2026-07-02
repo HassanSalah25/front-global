@@ -8,6 +8,7 @@ import Reveal from "../components/Reveal";
 import type { StatDataItem, ValueItem, TeamMember } from "../lib/data";
 import { fetchAbout, resolveMediaUrl } from "../lib/api";
 import type { AboutPayload, ApiLocale } from "../lib/api";
+import { pickLocalized, tx } from "../lib/i18n";
 
 /* ── Timeline Section ───────────────────────── */
 const timelineData = {
@@ -106,13 +107,13 @@ export default function AboutPage() {
           desc: item.desc ?? item.description ?? "",
         }))
       : null) ??
-    (locale === "ar" ? timelineData.ar : timelineData.en);
+    pickLocalized(timelineData, locale);
 
   const skills =
     (cmsAbout?.skills?.length
       ? cmsAbout.skills.map((s) => ({ ...s, color: s.color ?? "#6366f1" }))
       : null) ??
-    (locale === "ar" ? skillsData.ar : skillsData.en);
+    pickLocalized(skillsData, locale);
 
   const teamList: TeamMember[] = cmsAbout?.team?.length
     ? cmsAbout.team.map((member) => ({
@@ -298,7 +299,7 @@ export default function AboutPage() {
                     <span style={{ fontSize: 28 }}>🎬</span>
                     <div>
                       <div style={{ fontWeight: 800, fontSize: 13, color: "var(--text)" }}>
-                        {locale === "ar" ? "استوديو إنتاج متكامل" : "Full-Service Studio"}
+                        {tx(locale, { ar: "استوديو إنتاج متكامل", en: "Full-Service Studio" })}
                       </div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)" }}>The Untold Story</div>
                     </div>
@@ -335,12 +336,12 @@ export default function AboutPage() {
           <div style={{ textAlign: "center", marginBottom: 72 }}>
             <Reveal direction="down">
               <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 16 }}>
-                {locale === "ar" ? "📅 مسيرتنا عبر السنين" : "📅 Our Journey"}
+                {tx(locale, { ar: "📅 مسيرتنا عبر السنين", en: "📅 Our Journey" })}
               </span>
             </Reveal>
             <Reveal direction="up" delay={100}>
               <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)" }}>
-                {locale === "ar" ? "من الحلم إلى الواقع" : "From Dream to Reality"}
+                {tx(locale, { ar: "من الحلم إلى الواقع", en: "From Dream to Reality" })}
               </h2>
             </Reveal>
           </div>
@@ -435,19 +436,20 @@ export default function AboutPage() {
             <div>
               <Reveal direction="down">
                 <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 20 }}>
-                  {locale === "ar" ? "🎬 خبراتنا الإنتاجية" : "🎬 Our Production Expertise"}
+                  {tx(locale, { ar: "🎬 خبراتنا الإنتاجية", en: "🎬 Our Production Expertise" })}
                 </span>
               </Reveal>
               <Reveal direction="up" delay={100}>
                 <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "var(--text)", marginBottom: 16, lineHeight: 1.3 }}>
-                  {locale === "ar" ? "نصنع تجارب سينمائية من الفكرة إلى الإطار الأخير" : "We Craft Cinematic Experiences from Spark to Final Frame"}
+                  {tx(locale, { ar: "نصنع تجارب سينمائية من الفكرة إلى الإطار الأخير", en: "We Craft Cinematic Experiences from Spark to Final Frame" })}
                 </h2>
               </Reveal>
               <Reveal direction="up" delay={200}>
                 <p style={{ color: "var(--text-muted)", fontSize: 15.5, lineHeight: 1.9, marginBottom: 36 }}>
-                  {locale === "ar"
-                    ? "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات — بإتقان ولمسة مميزة."
-                    : "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format — with precision and flair."}
+                  {tx(locale, {
+                    ar: "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات — بإتقان ولمسة مميزة.",
+                    en: "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format — with precision and flair.",
+                  })}
                 </p>
               </Reveal>
               <Reveal direction="up" delay={300}>
@@ -523,10 +525,13 @@ export default function AboutPage() {
                 <div style={{ position: "absolute", bottom: -30, left: -30, width: 120, height: 120, background: "rgba(255,255,255,0.08)", borderRadius: "0%" }} />
                 <div style={{ fontSize: 52, marginBottom: 20 }}>💡</div>
                 <h3 style={{ fontWeight: 900, fontSize: 22, color: "#fff", marginBottom: 18 }}>
-                  {locale === "ar" ? "قيمنا وفلسفتنا" : "Our Values & Philosophy"}
+                  {tx(locale, { ar: "قيمنا وفلسفتنا", en: "Our Values & Philosophy" })}
                 </h3>
                 <p style={{ color: "rgba(255,255,255,0.9)", fontSize: 15.5, lineHeight: 1.9 }}>
-                  {locale === "ar" ? "نؤمن بأن كل قصة تستحق أن تُروى بجمال سينمائي يبقى مع الجمهور." : "We believe every story deserves to be told with cinematic beauty that stays with audiences."}
+                  {tx(locale, {
+                    ar: "نؤمن بأن كل قصة تستحق أن تُروى بجمال سينمائي يبقى مع الجمهور.",
+                    en: "We believe every story deserves to be told with cinematic beauty that stays with audiences.",
+                  })}
                 </p>
               </div>
             </Reveal>
@@ -635,10 +640,10 @@ export default function AboutPage() {
           </Reveal>
           <Reveal direction="up" delay={100}>
             <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
-              {(locale === "ar"
-                ? ["العلامات التجارية", "المنصات", "القنوات", "المؤسسات", "الإنتاج الدولي"]
-                : ["Brands", "Platforms", "Broadcasters", "Institutions", "International Production"]
-              ).map((p, i) => (
+              {pickLocalized({
+                ar: ["العلامات التجارية", "المنصات", "القنوات", "المؤسسات", "الإنتاج الدولي"],
+                en: ["Brands", "Platforms", "Broadcasters", "Institutions", "International Production"],
+              }, locale).map((p, i) => (
                 <span key={i} style={{
                   background: "var(--bg-muted)",
                   border: "1px solid var(--border)",
