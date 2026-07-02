@@ -184,15 +184,39 @@ export default function ServiceDetailClient() {
 
       {imageUrl && (
         <Reveal direction="up">
-          <div style={{ background: "var(--bg-muted)", width: "100%", lineHeight: 0 }}>
-            <Image
-              src={imageUrl}
-              alt={service.title}
-              width={1920}
-              height={1080}
-              unoptimized
-              style={{ width: "100%", height: "auto", display: "block" }}
-            />
+          <div className="service-image-showcase">
+            {/* Ambient glow blobs */}
+            <div className="img-blob img-blob-1" />
+            <div className="img-blob img-blob-2" />
+
+            {/* Main image card */}
+            <div className="service-image-card">
+              <div className="service-image-inner">
+                <Image
+                  src={imageUrl}
+                  alt={service.title}
+                  width={1920}
+                  height={1080}
+                  unoptimized
+                  className="service-img"
+                />
+                {/* Gradient overlay */}
+                <div className="service-img-overlay" />
+                {/* Shimmer sweep */}
+                <div className="service-img-shimmer" />
+              </div>
+
+              {/* Floating badge */}
+              <div className="service-img-badge">
+                <span className="badge-dot" />
+                <span className="badge-label">
+                  {service.icon} {service.title}
+                </span>
+              </div>
+
+              {/* Bottom reflection bar */}
+              <div className="service-img-reflection" />
+            </div>
           </div>
         </Reveal>
       )}
@@ -262,6 +286,7 @@ export default function ServiceDetailClient() {
                   {tx(locale, { ar: "تفاصيل الخدمة", en: "Service Details" })}
                 </h3>
 
+                {/* Price section — temporarily hidden
                 {service.price && (
                   <div style={{
                     display: "flex", justifyContent: "space-between",
@@ -276,6 +301,7 @@ export default function ServiceDetailClient() {
                     </span>
                   </div>
                 )}
+                */}
 
                 <Link href={`/contact?service=${encodeURIComponent(serviceId)}`} style={{
                   display: "block", textAlign: "center",
@@ -444,14 +470,165 @@ export default function ServiceDetailClient() {
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes shimmer-sweep {
+          0%   { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+          40%  { opacity: 1; }
+          100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+        }
+        @keyframes badge-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.5); }
+          50%       { box-shadow: 0 0 0 6px rgba(99,102,241,0); }
+        }
+        @keyframes blob-drift {
+          0%, 100% { transform: translate(0,0) scale(1); }
+          50%       { transform: translate(30px,-20px) scale(1.08); }
+        }
+
+        /* ── Showcase wrapper ── */
+        .service-image-showcase {
+          position: relative;
+          padding: 56px 24px 72px;
+          background: #07070e;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        /* Ambient blobs */
+        .img-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(90px);
+          pointer-events: none;
+          animation: blob-drift 8s ease-in-out infinite;
+        }
+        .img-blob-1 {
+          width: 420px; height: 420px;
+          background: radial-gradient(circle, rgba(99,102,241,0.22) 0%, transparent 70%);
+          top: -80px; left: -60px;
+          animation-delay: 0s;
+        }
+        .img-blob-2 {
+          width: 360px; height: 360px;
+          background: radial-gradient(circle, rgba(168,85,247,0.18) 0%, transparent 70%);
+          bottom: -60px; right: -40px;
+          animation-delay: -4s;
+        }
+
+        /* ── Card ── */
+        .service-image-card {
+          position: relative;
+          width: 100%;
+          max-width: 860px;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow:
+            0 0 0 1px rgba(99,102,241,0.18),
+            0 8px 40px rgba(0,0,0,0.6),
+            0 32px 80px rgba(99,102,241,0.12);
+          background: #0d0d1a;
+        }
+
+        /* ── Image wrapper ── */
+        .service-image-inner {
+          position: relative;
+          overflow: hidden;
+          line-height: 0;
+          aspect-ratio: 16 / 7;
+        }
+        .service-img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .service-image-card:hover .service-img {
+          transform: scale(1.04);
+        }
+
+        /* Gradient overlay */
+        .service-img-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(to top,   rgba(7,7,14,0.85) 0%, transparent 45%),
+            linear-gradient(to right,  rgba(7,7,14,0.35) 0%, transparent 30%),
+            linear-gradient(to bottom, rgba(7,7,14,0.25) 0%, transparent 25%);
+          pointer-events: none;
+        }
+
+        /* Shimmer sweep */
+        .service-img-shimmer {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            105deg,
+            transparent 35%,
+            rgba(255,255,255,0.07) 50%,
+            transparent 65%
+          );
+          animation: shimmer-sweep 4s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        /* ── Floating glass badge ── */
+        .service-img-badge {
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 22px;
+          background: rgba(13,13,26,0.72);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border: 1px solid rgba(99,102,241,0.35);
+          border-radius: 100px;
+          white-space: nowrap;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+        .badge-dot {
+          width: 8px; height: 8px;
+          border-radius: 50%;
+          background: #6366f1;
+          flex-shrink: 0;
+          animation: badge-pulse 2s ease-in-out infinite;
+        }
+        .badge-label {
+          color: #e0e7ff;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+        }
+
+        /* ── Reflection bar ── */
+        .service-img-reflection {
+          height: 3px;
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(99,102,241,0.6) 25%,
+            rgba(168,85,247,0.6) 50%,
+            rgba(99,102,241,0.6) 75%,
+            transparent 100%
+          );
+        }
+
+        /* ── Misc ── */
         .back-link:hover { color: var(--primary) !important; }
         .back-link-bottom:hover { gap: 14px !important; }
         .detail-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.4) !important; }
         @media (max-width: 900px) {
           .service-detail-grid { grid-template-columns: 1fr !important; }
+          .service-image-showcase { padding: 36px 16px 48px; }
+          .service-image-inner { aspect-ratio: 16 / 9; }
         }
         @media (max-width: 768px) {
           .form-row-2 { grid-template-columns: 1fr !important; }
+          .service-img-badge { bottom: 12px; padding: 8px 16px; font-size: 12px; }
         }
       `}</style>
     </div>
