@@ -17,6 +17,7 @@ export default function Navbar() {
       top: 0,
       zIndex: 100,
       boxShadow: "var(--shadow-sm)",
+      overflow: "visible",
     }}>
       {t.showAnnouncementBar && t.announcementBar && (
         <div style={{
@@ -40,6 +41,7 @@ export default function Navbar() {
         borderBottom: "1px solid var(--border)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
+        overflow: "visible",
       }}>
       <div style={{
         maxWidth: 1200,

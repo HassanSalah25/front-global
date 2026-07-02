@@ -43,20 +43,21 @@ export type Locale = keyof typeof LOCALE_META;
 export const DEFAULT_LOCALE: Locale = "en";
 export const FALLBACK_LOCALE: Locale = "en";
 
+export function isValidLocale(value: string): value is Locale {
+  return value in LOCALE_META;
+}
+
 const ENV_LOCALES = process.env.NEXT_PUBLIC_LOCALES?.split(",")
   .map((code) => code.trim().toLowerCase())
-  .filter(Boolean);
+  .filter(Boolean)
+  .filter(isValidLocale);
 
 export const SUPPORTED_LOCALES: Locale[] =
-  ENV_LOCALES?.length && ENV_LOCALES.every(isValidLocale)
+  ENV_LOCALES?.length
     ? (ENV_LOCALES as Locale[])
     : (["en", "ar", "fr", "de", "es"] as Locale[]);
 
 export type ApiLocale = Locale;
-
-export function isValidLocale(value: string): value is Locale {
-  return value in LOCALE_META;
-}
 
 export function normalizeLocale(value: string | null | undefined): Locale {
   if (!value) return DEFAULT_LOCALE;
