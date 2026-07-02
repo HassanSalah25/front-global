@@ -96,7 +96,8 @@ export function getNumberLocale(locale: Locale): string {
   return LOCALE_META[locale].numberLocale;
 }
 
-export type LocalizedMap<T = string> = Partial<Record<Locale, T>> & { en: T };
+/** Inline copy map — `en` required; other locale keys optional (legacy keys like `ar` are ignored at runtime). */
+export type LocalizedMap<T = string> = Partial<Record<Locale, T>> & Record<string, T> & { en: T };
 
 /** Pick a locale-specific value with fallback to English. */
 export function pickLocalized<T>(

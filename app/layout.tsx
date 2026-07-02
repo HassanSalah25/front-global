@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./components/LanguageContext";
+import AppShell from "./components/AppShell";
 
 export const metadata: Metadata = {
   title: "Untold Agency | Premium Advertising & Marketing Agency",
@@ -24,9 +25,11 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <LanguageProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <AppShell>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </AppShell>
         </LanguageProvider>
       </body>
     </html>
