@@ -42,9 +42,6 @@ export function resolveMediaUrl(url?: string | null): string {
     "/api/public/storage/"
   );
 
-  // Backend occasionally returns duplicated file extensions (e.g. .webp.webp).
-  resolved = resolved.replace(/\.webp\.webp$/i, ".webp");
-
   if (resolved.startsWith("/")) {
     const origin = EXTERNAL_API.replace(/\/api\/v1\/?$/, "");
     resolved = `${origin}${resolved}`;
