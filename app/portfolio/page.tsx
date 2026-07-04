@@ -30,18 +30,18 @@ const staticProjects = {
 
 const categories = {
   ar: [
-    { id: "all", label: "🌟 الكل" },
-    { id: "digital-ads", label: "📊 الإعلانات الرقمية" },
-    { id: "branding", label: "🎨 الهوية البصرية" },
-    { id: "video", label: "🎬 إنتاج الفيديو" },
-    { id: "social", label: "📱 السوشيال ميديا" },
+    { id: "all", label: "الكل" },
+    { id: "digital-ads", label: "الإعلانات الرقمية" },
+    { id: "branding", label: "الهوية البصرية" },
+    { id: "video", label: "إنتاج الفيديو" },
+    { id: "social", label: "السوشيال ميديا" },
   ],
   en: [
-    { id: "all", label: "🌟 All" },
-    { id: "digital-ads", label: "📊 Digital Ads" },
-    { id: "branding", label: "🎨 Branding" },
-    { id: "video", label: "🎬 Video Production" },
-    { id: "social", label: "📱 Social Media" },
+    { id: "all", label: "All" },
+    { id: "digital-ads", label: "Digital Ads" },
+    { id: "branding", label: "Branding" },
+    { id: "video", label: "Video Production" },
+    { id: "social", label: "Social Media" },
   ],
 };
 
@@ -126,14 +126,19 @@ export default function PortfolioPage() {
         <div style={{ position: "relative" }}>
           <Reveal direction="down">
             <span style={{
-              display: "inline-block",
-              background: "linear-gradient(160deg, #dc2528 0%, #000000 50%, #000000e0 100%)",
-              border: "1px solid rgba(99,102,241,0.4)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.16)",
               color: "#fff",
               fontWeight: 700, fontSize: 13,
-              padding: "6px 20px", borderRadius: 0, marginBottom: 20,
+              padding: "6px 20px", borderRadius: 20, marginBottom: 20,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
             }}>
-              {tx(locale, { ar: "🎨 معرض الأعمال", en: "🎨 Our Portfolio" })}
+              <span style={{ fontSize: 14 }}>FILM</span>
+              {tx(locale, { ar: "براند سينمائي", en: "Cinema Studio" })}
             </span>
           </Reveal>
           <Reveal direction="up" delay={100}>
@@ -204,7 +209,7 @@ export default function PortfolioPage() {
                 key={cat.id}
                 onClick={() => setSelectedCat(cat.id)}
                 style={{
-                  background: selectedCat === cat.id ? "linear-gradient(135deg, var(--primary), var(--primary-dark))" : "transparent",
+                  background: selectedCat === cat.id ? "linear-gradient(135deg, #000, #000)" : "transparent",
                   color: selectedCat === cat.id ? "#fff" : "var(--text-muted)",
                   border: "none", padding: "9px 22px", borderRadius: 0,
                   fontSize: 14, fontWeight: 700, cursor: "pointer",
@@ -241,7 +246,11 @@ export default function PortfolioPage() {
                     boxShadow: hoveredProject === (proj.id ?? proj.slug) ? "0 24px 60px rgba(99,102,241,0.15)" : "var(--shadow-sm)",
                     transform: hoveredProject === (proj.id ?? proj.slug) ? "translateY(-8px)" : "none",
                     transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
                   }}
+                  className="portfolio-card"
                 >
                   {/* Image */}
                   <div style={{ position: "relative", overflow: "hidden", height: 240 }}>
@@ -266,7 +275,7 @@ export default function PortfolioPage() {
                     {/* Hover overlay */}
                         <div style={{
                           position: "absolute", inset: 0,
-                          background: "linear-gradient(to top, #dc2528, transparent)",
+                          background: "linear-gradient(to top, #000000, transparent)",
                           opacity: hoveredProject === (proj.id ?? proj.slug) ? 1 : 0,
                       transition: "opacity 0.4s ease",
                       display: "flex", alignItems: "flex-end", padding: "20px 20px",
@@ -277,39 +286,44 @@ export default function PortfolioPage() {
                         display: "flex", gap: 10,
                       }}>
                         <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
-                          ⏱ {proj.duration}
+                          Duration: {proj.duration}
                         </div>
                         <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
-                          💰 {proj.budget}
+                          Budget: {proj.budget}
                         </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Info */}
-                  <div style={{ padding: "28px 28px 32px", textAlign: "start" }}>
-                    <div style={{ fontSize: 13, color: "var(--primary)", fontWeight: 700, marginBottom: 6 }}>{proj.client}</div>
-                    <h3 style={{ fontSize: 18.5, fontWeight: 800, color: "var(--text)", marginBottom: 14, lineHeight: 1.4 }}>{proj.title}</h3>
+                  <div style={{ padding: "28px 28px 32px", textAlign: "start", display: "flex", flexDirection: "column", flex: 1 }}>
+                    <div style={{ fontSize: 13, color: "#000", fontWeight: 700, marginBottom: 6 }}>{proj.client}</div>
+                    <h3 style={{ fontSize: 18.5, fontWeight: 800, color: "var(--text)", marginBottom: 14, lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }}>{proj.title}</h3>
                     <div style={{
-                      background: "var(--primary-light)", color: "var(--primary)",
+                      background: "#000000", color: "#fff",
                       padding: "10px 16px", borderRadius: 10,
                       fontSize: 13.5, fontWeight: 700,
                       display: "flex", alignItems: "center", gap: 8,
                       marginBottom: 16,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
                     }}>
-                      <span>📈</span>
-                      <span>{proj.results}</span>
+                      <span style={{ opacity: 0.8 }}>RESULTS</span>
+                      <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{proj.results}</span>
                     </div>
-                    <Link href={`/portfolio/${proj.slug ?? proj.id}`} style={{
-                      textDecoration: "none",
-                      color: "var(--primary)", fontWeight: 700, fontSize: 13.5,
-                      display: "inline-flex", alignItems: "center", gap: 6,
-                      transition: "gap 0.2s ease",
-                    }}
-                    className="portfolio-link"
-                    >
-                      {tx(locale, { ar: "تفاصيل المشروع", en: "View Project" })} →
-                    </Link>
+                    <div style={{ marginTop: "auto" }}>
+                      <Link href={`/portfolio/${proj.slug ?? proj.id}`} style={{
+                        textDecoration: "none",
+                        color: "#000", fontWeight: 700, fontSize: 13.5,
+                        display: "inline-flex", alignItems: "center", gap: 6,
+                        transition: "gap 0.2s ease",
+                      }}
+                      className="portfolio-link"
+                      >
+                        {tx(locale, { ar: "تفاصيل المشروع", en: "View Project" })} →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </Reveal>

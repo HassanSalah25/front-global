@@ -392,12 +392,12 @@ export default function BlogPage() {
                 border: "1.5px solid rgba(16,185,129,0.4)",
                 borderRadius: 0, padding: "32px 40px",
               }}>
-                <div style={{ fontSize: 52, marginBottom: 16 }}>🎉</div>
+                <div style={{ fontSize: 52, marginBottom: 16 }}>✅</div>
                 <h3 style={{ color: "#34d399", fontWeight: 800, fontSize: 22, marginBottom: 8 }}>
                   {tx(locale, { ar: "تم الاشتراك بنجاح!", en: "Successfully Subscribed!" })}
                 </h3>
                 <p style={{ color: "#94a3b8", fontSize: 15 }}>
-                  {tx(locale, { ar: "سيصلك أول عدد من النشرة قريباً 🚀", en: "Your first newsletter edition is coming soon 🚀" })}
+                  {tx(locale, { ar: "سيصلك أول عدد من النشرة قريباً ", en: "Your first newsletter edition is coming soon " })}
                 </p>
               </div>
             </Reveal>

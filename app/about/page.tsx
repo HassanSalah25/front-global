@@ -10,25 +10,208 @@ import { fetchAbout, resolveMediaUrl } from "../lib/api";
 import type { AboutPayload, ApiLocale } from "../lib/api";
 import { pickLocalized, tx } from "../lib/i18n";
 
+const FilmReelIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="M2 8h20" />
+    <path d="M2 16h20" />
+    <circle cx="7" cy="7" r="1.4" />
+    <circle cx="17" cy="7" r="1.4" />
+    <circle cx="7" cy="17" r="1.4" />
+    <circle cx="17" cy="17" r="1.4" />
+  </svg>
+);
+
+const GlobeIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <circle cx="12" cy="12" r="8" />
+    <path d="M12 4v16" />
+    <path d="M4 12h16" />
+    <path d="M7.5 6.5c3 1.5 3 7 0 8.5" />
+    <path d="M16.5 6.5c-3 1.5-3 7 0 8.5" />
+  </svg>
+);
+
+const CrewIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <circle cx="8" cy="9" r="2" />
+    <circle cx="16" cy="9" r="2" />
+    <path d="M4 19c1.5-2 4-3.5 8-3.5s6.5 1.5 8 3.5" />
+    <path d="M8 13h8" />
+  </svg>
+);
+
+const LocationPinIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <path d="M12 21s7-4.5 7-11a7 7 0 0 0-14 0c0 6.5 7 11 7 11z" />
+    <circle cx="12" cy="10" r="2.2" />
+  </svg>
+);
+
+const SparkIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <path d="M12 2l2.5 7h7l-5.7 4.1L18.5 21 12 16.7 5.5 21l1.7-7.9L1.5 9h7L12 2z" />
+  </svg>
+);
+
+const CameraLensIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <rect x="3" y="6" width="18" height="12" rx="2" />
+    <path d="M7 6l2-3h6l2 3" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const ViewfinderIcon = ({ size = 28 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <rect x="4" y="4" width="16" height="16" rx="3" />
+    <path d="M8 4v4" />
+    <path d="M16 4v4" />
+    <path d="M8 20v-4" />
+    <path d="M16 20v-4" />
+    <path d="M4 8h4" />
+    <path d="M4 16h4" />
+    <path d="M20 8h-4" />
+    <path d="M20 16h-4" />
+  </svg>
+);
+
+const ClapperboardIcon = ({ size = 36 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" style={{ display: "block" }}>
+    <path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z" />
+    <path d="M3 8l3-3 4 3 4-3 4 3" />
+    <path d="M6 8l3-3" />
+    <path d="M12 8l3-3" />
+  </svg>
+);
+
+const renderTimelineIcon = (icon: string) => {
+  switch (icon) {
+    case "globe":
+      return <GlobeIcon size={32} />;
+    case "crew":
+      return <CrewIcon size={32} />;
+    case "location":
+      return <LocationPinIcon size={32} />;
+    case "spark":
+      return <SparkIcon size={32} />;
+    default:
+      return <FilmReelIcon size={32} />;
+  }
+};
+
+const renderStoryStatIcon = (index: number) => {
+  const icons = [FilmReelIcon, GlobeIcon, CrewIcon];
+  const Icon = icons[index] ?? FilmReelIcon;
+  return <Icon size={28} />;
+};
+
+const renderValueIcon = (icon?: string) => {
+  if (!icon) return <ClapperboardIcon />;
+  if (icon.includes("✨")) return <SparkIcon size={36} />;
+  if (icon.includes("🎥") || icon.toLowerCase().includes("production")) return <CameraLensIcon size={36} />;
+  if (icon.includes("🎬")) return <ClapperboardIcon size={36} />;
+  return <FilmReelIcon size={36} />;
+};
+
 /* ── Timeline Section ───────────────────────── */
 const timelineData = {
   ar: [
-    { year: "2015", title: "تأسيس الاستوديو", desc: "انطلقنا كاستوديو إنتاج أفلام وفيديو متخصص برؤية للسرد السينمائي", icon: "🎬" },
-    { year: "2018", title: "التوسع في المنطقة", desc: "افتتحنا مكاتب في منطقة الشرق الأوسط وشمال أفريقيا لخدمة العلامات والمنصات والقنوات", icon: "🌍" },
-    { year: "2020", title: "50+ عميل", desc: "وصلنا إلى أكثر من 50 عميل راضٍ مع معدل متزايد من العمل المتكرر", icon: "🤝" },
-    { year: "2022", title: "مركز الإنتاج في مصر", desc: "أنشأنا دعماً إنتاجياً كاملاً على أرض الواقع للتصوير الدولي في مصر", icon: "🇪🇬" },
-    { year: "2024", title: "صيغ أصلية", desc: "توسّعنا في تطوير قصص وصيغ أصلية مصمّمة للسفر والإلهام", icon: "✨" },
+    { year: "2015", title: "تأسيس الاستوديو", desc: "انطلقنا كاستوديو إنتاج أفلام وفيديو متخصص برؤية للسرد السينمائي", icon: "film" },
+    { year: "2018", title: "التوسع في المنطقة", desc: "افتتحنا مكاتب في منطقة الشرق الأوسط وشمال أفريقيا لخدمة العلامات والمنصات والقنوات", icon: "globe" },
+    { year: "2020", title: "50+ عميل", desc: "وصلنا إلى أكثر من 50 عميل راضٍ مع معدل متزايد من العمل المتكرر", icon: "crew" },
+    { year: "2022", title: "مركز الإنتاج في مصر", desc: "أنشأنا دعماً إنتاجياً كاملاً على أرض الواقع للتصوير الدولي في مصر", icon: "location" },
+    { year: "2024", title: "صيغ أصلية", desc: "توسّعنا في تطوير قصص وصيغ أصلية مصمّمة للسفر والإلهام", icon: "spark" },
   ],
   en: [
-    { year: "2015", title: "Studio Founded", desc: "Launched as a boutique film and video production studio with a vision for cinematic storytelling", icon: "🎬" },
-    { year: "2018", title: "MENA Expansion", desc: "Opened offices across the MENA region to serve brands, platforms, and broadcasters", icon: "🌍" },
-    { year: "2020", title: "50+ Clients", desc: "Reached 50+ satisfied clients with a growing repeat business rate", icon: "🤝" },
-    { year: "2022", title: "Egypt Production Hub", desc: "Established full on-the-ground production support for international shoots in Egypt", icon: "🇪🇬" },
-    { year: "2024", title: "Original Formats", desc: "Expanded into original stories and formats designed to travel and inspire global audiences", icon: "✨" },
+    { year: "2015", title: "Studio Founded", desc: "Launched as a boutique film and video production studio with a vision for cinematic storytelling", icon: "film" },
+    { year: "2018", title: "MENA Expansion", desc: "Opened offices across the MENA region to serve brands, platforms, and broadcasters", icon: "globe" },
+    { year: "2020", title: "50+ Clients", desc: "Reached 50+ satisfied clients with a growing repeat business rate", icon: "crew" },
+    { year: "2022", title: "Egypt Production Hub", desc: "Established full on-the-ground production support for international shoots in Egypt", icon: "location" },
+    { year: "2024", title: "Original Formats", desc: "Expanded into original stories and formats designed to travel and inspire global audiences", icon: "spark" },
   ],
 };
 
 /* ── Skills Bar Section ───────────────────────── */
+const partnerLogos = [
+  {
+    name: "NETFLIX",
+    alt: "Netflix",
+    tint: "#e50914",
+    bg: "#111",
+    label: "Streaming Studio",
+    render: () => (
+      <svg viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
+        <rect x="0" y="0" width="160" height="90" rx="18" fill="#111" />
+        <path d="M26 18L46 72L66 18L86 72L106 18" stroke="#e50914" strokeWidth="16" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    name: "HBO",
+    alt: "HBO",
+    tint: "#fff",
+    bg: "#050505",
+    label: "Premium Content",
+    render: () => (
+      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
+        <rect x="0" y="0" width="160" height="90" rx="18" fill="#050505" />
+        <circle cx="54" cy="45" r="24" fill="#fff" />
+        <circle cx="106" cy="45" r="24" fill="#fff" />
+        <rect x="72" y="30" width="16" height="30" rx="8" fill="#fff" />
+        <path d="M40 45h28" stroke="#050505" strokeWidth="10" strokeLinecap="round" />
+        <path d="M112 45h28" stroke="#050505" strokeWidth="10" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    name: "AMAZON",
+    alt: "Amazon Studios",
+    tint: "#ff9900",
+    bg: "#0f1419",
+    label: "Global Distribution",
+    render: () => (
+      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
+        <rect x="0" y="0" width="160" height="90" rx="18" fill="#0f1419" />
+        <path d="M32 52c18 18 44 18 70 0" stroke="#ff9900" strokeWidth="10" strokeLinecap="round" />
+        <path d="M100 42l16 10-16 10" stroke="#ff9900" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    name: "DISNEY",
+    alt: "Disney",
+    tint: "#ffffff",
+    bg: "#0f347d",
+    label: "Family Storytelling",
+    render: () => (
+      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
+        <rect x="0" y="0" width="160" height="90" rx="18" fill="#0f347d" />
+        <path d="M32 60c14-30 42-32 60-12" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
+        <path d="M50 30c8-10 22-16 36-14" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
+        <circle cx="118" cy="36" r="6" fill="#fff" />
+      </svg>
+    ),
+  },
+  {
+    name: "PIXAR",
+    alt: "Pixar",
+    tint: "#ffffff",
+    bg: "#000",
+    label: "Animation & VFX",
+    render: () => (
+      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
+        <rect x="0" y="0" width="160" height="90" rx="18" fill="#000" />
+        <circle cx="30" cy="26" r="10" fill="#fff" />
+        <path d="M30 36v20" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M30 56c12 10 28 10 44 0" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
+        <path d="M104 32h24" stroke="#fff" strokeWidth="8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  
+];
+
 const skillsData = {
   ar: [
     { label: "الإعلانات التجارية", percent: 97, color: "#6366f1" },
@@ -230,11 +413,20 @@ export default function AboutPage() {
             <div style={{ textAlign: "start" }}>
               <Reveal direction="down">
                 <span style={{
-                  display: "inline-block",
-                  background: "var(--accent-light)", color: "#92400e",
-                  fontWeight: 700, fontSize: 13, padding: "5px 16px",
-                  borderRadius: 0, marginBottom: 20
-                }}>{ad.storyBadge}</span>
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "var(--accent-light)",
+                  color: "#92400e",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  padding: "5px 16px",
+                  borderRadius: 0,
+                  marginBottom: 20,
+                }}>
+                  <FilmReelIcon size={16} />
+                  {ad.storyBadge}
+                </span>
               </Reveal>
               <Reveal direction="up" delay={100}>
                 <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 900, color: "var(--text)", marginBottom: 20, lineHeight: 1.3 }}>
@@ -294,9 +486,11 @@ export default function AboutPage() {
                     backdropFilter: "blur(12px)",
                     borderRadius: 0, padding: "14px 20px",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                    display: "flex", alignItems: "center", gap: 10,
+                    display: "flex", alignItems: "center", gap: 12,
                   }}>
-                    <span style={{ fontSize: 28 }}>🎬</span>
+                    <div style={{ width: 34, height: 34, display: "grid", placeItems: "center", color: "var(--text)" }}>
+                      <CameraLensIcon size={24} />
+                    </div>
                     <div>
                       <div style={{ fontWeight: 800, fontSize: 13, color: "var(--text)" }}>
                         {tx(locale, { ar: "استوديو إنتاج متكامل", en: "Full-Service Studio" })}
@@ -318,7 +512,9 @@ export default function AboutPage() {
                     }}
                     className="story-stat-card"
                     >
-                      <div style={{ fontSize: 30, marginBottom: 8 }}>{s.icon}</div>
+                      <div style={{ fontSize: 30, marginBottom: 8, color: i === 0 ? "#fff" : "var(--primary)" }}>
+                    {renderStoryStatIcon(i)}
+                  </div>
                       <div style={{ fontSize: 28, fontWeight: 900, color: i === 0 ? "#fff" : "var(--primary)" }}>{s.value}</div>
                       <div style={{ fontSize: 13, color: i === 0 ? "rgba(255,255,255,0.6)" : "var(--text-muted)", marginTop: 4 }}>{s.label}</div>
                     </div>
@@ -335,8 +531,9 @@ export default function AboutPage() {
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 72 }}>
             <Reveal direction="down">
-              <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 16 }}>
-                {tx(locale, { ar: "📅 مسيرتنا عبر السنين", en: "📅 Our Journey" })}
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 16 }}>
+                <ViewfinderIcon size={16} />
+                {tx(locale, { ar: "مسيرتنا عبر السنين", en: "Our Journey" })}
               </span>
             </Reveal>
             <Reveal direction="up" delay={100}>
@@ -435,8 +632,9 @@ export default function AboutPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }} className="skills-split">
             <div>
               <Reveal direction="down">
-                <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 20 }}>
-                  {tx(locale, { ar: "🎬 خبراتنا الإنتاجية", en: "🎬 Our Production Expertise" })}
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#000", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 20 }}>
+                  <ClapperboardIcon size={16} />
+                  {tx(locale, { ar: "خبراتنا الإنتاجية", en: "Our Production Expertise" })}
                 </span>
               </Reveal>
               <Reveal direction="up" delay={100}>
@@ -458,8 +656,8 @@ export default function AboutPage() {
                 }}>
                   {["Commercials", "Documentaries", "Branded Films", "Live Events", "Podcasts", "Motion/CGI"].map((tag, i) => (
                     <span key={i} style={{
-                      background: "var(--primary-light)",
-                      color: "var(--primary)",
+                      background: "#f5f5f5",
+                      color: "#000",
                       padding: "8px 18px",
                       borderRadius: 0,
                       fontSize: 13,
@@ -472,11 +670,7 @@ export default function AboutPage() {
                 </div>
               </Reveal>
             </div>
-            <div>
-              {skills.map((skill, i) => (
-                <SkillBar key={i} {...skill} delay={i * 80} />
-              ))}
-            </div>
+            
           </div>
         </div>
       </section>
@@ -491,10 +685,11 @@ export default function AboutPage() {
                 borderRadius: "0", padding: 44,
                 textAlign: "center", height: "100%",
                 position: "relative", overflow: "hidden",
-                borderLeft: "3px solid var(--primary)",
               }}>
                 <div style={{ position: "absolute", top: -30, right: -30, width: 120, height: 120, background: "rgba(255,255,255,0.08)", borderRadius: "0%" }} />
-                <div style={{ fontSize: 52, marginBottom: 20 }}>🎯</div>
+                <div style={{ width: 60, height: 60, margin: "0 auto 20px", display: "grid", placeItems: "center", color: "#fff" }}>
+                  <ClapperboardIcon size={40} />
+                </div>
                 <h3 style={{ fontWeight: 900, fontSize: 22, color: "#fff", marginBottom: 18 }}>{ad.missionTitle}</h3>
                 <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 15.5, lineHeight: 1.9 }}>{ad.missionDesc}</p>
               </div>
@@ -509,7 +704,9 @@ export default function AboutPage() {
               }}
               className="vision-card"
               >
-                <div style={{ fontSize: 52, marginBottom: 20 }}>🔭</div>
+                <div style={{ width: 60, height: 60, margin: "0 auto 20px", display: "grid", placeItems: "center", color: "var(--primary)" }}>
+                  <ViewfinderIcon size={40} />
+                </div>
                 <h3 style={{ fontWeight: 900, fontSize: 22, color: "var(--text)", marginBottom: 18 }}>{ad.visionTitle}</h3>
                 <p style={{ color: "var(--text-muted)", fontSize: 15.5, lineHeight: 1.9 }}>{ad.visionDesc}</p>
               </div>
@@ -517,13 +714,15 @@ export default function AboutPage() {
 
             <Reveal direction="up" delay={400}>
               <div style={{
-                background: "linear-gradient(135deg, #f59e0b, #d97706)",
+                background: "linear-gradient(135deg, #000000, #000000)",
                 borderRadius: "0", padding: 44,
                 textAlign: "center", height: "100%",
                 position: "relative", overflow: "hidden",
               }}>
                 <div style={{ position: "absolute", bottom: -30, left: -30, width: 120, height: 120, background: "rgba(255,255,255,0.08)", borderRadius: "0%" }} />
-                <div style={{ fontSize: 52, marginBottom: 20 }}>💡</div>
+                <div style={{ width: 60, height: 60, margin: "0 auto 20px", display: "grid", placeItems: "center", color: "#fff" }}>
+                  <SparkIcon size={40} />
+                </div>
                 <h3 style={{ fontWeight: 900, fontSize: 22, color: "#fff", marginBottom: 18 }}>
                   {tx(locale, { ar: "قيمنا وفلسفتنا", en: "Our Values & Philosophy" })}
                 </h3>
@@ -561,7 +760,7 @@ export default function AboutPage() {
                 }}
                 className="about-value-card"
                 >
-                  <div style={{ fontSize: 44, marginBottom: 16 }}>{v.icon}</div>
+                  {/* <div style={{ fontSize: 44, marginBottom: 16, color: "var(--primary)" }}>{renderValueIcon(v.icon)}</div> */}
                   <h3 style={{ fontWeight: 800, fontSize: 18, color: "var(--text)", marginBottom: 12 }}>{v.title}</h3>
                   <p style={{ color: "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{v.desc}</p>
                 </div>
@@ -572,7 +771,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Team ──────────────────────────────── */}
-      <section style={{ padding: "90px 24px", background: "var(--bg-muted)" }}>
+      <section style={{ padding: "90px 24px", background: "var(--bg-muted)" , display:"none"}}>
         <div style={{ maxWidth: 1050, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
             <Reveal direction="down">
@@ -634,27 +833,47 @@ export default function AboutPage() {
 
       {/* ── Partners Strip ────────────────────── */}
       <section style={{ padding: "64px 24px", background: "var(--bg-card)", borderTop: "1px solid var(--border)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <Reveal direction="down">
-            <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, marginBottom: 32, letterSpacing: 1 }}>{ad.partnersBadge}</p>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p>
+              <h2 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 900, color: "var(--text)", margin: 0 }}>
+                {tx(locale, { ar: "شركاؤنا في صناعة السينما", en: "Cinema Partners" })}
+              </h2>
+            </div>
           </Reveal>
           <Reveal direction="up" delay={100}>
-            <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
-              {pickLocalized({
-                ar: ["العلامات التجارية", "المنصات", "القنوات", "المؤسسات", "الإنتاج الدولي"],
-                en: ["Brands", "Platforms", "Broadcasters", "Institutions", "International Production"],
-              }, locale).map((p, i) => (
-                <span key={i} style={{
-                  background: "var(--bg-muted)",
-                  border: "1px solid var(--border)",
-                  borderRadius: 0, padding: "12px 28px",
-                  fontSize: 14, fontWeight: 700,
-                  color: "var(--text-muted)",
-                  boxShadow: "var(--shadow-sm)",
-                  transition: "all 0.25s ease",
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+              gap: 20,
+              alignItems: "stretch",
+            }}>
+              {partnerLogos.map((logo) => (
+                <div key={logo.name} style={{
+                  background: logo.bg,
+                  minHeight: 160,
+                  padding: "24px 22px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  borderRadius: 24,
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 18px 36px rgba(0,0,0,0.14)",
+                  transition: "transform 0.25s ease, box-shadow 0.25s ease",
                 }}
-                className="partner-badge"
-                >{p}</span>
+                className="partner-logo-card"
+                aria-label={logo.alt}>
+                  <div style={{ width: 48, height: 4, background: logo.tint, borderRadius: 999, marginBottom: 20 }} />
+                  <div>
+                    <span style={{ fontSize: 20, fontWeight: 900, letterSpacing: "0.22em", textTransform: "uppercase", display: "block", color: logo.tint, marginBottom: 10 }}>
+                      {logo.name}
+                    </span>
+                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", letterSpacing: "0.08em" }}>{logo.label}</span>
+                  </div>
+                </div>
               ))}
             </div>
           </Reveal>
@@ -670,6 +889,7 @@ export default function AboutPage() {
         .partner-badge:hover { border-color: var(--primary) !important; color: var(--primary) !important; transform: translateY(-2px); }
         .story-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(99,102,241,0.35) !important; }
         .story-stat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .partner-logo-card:hover { transform: translateY(-6px); box-shadow: 0 28px 58px rgba(0,0,0,0.24); }
         @media (max-width: 768px) {
           .about-story-split { grid-template-columns: 1fr !important; gap: 40px !important; text-align: center !important; }
           .about-story-graphics { gap: 24px !important; }

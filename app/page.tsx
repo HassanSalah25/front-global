@@ -243,9 +243,9 @@ export default function Home() {
                 }}>
                   {t.heroData.headline1}{" "}
                   <span style={{
-                    background: "linear-gradient(135deg, var(--primary), var(--accent))",
+                    color:"black",
                     WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
+                    WebkitTextFillColor: "#000000"
                   }}>
                     {t.heroData.headline2}
                   </span>
@@ -369,7 +369,7 @@ export default function Home() {
       <AnimatedStats />
 
       {/* ── Services ─────────────────────────── */}
-      <section style={{ padding: "100px 24px", background: "var(--bg-muted)" }}>
+      <section style={{ padding: "100px 24px", background: "#fff" }}>
         <div style={{ maxWidth: 1150, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
             <Reveal direction="down">

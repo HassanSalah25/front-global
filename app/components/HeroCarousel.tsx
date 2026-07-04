@@ -109,13 +109,13 @@ export default function HeroCarousel() {
 
         <div className="hero-carousel-overlay">
           <div className="hero-carousel-content">
-          <div className="hero-carousel-badge" style={{
+          {/* <div className="hero-carousel-badge" style={{
             opacity: isAnimating ? 0 : 1,
             transform: isAnimating ? "translateY(-16px)" : "translateY(0)",
             transition: "all 0.5s ease 0.1s",
           }}>
             {slide.badge}
-          </div>
+          </div> */}
 
           <h2 className="hero-carousel-title" style={{
             opacity: isAnimating ? 0 : 1,
@@ -216,7 +216,7 @@ export default function HeroCarousel() {
         </div>
 
         <button onClick={prev} className="carousel-nav-btn" style={{
-          position: "absolute", top: "50%", right: 24,
+          position: "absolute", top: "50%", left: 24,
           transform: "translateY(-50%)",
           width: 52, height: 52,
           background: "rgba(255,255,255,0.18)",
@@ -232,7 +232,7 @@ export default function HeroCarousel() {
           ‹
         </button>
         <button onClick={next} className="carousel-nav-btn" style={{
-          position: "absolute", top: "50%", left: 24,
+          position: "absolute", top: "50%", right: 24,
           transform: "translateY(-50%)",
           width: 52, height: 52,
           background: "rgba(255,255,255,0.18)",
@@ -324,6 +324,7 @@ export default function HeroCarousel() {
           max-width: 100%;
           word-wrap: break-word;
           overflow-wrap: break-word;
+          padding-left:30px;
         }
         .hero-carousel-ctas {
           display: flex;

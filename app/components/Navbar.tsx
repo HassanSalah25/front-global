@@ -67,18 +67,18 @@ export default function Navbar() {
           </span>
         </Link> */}
         <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-  
-        {/* استبدلنا الـ div بهذا الوسم */}
-        <img 
-          src="/black.png" 
-          alt="Logo" 
-          style={{ width: 70, height: 50, objectFit: "unset" }} 
-        />
-
-        {/* <span style={{ fontWeight: 800, fontSize: 22, color: "var(--text)", letterSpacing: "-0.5px" }}>
-          Ad<span style={{ color: "var(--primary)" }}>Vision</span>
-        </span> */}
-      </Link>
+          <img
+            src="/black.png"
+            alt="Logo"
+            style={{
+              height: 50,
+              width: "auto",
+              maxWidth: 140,
+              objectFit: "contain",
+              display: "block",
+            }}
+          />
+        </Link>
 
         {/* Desktop Links */}
         <div style={{ display: "flex", gap: 6, alignItems: "center" }} className="desktop-nav">

@@ -11,16 +11,16 @@ import { pickLocalized, tx } from "../lib/i18n";
 
 const whyContactUs = {
   ar: [
-    { icon: "⚡", title: "رد خلال ساعة", desc: "فريقنا جاهز للرد على استفساراتك خلال ساعة واحدة في أيام العمل" },
-    { icon: "🎯", title: "استشارة مجانية", desc: "احصل على استشارة تسويقية مجانية مدتها 30 دقيقة مع أحد خبرائنا" },
-    { icon: "🔒", title: "سرية تامة", desc: "معلوماتك ومشروعك محمي بالكامل وفق أعلى معايير الخصوصية" },
-    { icon: "🌟", title: "خبرة تزيد عن 9 سنوات", desc: "فريق من الخبراء المتخصصين في كل مجالات التسويق الرقمي" },
+    { icon: "", title: "رد خلال ساعة", desc: "فريقنا جاهز للرد على استفساراتك خلال ساعة واحدة في أيام العمل" },
+    { icon: "", title: "استشارة مجانية", desc: "احصل على استشارة تسويقية مجانية مدتها 30 دقيقة مع أحد خبرائنا" },
+    { icon: "", title: "سرية تامة", desc: "معلوماتك ومشروعك محمي بالكامل وفق أعلى معايير الخصوصية" },
+    { icon: "", title: "خبرة تزيد عن 9 سنوات", desc: "فريق من الخبراء المتخصصين في كل مجالات التسويق الرقمي" },
   ],
   en: [
-    { icon: "⚡", title: "1-Hour Response", desc: "Our team is ready to answer your inquiries within one hour on business days" },
-    { icon: "🎯", title: "Free Consultation", desc: "Get a free 30-minute marketing consultation with one of our experts" },
-    { icon: "🔒", title: "Full Confidentiality", desc: "Your information and project are fully protected under the highest privacy standards" },
-    { icon: "🌟", title: "9+ Years Experience", desc: "A team of specialists in all areas of digital marketing" },
+    { icon: "", title: "1-Hour Response", desc: "Our team is ready to answer your inquiries within one hour on business days" },
+    { icon: "", title: "Free Consultation", desc: "Get a free 30-minute marketing consultation with one of our experts" },
+    { icon: "", title: "Full Confidentiality", desc: "Your information and project are fully protected under the highest privacy standards" },
+    { icon: "", title: "9+ Years Experience", desc: "A team of specialists in all areas of digital marketing" },
   ],
 };
 
@@ -224,13 +224,7 @@ function ContactPageContent() {
                   display: "flex", alignItems: "flex-start", gap: 16,
                   padding: "20px 0",
                 }}>
-                  <div style={{
-                    width: 52, height: 52, flexShrink: 0,
-                    background: "var(--primary-light)",
-                    borderRadius: 14,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 24,
-                  }}>{item.icon}</div>
+               
                   <div>
                     <h3 style={{ fontWeight: 800, fontSize: 16, color: "var(--text)", marginBottom: 6 }}>{item.title}</h3>
                     <p style={{ color: "var(--text-muted)", fontSize: 13.5, lineHeight: 1.75 }}>{item.desc}</p>
@@ -342,8 +336,13 @@ function ContactPageContent() {
                   {tx(locale, { ar: "تابعنا على:", en: "Follow us on:" })}
                 </p>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                  {["LinkedIn", "Twitter", "Instagram", "Facebook"].map((sn, i) => (
-                    <a key={i} href="#" style={{
+                  {[
+                    { name: "Instagram", url: "https://www.instagram.com/globaluntoldstory?igsh=dGpjdDJ6cHRkMHB2" },
+                    { name: "Facebook", url: "https://www.facebook.com/share/1YefpKiSk8/?mibextid=wwXIfr" },
+                    { name: "LinkedIn", url: "https://www.linkedin.com/company/the-untold-story-film-production-services/" },
+                    { name: "Vimeo", url: "https://vimeo.com/globaluntoldstory" },
+                  ].map((sn, i) => (
+                    <a key={i} href={sn.url} target="_blank" rel="noreferrer" style={{
                       textDecoration: "none",
                       background: "var(--bg-card)", border: "1px solid var(--border)",
                       color: "var(--text-muted)",
@@ -352,7 +351,7 @@ function ContactPageContent() {
                       transition: "all 0.25s ease",
                     }}
                     className="social-link"
-                    >{sn}</a>
+                    >{sn.name}</a>
                   ))}
                 </div>
               </div>
@@ -498,7 +497,7 @@ function ContactPageContent() {
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 900, color: "var(--text)", marginBottom: 16 }}>
-              🌍 {cp.officesSectionTitle}
+              {cp.officesSectionTitle}
             </h2>
           </Reveal>
           <Reveal direction="up" delay={100}>
@@ -506,7 +505,7 @@ function ContactPageContent() {
               {cp.officesSectionSubtext}
             </p>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, maxWidth: 720, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 24, maxWidth: 1080, margin: "0 auto" }}>
             {offices.map((office, i) => (
               <Reveal key={i} direction="up" delay={i * 120}>
                 <div style={{
