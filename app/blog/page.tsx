@@ -291,7 +291,7 @@ export default function BlogPage() {
                   style={{
                     background: "var(--bg-card)",
                     borderRadius: 0,
-                    border: `1.5px solid ${hoveredPost === post.id ? "var(--primary)" : "var(--border)"}`,
+                    border: `1.5px solid ${hoveredPost === post.id ? "#000" : "var(--border)"}`,
                     overflow: "hidden",
                     boxShadow: hoveredPost === post.id ? "0 20px 50px rgba(99,102,241,0.12)" : "var(--shadow-sm)",
                     transform: hoveredPost === post.id ? "translateY(-8px)" : "none",
@@ -302,7 +302,6 @@ export default function BlogPage() {
                   {/* Top colored bar */}
                   <div style={{
                     height: 5,
-                    background: `linear-gradient(90deg, ${["#6366f1","#f59e0b","#10b981","#8b5cf6"][index % 4]}, ${["#8b5cf6","#ef4444","#06b6d4","#6366f1"][index % 4]})`,
                     transform: hoveredPost === post.id ? "scaleX(1)" : "scaleX(0.3)",
                     transformOrigin: "left",
                     transition: "transform 0.4s ease",
@@ -311,8 +310,8 @@ export default function BlogPage() {
                   <div style={{ padding: "28px 28px 32px", flex: 1, display: "flex", flexDirection: "column" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12, marginBottom: 18 }}>
                       <span style={{
-                        fontWeight: 700, color: "var(--primary)", fontSize: 12.5,
-                        background: "var(--primary-light)", padding: "4px 12px", borderRadius: 0,
+                        fontWeight: 700, color: "#000", fontSize: 12.5,
+                        background: "#fff", padding: "4px 12px", borderRadius: 0,
                       }}>{post.category}</span>
                       <span style={{ color: "var(--text-muted)", fontSize: 12 }}>{post.date}</span>
                     </div>
@@ -322,9 +321,9 @@ export default function BlogPage() {
                       <Link href={`/blog/${post.slug ?? post.id}`} style={{
                         textDecoration: "none",
                         background: hoveredPost === post.id
-                          ? "linear-gradient(135deg, var(--primary), var(--primary-dark))"
-                          : "var(--primary-light)",
-                        color: hoveredPost === post.id ? "#fff" : "var(--primary)",
+                          ? "linear-gradient(135deg, #000, #000)"
+                          : "#fff",
+                        color: hoveredPost === post.id ? "#fff" : "#000",
                         padding: "10px 22px", borderRadius: 0,
                         fontWeight: 700, fontSize: 13.5,
                         transition: "all 0.3s ease",
