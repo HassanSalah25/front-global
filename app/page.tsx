@@ -416,7 +416,7 @@ export default function Home() {
       <WorkShowcase locale={locale} title={hd.portfolioTitle} />
 
       {/* ── Process ──────────────────────────── */}
-      <section style={{ padding: "100px 24px", background: "var(--bg-muted)" }}>
+      <section style={{ padding: "100px 24px", background: "#fff" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
             <Reveal direction="down">

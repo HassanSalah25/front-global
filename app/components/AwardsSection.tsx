@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
-import { pickLocalized, type Locale } from "../lib/i18n";
+import { normalizeLocale, pickLocalized, tx, type Locale } from "../lib/i18n";
 
 // Cinema-themed SVG icons (realistic silhouettes)
 const ClapperboardIcon: React.FC<{ size?: number; style?: any }> = ({ size = 64, style }) => (
@@ -76,9 +76,20 @@ const iconMap: { [key: string]: React.ComponentType<any> } = {
   Lens: LensIcon,
 };
 
+const clientLogos = [
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/pepsi-1.png", alt: "Pepsi" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/rotana.png", alt: "Rotana" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/zayed-1.png", alt: "Zayed" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/02/13-.png", alt: "Brand" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/mercdes-1.png", alt: "Mercedes" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/orascom.png", alt: "Orascom" },
+  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/mbc.png", alt: "MBC" },
+];
+
 export default function AwardsSection({ locale = "en" }: { locale?: Locale | string }) {
   const [hovered, setHovered] = useState<number | null>(null);
-  const d = pickLocalized(awardsData, locale as Locale);
+  const normalizedLocale = normalizeLocale(locale as string);
+  const d = pickLocalized(awardsData, normalizedLocale);
 
   return (
     <section style={{
@@ -124,6 +135,49 @@ export default function AwardsSection({ locale = "en" }: { locale?: Locale | str
               {d.subtitle}
             </p>
           </Reveal>
+
+          <Reveal direction="up" delay={280}>
+            <div style={{ marginTop: 46, maxWidth: 820, margin: "46px auto 0", textAlign: "center" }}>
+              <p style={{ color: "#cbd5e1", fontSize: 14, letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 18 }}>
+                {tx(normalizedLocale, { ar: "شركاء موثوق بهم", en: "Trusted Partners" })}
+              </p>
+              <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 18,
+                justifyContent: "center",
+                width: "100%",
+              }}>
+                {clientLogos.map((logo, index) => (
+                  <div key={index} style={{
+                    flex: "1 1 140px",
+                    maxWidth: 190,
+                    minWidth: 140,
+                    minHeight: 90,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "20px 16px",
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: 18,
+                    transition: "transform 0.28s ease, border-color 0.28s ease, background 0.28s ease",
+                  }}
+                  className="client-logo-card"
+                  >
+                    <img src={logo.src} alt={logo.alt} loading="lazy" style={{
+                      maxWidth: "100%",
+                      maxHeight: 48,
+                      objectFit: "contain",
+                      filter: "brightness(0.95)",
+                      display: "block",
+                    }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
         </div>
 
         {/* Awards Grid */}

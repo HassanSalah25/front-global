@@ -671,7 +671,7 @@ export const translations = {
       ]
     },
     footer: {
-      brandDesc: "The Untold Story — a full-service film and video production studio in Egypt and MENA.",
+      brandDesc: "The Untold Story a full-service film and video production studio in Egypt and MENA.",
       aboutTitle: "About",
       aboutLinks: [
         { href: "/about", label: "About us" },
