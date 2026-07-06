@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { clientLogos } from "../lib/data";
+import { useLanguage } from "./LanguageContext";
 
 type ClientLogosStripProps = {
   variant?: "dark" | "light";
 };
 
 export default function ClientLogosStrip({ variant = "dark" }: ClientLogosStripProps) {
+  const { clientLogos } = useLanguage();
   const isDark = variant === "dark";
   const loop = [...clientLogos, ...clientLogos];
 

@@ -92,12 +92,19 @@ export async function apiFetch<T>(
   return body.data;
 }
 
+export interface ApiClientLogo {
+  name: string;
+  displayName: string;
+  image: string;
+}
+
 export interface LayoutPayload {
   site_config: Record<string, unknown>;
   nav_links: Array<{ href: string; label: string }>;
   footer: Record<string, unknown>;
   announcement: { text: string | null; enabled: boolean };
   common_labels: Record<string, string>;
+  client_logos?: ApiClientLogo[];
 }
 
 export interface HomePayload {

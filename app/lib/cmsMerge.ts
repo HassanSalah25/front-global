@@ -1,6 +1,6 @@
 import type { HomePayload, LayoutPayload } from "./api";
 import { resolveMediaUrl } from "./api";
-import type { Translation } from "./data";
+import type { ClientLogo, Translation } from "./data";
 import type { Locale } from "./i18n";
 import { getServiceImageUrl } from "./serviceImages";
 
@@ -53,6 +53,21 @@ function mapCommonLabels(labels: Record<string, string>): Partial<Translation["c
 
 function isJeddahOffice(office: { region: string; address: string }): boolean {
   return /jeddah|ksa|saudi|جدة|السعودية/i.test(`${office.region} ${office.address}`);
+}
+
+export function mapClientLogos(
+  logos: Array<Record<string, unknown>> | undefined
+): ClientLogo[] {
+  if (!logos?.length) return [];
+
+  return logos
+    .map((logo) => ({
+      src: resolveMediaUrl(
+        String(logo.image ?? logo.imageUrl ?? logo.image_url ?? logo.src ?? logo.url ?? "")
+      ),
+      alt: String(logo.displayName ?? logo.display_name ?? logo.name ?? logo.alt ?? "Client"),
+    }))
+    .filter((logo) => logo.src);
 }
 
 function mergeFooterOffices(
@@ -246,6 +261,7 @@ export async function loadCmsForLocale(
   translation: Translation;
   heroSlides: CmsHeroSlide[];
   workShowcase: CmsWorkShowcase | null;
+  clientLogos: ClientLogo[];
 }> {
   const { fetchHome, fetchLayout, fetchServices } = await import("./api");
 
@@ -262,5 +278,8 @@ export async function loadCmsForLocale(
     translation: merged,
     heroSlides: mapHeroSlides(home.hero_slides ?? []),
     workShowcase: mapWorkShowcase(home.work_showcase ?? {}),
+    clientLogos: mapClientLogos(
+      layout.client_logos as Array<Record<string, unknown>> | undefined
+    ),
   };
 }

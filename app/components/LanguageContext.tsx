@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
-import { translations, getStaticTranslation, type Translation } from "../lib/data";
+import { translations, getStaticTranslation, clientLogos as staticClientLogos, type ClientLogo, type Translation } from "../lib/data";
 import type { CmsHeroSlide, CmsWorkShowcase } from "../lib/cmsMerge";
 import {
   type Locale,
@@ -22,6 +22,7 @@ interface LanguageContextProps {
   cmsReady: boolean;
   heroSlides: CmsHeroSlide[] | null;
   workShowcase: CmsWorkShowcase | null;
+  clientLogos: ClientLogo[];
 }
 
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
@@ -40,6 +41,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [cmsReady, setCmsReady] = useState(false);
   const [heroSlides, setHeroSlides] = useState<CmsHeroSlide[] | null>(null);
   const [workShowcase, setWorkShowcase] = useState<CmsWorkShowcase | null>(null);
+  const [clientLogos, setClientLogos] = useState<ClientLogo[]>(staticClientLogos);
 
   const loadCms = useCallback(async (activeLocale: Locale) => {
     setCmsReady(false);
@@ -54,6 +56,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       }));
       setHeroSlides(result.heroSlides.length ? result.heroSlides : null);
       setWorkShowcase(result.workShowcase);
+      setClientLogos(result.clientLogos.length ? result.clientLogos : staticClientLogos);
     } catch (err) {
       console.error("CMS load failed, using static translations:", err);
     } finally {
@@ -105,8 +108,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       cmsReady,
       heroSlides,
       workShowcase,
+      clientLogos,
     }),
-    [locale, t, setLocale, toggleLocale, dir, cmsReady, heroSlides, workShowcase]
+    [locale, t, setLocale, toggleLocale, dir, cmsReady, heroSlides, workShowcase, clientLogos]
   );
 
   return (
