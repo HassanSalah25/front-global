@@ -4,6 +4,13 @@ import type { ClientLogo, Translation } from "./data";
 import type { Locale } from "./i18n";
 import { getServiceImageUrl } from "./serviceImages";
 
+/** CMS fields that are null should not overwrite static fallbacks. */
+function withoutNulls<T extends Record<string, unknown>>(obj: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, value]) => value != null)
+  ) as Partial<T>;
+}
+
 function mapServicesData(
   services: Array<Record<string, unknown>>
 ): Translation["servicesData"] {
@@ -87,8 +94,12 @@ export function mergeLayoutIntoTranslation(
   base: Translation,
   layout: LayoutPayload
 ): Translation {
-  const siteConfig = layout.site_config as Translation["siteConfig"];
-  const footer = layout.footer as Translation["footer"];
+  const siteConfig = withoutNulls(
+    layout.site_config as Record<string, unknown>
+  ) as Partial<Translation["siteConfig"]>;
+  const footer = withoutNulls(
+    layout.footer as Record<string, unknown>
+  ) as Partial<Translation["footer"]>;
 
   return {
     ...base,
@@ -113,8 +124,12 @@ export function mergeHomeIntoTranslation(
   home: HomePayload,
   services: Array<Record<string, unknown>>
 ): Translation {
-  const hero = home.hero as Partial<Translation["heroData"]>;
-  const homeData = home.home_data as Partial<Translation["homeData"]>;
+  const hero = withoutNulls(
+    home.hero as Record<string, unknown>
+  ) as Partial<Translation["heroData"]>;
+  const homeData = withoutNulls(
+    home.home_data as Record<string, unknown>
+  ) as Partial<Translation["homeData"]>;
   const process = home.process;
   const testimonials = home.testimonials;
   const faq = home.faq;

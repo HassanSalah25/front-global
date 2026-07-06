@@ -20,9 +20,14 @@ function WhatsAppIcon() {
 
 const TOOLTIP_DURATION_MS = 60_000;
 
-function getTooltipText(quoteBadge: string, announcementBar: string): string {
-  if (quoteBadge.trim()) return quoteBadge.trim();
-  return announcementBar.split(/[—–-]/)[0]?.trim() || announcementBar;
+function getTooltipText(
+  quoteBadge: string | null | undefined,
+  announcementBar: string | null | undefined
+): string {
+  const badge = quoteBadge?.trim();
+  if (badge) return badge;
+  const bar = announcementBar ?? "";
+  return bar.split(/[—–-]/)[0]?.trim() || bar;
 }
 
 export default function WhatsAppFloatButton() {
