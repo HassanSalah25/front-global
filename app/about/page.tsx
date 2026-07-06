@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
+import ClientLogosStrip from "../components/ClientLogosStrip";
 import type { StatDataItem, ValueItem, TeamMember } from "../lib/data";
 import { fetchAbout, resolveMediaUrl } from "../lib/api";
 import type { AboutPayload, ApiLocale } from "../lib/api";
@@ -133,85 +134,6 @@ const timelineData = {
 };
 
 /* ── Skills Bar Section ───────────────────────── */
-const partnerLogos = [
-  {
-    name: "NETFLIX",
-    alt: "Netflix",
-    tint: "#e50914",
-    bg: "#111",
-    label: "Streaming Studio",
-    render: () => (
-      <svg viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
-        <rect x="0" y="0" width="160" height="90" rx="18" fill="#111" />
-        <path d="M26 18L46 72L66 18L86 72L106 18" stroke="#e50914" strokeWidth="16" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    name: "HBO",
-    alt: "HBO",
-    tint: "#fff",
-    bg: "#050505",
-    label: "Premium Content",
-    render: () => (
-      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
-        <rect x="0" y="0" width="160" height="90" rx="18" fill="#050505" />
-        <circle cx="54" cy="45" r="24" fill="#fff" />
-        <circle cx="106" cy="45" r="24" fill="#fff" />
-        <rect x="72" y="30" width="16" height="30" rx="8" fill="#fff" />
-        <path d="M40 45h28" stroke="#050505" strokeWidth="10" strokeLinecap="round" />
-        <path d="M112 45h28" stroke="#050505" strokeWidth="10" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    name: "AMAZON",
-    alt: "Amazon Studios",
-    tint: "#ff9900",
-    bg: "#0f1419",
-    label: "Global Distribution",
-    render: () => (
-      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
-        <rect x="0" y="0" width="160" height="90" rx="18" fill="#0f1419" />
-        <path d="M32 52c18 18 44 18 70 0" stroke="#ff9900" strokeWidth="10" strokeLinecap="round" />
-        <path d="M100 42l16 10-16 10" stroke="#ff9900" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    name: "DISNEY",
-    alt: "Disney",
-    tint: "#ffffff",
-    bg: "#0f347d",
-    label: "Family Storytelling",
-    render: () => (
-      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
-        <rect x="0" y="0" width="160" height="90" rx="18" fill="#0f347d" />
-        <path d="M32 60c14-30 42-32 60-12" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
-        <path d="M50 30c8-10 22-16 36-14" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
-        <circle cx="118" cy="36" r="6" fill="#fff" />
-      </svg>
-    ),
-  },
-  {
-    name: "PIXAR",
-    alt: "Pixar",
-    tint: "#ffffff",
-    bg: "#000",
-    label: "Animation & VFX",
-    render: () => (
-      <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxWidth: 140 }}>
-        <rect x="0" y="0" width="160" height="90" rx="18" fill="#000" />
-        <circle cx="30" cy="26" r="10" fill="#fff" />
-        <path d="M30 36v20" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
-        <path d="M30 56c12 10 28 10 44 0" stroke="#fff" strokeWidth="6" strokeLinecap="round" />
-        <path d="M104 32h24" stroke="#fff" strokeWidth="8" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  
-];
-
 const skillsData = {
   ar: [
     { label: "الإعلانات التجارية", percent: 97, color: "#6366f1" },
@@ -838,44 +760,12 @@ export default function AboutPage() {
             <div style={{ textAlign: "center", marginBottom: 32 }}>
               <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p>
               <h2 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 900, color: "var(--text)", margin: 0 }}>
-                {tx(locale, { ar: "شركاؤنا في صناعة السينما", en: "Cinema Partners" })}
+                {ad.partnersTitle}
               </h2>
             </div>
           </Reveal>
           <Reveal direction="up" delay={100}>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: 20,
-              alignItems: "stretch",
-            }}>
-              {partnerLogos.map((logo) => (
-                <div key={logo.name} style={{
-                  background: logo.bg,
-                  minHeight: 160,
-                  padding: "24px 22px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  borderRadius: 24,
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 18px 36px rgba(0,0,0,0.14)",
-                  transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                }}
-                className="partner-logo-card"
-                aria-label={logo.alt}>
-                  <div style={{ width: 48, height: 4, background: logo.tint, borderRadius: 999, marginBottom: 20 }} />
-                  <div>
-                    <span style={{ fontSize: 20, fontWeight: 900, letterSpacing: "0.22em", textTransform: "uppercase", display: "block", color: logo.tint, marginBottom: 10 }}>
-                      {logo.name}
-                    </span>
-                    <span style={{ fontSize: 13, color: "rgba(255,255,255,0.78)", letterSpacing: "0.08em" }}>{logo.label}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ClientLogosStrip variant="light" />
           </Reveal>
         </div>
       </section>

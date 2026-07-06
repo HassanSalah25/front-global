@@ -123,6 +123,21 @@ html[lang="ar"] Link {
   100% { transform: translateX(-33.333%); }
 }
 
+@keyframes client-logos-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.client-logos-strip:hover .client-logos-track {
+  animation-play-state: paused;
+}
+
+.client-logo-item:hover img {
+  opacity: 1 !important;
+  transform: scale(1.05);
+  filter: none !important;
+}
+
 @keyframes ticker-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
