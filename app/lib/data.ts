@@ -8,13 +8,13 @@ import { FALLBACK_LOCALE, type Locale } from "./i18n";
 export type ClientLogo = { src: string; alt: string };
 
 export const clientLogos: ClientLogo[] = [
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/pepsi-1.png", alt: "Pepsi" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/rotana.png", alt: "Rotana" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/zayed-1.png", alt: "Zayed" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/mbc.png", alt: "MBC" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/mercdes-1.png", alt: "Mercedes-Benz" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/01/orascom.png", alt: "Orascom" },
-  { src: "https://globaluntoldstory.com/wp-content/uploads/2026/02/13-.png", alt: "Client" },
+  { src: "/client-logos/pepsi.png", alt: "Pepsi" },
+  { src: "/client-logos/rotana.png", alt: "Rotana" },
+  { src: "/client-logos/zayed.png", alt: "Zayed" },
+  { src: "/client-logos/mbc.png", alt: "MBC" },
+  { src: "/client-logos/mercedes.png", alt: "Mercedes-Benz" },
+  { src: "/client-logos/orascom.png", alt: "Orascom" },
+  { src: "/client-logos/client-13.png", alt: "Client" },
 ];
 
 export const translations = {
