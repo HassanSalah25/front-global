@@ -10,10 +10,10 @@ export const LOCALE_META = {
   },
   ar: {
     label: "Arabic",
-    nativeLabel: "العربية",
-    flag: "fi-sa",
+    nativeLabel: "عربي",
+    flag: "fi-eg",
     dir: "rtl" as const,
-    numberLocale: "ar-SA",
+    numberLocale: "ar-EG",
   },
   fr: {
     label: "French",
@@ -103,7 +103,7 @@ export function getNumberLocale(locale: Locale): string {
   return LOCALE_META[locale].numberLocale;
 }
 
-/** Inline copy map — `en` required; other locale keys optional. */
+/** Inline copy map — `en` required; other locale keys optional (legacy keys like `ar` are ignored at runtime). */
 export type LocalizedMap<T = string> = Partial<Record<Locale, T>> & Record<string, T> & { en: T };
 
 /** Pick a locale-specific value with fallback to English. */

@@ -51,6 +51,23 @@ function mapCommonLabels(labels: Record<string, string>): Partial<Translation["c
   };
 }
 
+function isJeddahOffice(office: { region: string; address: string }): boolean {
+  return /jeddah|ksa|saudi|جدة|السعودية/i.test(`${office.region} ${office.address}`);
+}
+
+function mergeFooterOffices(
+  baseOffices: Translation["footer"]["offices"],
+  cmsOffices?: Translation["footer"]["offices"]
+): Translation["footer"]["offices"] {
+  if (!cmsOffices?.length) return baseOffices;
+
+  const hasJeddah = cmsOffices.some(isJeddahOffice);
+  if (hasJeddah) return cmsOffices;
+
+  const ksaOffice = baseOffices.find(isJeddahOffice);
+  return ksaOffice ? [...cmsOffices, ksaOffice] : cmsOffices;
+}
+
 export function mergeLayoutIntoTranslation(
   base: Translation,
   layout: LayoutPayload
@@ -62,7 +79,14 @@ export function mergeLayoutIntoTranslation(
     ...base,
     siteConfig: { ...base.siteConfig, ...siteConfig },
     navLinks: layout.nav_links?.length ? layout.nav_links : base.navLinks,
-    footer: { ...base.footer, ...footer },
+    footer: {
+      ...base.footer,
+      ...footer,
+      offices: mergeFooterOffices(
+        base.footer.offices,
+        footer.offices as Translation["footer"]["offices"] | undefined
+      ),
+    },
     announcementBar: layout.announcement?.text ?? base.announcementBar,
     showAnnouncementBar: layout.announcement?.enabled ?? base.showAnnouncementBar,
     common: { ...base.common, ...mapCommonLabels(layout.common_labels || {}) },

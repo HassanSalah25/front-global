@@ -362,8 +362,8 @@ export const translations = {
       allRights: "جميع الحقوق محفوظة.",
       adminDashboard: "لوحة تحكم الإدارة ←",
       offices: [
-        { region: "مصر", address: "مدينة الإنتاج الإعلامي", phone: "+201001299639" },
-        { region: "الإمارات", address: "UAE – Dubai – Business Bay", phone: "+971547711772" },
+        { region: "مكتب مصر", address: "مدينة الإنتاج الإعلامي، مصر", phone: "+201001299639" },
+        { region: "مكتب الإمارات", address: "Business Bay, Dubai, UAE", phone: "+971547711772" },
         { region: "السعودية - جدة", address: "جدة، المملكة العربية السعودية", phone: "+201001299639" },
       ],
     },
@@ -714,8 +714,8 @@ export const translations = {
       allRights: "All rights reserved.",
       adminDashboard: "Admin Dashboard →",
       offices: [
-        { region: "Egypt", address: "Egyptian Media Production City", phone: "+201001299639" },
-        { region: "UAE", address: "UAE – Dubai – Business Bay", phone: "+971547711772" },
+        { region: "Egypt Office", address: "Egyptian Media Production City, Egypt", phone: "+201001299639" },
+        { region: "UAE Office", address: "Business Bay, Dubai, UAE", phone: "+971547711772" },
         { region: "KSA Jeddah", address: "Jeddah, Saudi Arabia", phone: "+201001299639" },
       ],
     },
