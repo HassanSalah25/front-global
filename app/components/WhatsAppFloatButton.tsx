@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLanguage } from "./LanguageContext";
 
 function WhatsAppIcon() {
@@ -17,37 +18,81 @@ function WhatsAppIcon() {
   );
 }
 
+const TOOLTIP_DURATION_MS = 60_000;
+
+function getTooltipText(quoteBadge: string, announcementBar: string): string {
+  if (quoteBadge.trim()) return quoteBadge.trim();
+  return announcementBar.split(/[—–-]/)[0]?.trim() || announcementBar;
+}
+
 export default function WhatsAppFloatButton() {
   const { t, dir } = useLanguage();
+  const [showTooltip, setShowTooltip] = useState(true);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const isRtl = dir === "rtl";
   const phone = t.siteConfig.phone.replace(/\D/g, "");
   const href = `https://wa.me/${phone}`;
+  const tooltipText = getTooltipText(t.heroData.quoteBadge, t.announcementBar);
+
+  useEffect(() => {
+    const showFrame = requestAnimationFrame(() => setTooltipVisible(true));
+    const hideTimer = window.setTimeout(() => setTooltipVisible(false), TOOLTIP_DURATION_MS);
+    const removeTimer = window.setTimeout(() => setShowTooltip(false), TOOLTIP_DURATION_MS + 400);
+
+    return () => {
+      cancelAnimationFrame(showFrame);
+      window.clearTimeout(hideTimer);
+      window.clearTimeout(removeTimer);
+    };
+  }, []);
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="WhatsApp"
-      className="whatsapp-float"
+    <div
+      className="whatsapp-float-wrap"
       style={{
         position: "fixed",
         bottom: 24,
-        [dir === "rtl" ? "left" : "right"]: 24,
+        [isRtl ? "left" : "right"]: 24,
         zIndex: 999,
-        width: 56,
-        height: 56,
-        borderRadius: "50%",
-        background: "#25D366",
-        color: "#fff",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        boxShadow: "0 4px 20px rgba(37, 211, 102, 0.45)",
-        textDecoration: "none",
-        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        gap: 12,
+        flexDirection: isRtl ? "row-reverse" : "row",
       }}
     >
-      <WhatsAppIcon />
-    </a>
+      {showTooltip && (
+        <div
+          className={`whatsapp-tooltip${tooltipVisible ? " whatsapp-tooltip-visible" : ""}${isRtl ? " whatsapp-tooltip-rtl" : ""}`}
+          role="status"
+          aria-live="polite"
+        >
+          {tooltipText}
+        </div>
+      )}
+
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="WhatsApp"
+        className="whatsapp-float"
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: "50%",
+          background: "#25D366",
+          color: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxShadow: "0 4px 20px rgba(37, 211, 102, 0.45)",
+          textDecoration: "none",
+          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          flexShrink: 0,
+        }}
+      >
+        <WhatsAppIcon />
+      </a>
+    </div>
   );
 }

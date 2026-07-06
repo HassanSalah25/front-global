@@ -222,6 +222,51 @@ html[lang="ar"] Link {
   transform: scale(0.96);
 }
 
+.whatsapp-tooltip {
+  position: relative;
+  background: #fff;
+  color: #374151;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.whatsapp-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  border: 7px solid transparent;
+  border-left-color: #fff;
+  filter: drop-shadow(2px 0 2px rgba(0, 0, 0, 0.04));
+}
+
+.whatsapp-tooltip-rtl {
+  transform: translateX(-8px);
+}
+
+.whatsapp-tooltip-rtl::after {
+  right: auto;
+  left: -6px;
+  border-left-color: transparent;
+  border-right-color: #fff;
+  filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.04));
+}
+
+.whatsapp-tooltip-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* ==========================================
    GLOBAL INTERACTIVE STYLES
    ========================================== */
