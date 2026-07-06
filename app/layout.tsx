@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./components/LanguageContext";
 import AppShell from "./components/AppShell";
+import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
 
 export const metadata: Metadata = {
   title: "Untold Agency | Premium Advertising & Marketing Agency",
@@ -29,6 +30,7 @@ export default function RootLayout({
             <Navbar />
             <main>{children}</main>
             <Footer />
+            <WhatsAppFloatButton />
           </AppShell>
         </LanguageProvider>
       </body>
