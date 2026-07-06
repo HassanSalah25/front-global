@@ -49,7 +49,7 @@ function ContactPageContent() {
   const offices = cp.offices;
   const whyUs = pickLocalized(whyContactUs, locale);
 
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "", budget: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
@@ -70,7 +70,6 @@ function ContactPageContent() {
         email: form.email,
         phone: form.phone || undefined,
         service: form.service || undefined,
-        budget: form.budget || undefined,
         message: form.message,
         locale,
       });
@@ -106,7 +105,7 @@ function ContactPageContent() {
               })}
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", service: "", message: "", budget: "" }); setStep(1); }}
+              <button onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", service: "", message: "" }); setStep(1); }}
                 style={{
                   border: "2px solid #0a0a0a", cursor: "pointer",
                   background: "#0a0a0a",
@@ -419,35 +418,6 @@ function ContactPageContent() {
                       <option key={s.id} value={s.id}>{s.title}</option>
                     ))}
                   </select>
-                </div>
-              </div>
-
-              {/* Budget selector */}
-              <div style={{ textAlign: "start" }}>
-                <label style={{ display: "block", fontWeight: 700, fontSize: 13.5, color: "var(--text)", marginBottom: 12 }}>
-                  {tx(locale, { ar: "الميزانية التقريبية:", en: "Approximate Budget:" })}
-                </label>
-                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                  {pickLocalized({
-                    ar: ["أقل من 5K ر.س", "5K - 20K ر.س", "20K - 50K ر.س", "أكثر من 50K ر.س"],
-                    en: ["< $1,500", "$1,500 - $5,000", "$5,000 - $15,000", "$15,000+"],
-                  }, locale).map((b, i) => (
-                    <button
-                      key={i} type="button"
-                      onClick={() => setForm({ ...form, budget: b })}
-                      style={{
-                        background: form.budget === b
-                          ? "linear-gradient(135deg, var(--primary), var(--primary-dark))"
-                          : "var(--bg)",
-                        color: form.budget === b ? "#fff" : "var(--text-muted)",
-                        border: `1.5px solid ${form.budget === b ? "var(--primary)" : "var(--border)"}`,
-                        padding: "9px 16px", borderRadius: 0,
-                        fontSize: 13, fontWeight: 700, cursor: "pointer",
-                        fontFamily: "inherit",
-                        transition: "all 0.25s ease",
-                      }}
-                    >{b}</button>
-                  ))}
                 </div>
               </div>
 

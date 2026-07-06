@@ -309,7 +309,7 @@ export const translations = {
       placeholders: {
         name: "أحمد محمد",
         email: "ahmed@example.com",
-        phone: "+20 10 01299639",
+        phone: "",
         message: "أخبرنا عن مشروعك وما تحتاجه...",
       }
     },
@@ -661,7 +661,7 @@ export const translations = {
       placeholders: {
         name: "John Doe",
         email: "john@example.com",
-        phone: "+20 10 01299639",
+        phone: "",
         message: "Tell us about your project requirements and goals...",
       }
     },
