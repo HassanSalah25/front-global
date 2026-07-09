@@ -152,28 +152,19 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 /* ── Tools Ticker ─────────────────────── */
 function ToolsTicker({ items }: { items: string[] }) {
   if (!items.length) return null;
+  const tickerItems = Array.from({ length: 3 }, () => items).flat();
+
   return (
-    <div style={{ display: "flex", overflow: "hidden", gap: 16, padding: "8px 0" }}>
-      <div style={{
-        display: "flex",
-        gap: 12,
-        animation: "ticker-scroll 20s linear infinite",
-        flexShrink: 0,
-      }}>
-        {[...items, ...items].map((tool, i) => (
-          <span key={i} style={{
-            background: "rgba(99,102,241,0.08)",
-            border: "1px solid rgba(99,102,241,0.15)",
-            color: "var(--primary)",
-            padding: "6px 18px",
-            borderRadius: 0,
-            fontSize: 13,
-            fontWeight: 600,
-            whiteSpace: "nowrap",
-            flexShrink: 0,
-          }}>
-            {tool}
-          </span>
+    <div className="tools-ticker" aria-label={items.join(", ")}>
+      <div className="tools-ticker-track">
+        {[0, 1].map((group) => (
+          <div className="tools-ticker-group" key={group} aria-hidden={group === 1}>
+            {tickerItems.map((tool, i) => (
+              <span className="tools-ticker-item" key={`${group}-${tool}-${i}`}>
+                {tool}
+              </span>
+            ))}
+          </div>
         ))}
       </div>
     </div>
@@ -302,7 +293,7 @@ export default function Home() {
 
               {/* Tools ticker */}
               <Reveal direction="up" delay={400}>
-                <div style={{ marginTop: 44, overflow: "hidden" }}>
+                <div style={{ marginTop: 28, overflow: "hidden" }}>
                   <ToolsTicker items={hd.productionPipeline} />
                 </div>
               </Reveal>
@@ -439,7 +430,7 @@ export default function Home() {
               <span style={{ display: "inline-block", background: "var(--accent-light)", color: "#92400e", fontWeight: 700, fontSize: 13, padding: "6px 18px", borderRadius: 0, marginBottom: 16 }}>{hd.creativeTitle}</span>
             </Reveal>
             <Reveal direction="up" delay={100}>
-              <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)" }}>{hd.creativeSubtitle}</h2>
+              <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)" }}>{(hd.creativeSubtitle as string).replace(/\bevery\b/gi, "Every")}</h2>
             </Reveal>
           </div>
 
@@ -641,6 +632,40 @@ export default function Home() {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
+        .tools-ticker {
+          width: 100%;
+          max-width: 100%;
+          overflow: hidden;
+          position: relative;
+          -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        }
+        .tools-ticker-track {
+          display: flex;
+          width: max-content;
+          animation: ticker-scroll 28s linear infinite;
+          will-change: transform;
+        }
+        .tools-ticker-group {
+          display: flex;
+          min-width: 100%;
+          flex-shrink: 0;
+          justify-content: space-around;
+        }
+        .tools-ticker-item {
+          flex: 0 0 auto;
+          min-width: clamp(128px, 14vw, 186px);
+          background: rgba(99,102,241,0.08);
+          border: 1px solid rgba(99,102,241,0.15);
+          color: var(--primary);
+          padding: 8px 22px;
+          border-radius: 0;
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 1.2;
+          text-align: center;
+          white-space: nowrap;
+        }
         @keyframes ring-pulse {
           0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
           50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
@@ -723,6 +748,9 @@ export default function Home() {
             margin: 0 auto;
             width: 100%;
           }
+          .tools-ticker {
+            width: min(100%, 640px);
+          }
         }
         @media (max-width: 768px) {
           .process-row-top,
@@ -740,6 +768,16 @@ export default function Home() {
           .hero-ctas a {
             width: 100%;
             justify-content: center;
+          }
+          .tools-ticker-item {
+            min-width: 142px;
+            padding: 7px 16px;
+            font-size: 12px;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .tools-ticker-track {
+            animation-duration: 80s;
           }
         }
       `}</style>

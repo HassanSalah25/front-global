@@ -158,7 +158,7 @@ export default function ServiceDetailClient() {
               color: "#a5b4fc", padding: "5px 16px",
               borderRadius: 0, fontSize: 12, fontWeight: 700,
             }}>
-              {service.icon} {tx(locale, { ar: "خدمة", en: "Service" })}
+               {tx(locale, { ar: "خدمة", en: "Service" })}
             </span>
           </div>
 

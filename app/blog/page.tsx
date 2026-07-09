@@ -258,7 +258,7 @@ export default function BlogPage() {
                   )}
                   <div>
                     {featured.author && <div style={{ fontWeight: 700, fontSize: 14, color: "var(--text)" }}>{featured.author}</div>}
-                    <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{featured.date}{featured.read_time ? ` · ${featured.read_time}` : ""}</div>
+                    {/* <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{featured.date}{featured.read_time ? ` · ${featured.read_time}` : ""}</div> */}
                   </div>
                 </div>
                 <Link href={featured.slug ? `/blog/${featured.slug}` : "/blog"} style={{
@@ -330,9 +330,9 @@ export default function BlogPage() {
                       }}>
                         {tx(locale, { ar: "اقرأ المزيد", en: "Read More" })} →
                       </Link>
-                      <span style={{ fontSize: 12, color: "var(--text-light)", fontWeight: 600 }}>
+                      {/* <span style={{ fontSize: 12, color: "var(--text-light)", fontWeight: 600 }}>
                         {post.read_time ?? tx(locale, { ar: `${3 + index} دقائق قراءة`, en: `${3 + index} min read` })}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </article>
@@ -352,7 +352,7 @@ export default function BlogPage() {
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(99,102,241,0.08) 1px, transparent 1px)", backgroundSize: "40px 40px", pointerEvents: "none" }} />
         <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center", position: "relative" }}>
           <Reveal direction="down">
-            <div style={{ fontSize: 64, marginBottom: 20 }}>📬</div>
+            <div style={{ fontSize: 64, marginBottom: 20 }}></div>
           </Reveal>
           <Reveal direction="up" delay={100}>
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 900, color: "#fff", marginBottom: 16 }}>
@@ -460,22 +460,22 @@ export default function BlogPage() {
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "var(--text)", textAlign: "center", marginBottom: 48 }}>
-              {tx(locale, { ar: "📚 موارد مجانية لك", en: "📚 Free Resources for You" })}
+              {tx(locale, { ar: " موارد مجانية لك", en: " Free Resources for You" })}
             </h2>
           </Reveal>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
             {pickLocalized({
               ar: [
-                { icon: "📖", title: "دليل التسويق الرقمي 2024", type: "PDF مجاني", color: "#6366f1" },
-                { icon: "📊", title: "قالب تقرير الأداء الشهري", type: "Excel مجاني", color: "#10b981" },
-                { icon: "🎯", title: "مصطلحات التسويق الأساسية", type: "قاموس مجاني", color: "#f59e0b" },
-                { icon: "🎬", title: "ورشة عمل السوشيال ميديا", type: "فيديو مجاني", color: "#8b5cf6" },
+                { icon: "", title: "دليل التسويق الرقمي 2024", type: "PDF مجاني", color: "#6366f1" },
+                { icon: "", title: "قالب تقرير الأداء الشهري", type: "Excel مجاني", color: "#10b981" },
+                { icon: "", title: "مصطلحات التسويق الأساسية", type: "قاموس مجاني", color: "#f59e0b" },
+                { icon: "", title: "ورشة عمل السوشيال ميديا", type: "فيديو مجاني", color: "#8b5cf6" },
               ],
               en: [
-                { icon: "📖", title: "Digital Marketing Guide 2024", type: "Free PDF", color: "#6366f1" },
-                { icon: "📊", title: "Monthly Performance Report Template", type: "Free Excel", color: "#10b981" },
-                { icon: "🎯", title: "Essential Marketing Terms Glossary", type: "Free Dictionary", color: "#f59e0b" },
-                { icon: "🎬", title: "Social Media Workshop", type: "Free Video", color: "#8b5cf6" },
+                { icon: "", title: "Digital Marketing Guide 2024", type: "Free PDF", color: "#6366f1" },
+                { icon: "", title: "Monthly Performance Report Template", type: "Free Excel", color: "#10b981" },
+                { icon: "", title: "Essential Marketing Terms Glossary", type: "Free Dictionary", color: "#f59e0b" },
+                { icon: "", title: "Social Media Workshop", type: "Free Video", color: "#8b5cf6" },
               ],
             }, locale).map((r, i) => (
               <Reveal key={i} direction="up" delay={i * 80}>

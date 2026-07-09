@@ -9,7 +9,7 @@ import { pickLocalized, type Locale } from "../lib/i18n";
 
 const workShowcase = {
   ar: {
-    badge: "✨ أحدث أعمالنا",
+    badge: " أحدث أعمالنا",
     title: "إبداع يتجاوز التوقعات",
     subtitle: "نماذج من مشاريعنا الناجحة في مختلف المجالات",
     viewAll: "عرض جميع الأعمال",
@@ -49,8 +49,8 @@ const workShowcase = {
     ],
   },
   en: {
-    badge: "✨ Our Work",
-    title: "Projects done by The Untold Story",
+    badge: " Our Work",
+    title: "Projects Done by The Untold Story",
     subtitle: "Film, video, advertising, documentaries, and corporate content",
     viewAll: "Our Work",
     projects: [
@@ -90,12 +90,17 @@ const workShowcase = {
   },
 };
 
+function sanitizeBadge(s: string) {
+  return s.replace(/[\u{2600}-\u{27BF}\u{1F000}-\u{1FFFF}]/gu, "").trim();
+}
+
 export default function WorkShowcase({ locale = "en", title }: { locale?: Locale | string; title?: string }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const { workShowcase: cmsShowcase } = useLanguage();
   const staticData = pickLocalized(workShowcase, locale as Locale);
   const d = cmsShowcase ?? staticData;
-  const displayTitle = title || d.title;
+  const displayTitle = (title || d.title).replace(/\bdone\b/gi, "Done");
+  const cleanBadge = sanitizeBadge(d.badge);
 
   return (
     <section style={{
@@ -117,7 +122,7 @@ export default function WorkShowcase({ locale = "en", title }: { locale?: Locale
                 borderRadius: 0,
                 marginBottom: 16,
               }}>
-                {d.badge}
+                {cleanBadge}
               </span>
             </Reveal>
             <Reveal direction="up" delay={100}>
@@ -249,7 +254,7 @@ export default function WorkShowcase({ locale = "en", title }: { locale?: Locale
               fontWeight: 600,
               color: "#666",
             }}>
-              📈 <span style={{ color: "#000" }}>{proj.metric}</span>
+              <span style={{ color: "#000" }}>{proj.metric}</span>
             </div>
           </div>
         </div>
