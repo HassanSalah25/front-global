@@ -145,7 +145,7 @@ export default function AnimatedStats() {
             marginBottom: 20,
             borderLeft: "3px solid var(--primary)",
           }}>
-            {tx(locale, { en: "🎬 The Untold Story", ar: "🎬 The Untold Story" })}
+            {tx(locale, { en: " The Untold Story", ar: " The Untold Story" })}
           </span>
           <h2 style={{
             fontSize: "clamp(2rem, 3.5vw, 2.8rem)",

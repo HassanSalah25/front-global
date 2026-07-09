@@ -501,7 +501,7 @@ export default function AboutPage() {
                       }}
                       className="timeline-card"
                       >
-                        <span style={{ fontSize: 28, display: "block", marginBottom: 8 }}>{item.icon}</span>
+                        {/* <span style={{ fontSize: 28, display: "block", marginBottom: 8 }}>{item.icon}</span> */}
                         <div style={{ fontWeight: 900, fontSize: 22, color: "var(--primary)", marginBottom: 6 }}>{item.year}</div>
                         <h3 style={{ fontWeight: 800, fontSize: 17, color: "var(--text)", marginBottom: 8 }}>{item.title}</h3>
                         <p style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>{item.desc}</p>
@@ -534,7 +534,7 @@ export default function AboutPage() {
                       }}
                       className="timeline-card"
                       >
-                        <span style={{ fontSize: 28, display: "block", marginBottom: 8 }}>{item.icon}</span>
+                        {/* <span style={{ fontSize: 28, display: "block", marginBottom: 8 }}>{item.icon}</span> */}
                         <div style={{ fontWeight: 900, fontSize: 22, color: "var(--primary)", marginBottom: 6 }}>{item.year}</div>
                         <h3 style={{ fontWeight: 800, fontSize: 17, color: "var(--text)", marginBottom: 8 }}>{item.title}</h3>
                         <p style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>{item.desc}</p>

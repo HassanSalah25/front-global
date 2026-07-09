@@ -23,7 +23,6 @@ export default function LanguageSwitcher({ variant = "desktop" }: LanguageSwitch
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLUListElement>(null);
-  const current = getLocaleMeta(locale);
   const isMobile = variant === "mobile";
 
   const updateMenuPosition = useCallback(() => {
@@ -150,30 +149,41 @@ export default function LanguageSwitcher({ variant = "desktop" }: LanguageSwitch
         aria-expanded={open}
         aria-label="Select language"
         style={{
-          background: isMobile ? "#0a0a0a" : "#ffffff",
-          border: isMobile ? "1px solid #0a0a0a" : "1.5px solid #ffffff",
-          color: "#fff",
-          padding: isMobile ? "5px 10px" : "6px 12px",
-          borderRadius: 0,
-          fontSize: isMobile ? 13 : 14,
-          fontWeight: 600,
+          background: "none",
+          border: "none",
+          color: "var(--text-muted)",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
-          gap: 6,
-          transition: "all 0.2s ease",
+          justifyContent: "center",
+          padding: isMobile ? 6 : 8,
+          borderRadius: 0,
+          transition: "color 0.2s ease, transform 0.2s ease",
         }}
-        className={isMobile ? undefined : "lang-toggle-btn"}
+        className="lang-globe-btn"
       >
-        <span
-          className={`fi ${current.flag}`}
-          style={{ fontSize: isMobile ? 20 : 22, lineHeight: 1, borderRadius: 3, boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }}
-        />
-        <span style={{ fontSize: 12, opacity: 0.85 }}>{current.nativeLabel}</span>
-        <span style={{ fontSize: 10, opacity: 0.7 }}>{open ? "▲" : "▼"}</span>
+        <svg
+          width={isMobile ? 22 : 24}
+          height={isMobile ? 22 : 24}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{ display: "block" }}
+        >
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
       </button>
 
       {mounted && menu ? createPortal(menu, document.body) : null}
+
+      <style>{`
+        .lang-globe-btn:hover { color: var(--primary) !important; transform: scale(1.08); }
+      `}</style>
     </div>
   );
 }

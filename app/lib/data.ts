@@ -28,10 +28,10 @@ export const translations = {
       address: "Egyptian Media Production City, Egypt",
       workingHours: "الأحد – الخميس، ٩ص – ٦م",
       socialLinks: {
-        instagram: "https://instagram.com",
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        youtube: "https://youtube.com",
+        instagram: "https://www.instagram.com/globaluntoldstory?igsh=dGpjdDJ6cHRkMHB2",
+        facebook: "https://www.facebook.com/theuntoldstory.adv",
+        linkedin: "https://www.linkedin.com/company/the-untold-story-film-production-services/",
+        vimeo: "https://vimeo.com/globaluntoldstory",
       },
     },
     navLinks: [
@@ -247,10 +247,10 @@ export const translations = {
       },
       whyTitle: "لماذا The Untold Story?",
       whyList: [
-        { icon: "🎬", title: "دورة إنتاج متكاملة", desc: "من التخطيط والتصوير إلى ما بعد الإنتاج والتعريب والتسليم النهائي." },
-        { icon: "🌍", title: "المنطقة والعالم", desc: "مكاتب في مصر ودبي وجدة لخدمة العملاء حول العالم." },
-        { icon: "🇪🇬", title: "إنتاج على أرض الواقع في مصر", desc: "تصاريح وطاقم ومعدات ولوجستيات ومواقع للتصوير الدولي." },
-        { icon: "⚡", title: "تنفيذ منضبط", desc: "ميزانيات متوقعة، نتائج متميزة، وخطوات واضحة." },
+        { icon: "clapper", title: "دورة إنتاج متكاملة", desc: "من التخطيط والتصوير إلى ما بعد الإنتاج والتعريب والتسليم النهائي." },
+        { icon: "globe", title: "المنطقة والعالم", desc: "مكاتب في مصر ودبي وجدة لخدمة العملاء حول العالم." },
+        { icon: "camera", title: "إنتاج على أرض الواقع في مصر", desc: "تصاريح وطاقم ومعدات ولوجستيات ومواقع للتصوير الدولي." },
+        { icon: "sparkles", title: "تنفيذ منضبط", desc: "ميزانيات متوقعة، نتائج متميزة، وخطوات واضحة." },
       ],
       ctaTitle: "احصل على عرض سعر",
       ctaSub: "أرسل brief وسنرد بالخطة المناسبة والخطوات التالية.",
@@ -271,7 +271,6 @@ export const translations = {
           address: "مدينة الإنتاج الإعلامي، مصر",
           phone: "+201001299639",
           email: "bendary@globaluntoldstory.com",
-          time: "GMT+2",
           status: "المقر الرئيسي",
         },
         {
@@ -281,7 +280,6 @@ export const translations = {
           country: "الإمارات العربية المتحدة",
           address: "Business Bay, Dubai, UAE",
           phone: "+971547711772",
-          time: "GMT+4",
           status: "مكتب إقليمي",
         },
         {
@@ -291,7 +289,6 @@ export const translations = {
           country: "المملكة العربية السعودية",
           address: "جدة، المملكة العربية السعودية",
           phone: "+201001299639",
-          time: "GMT+3",
           status: "مكتب إقليمي",
         },
       ],
@@ -342,7 +339,7 @@ export const translations = {
       ]
     },
     footer: {
-      brandDesc: "The Untold Story — استوديو إنتاج أفلام وفيديو متكامل في مصر ومنطقة الشرق الأوسط وشمال أفريقيا.",
+      brandDesc: "The Untold Story استوديو إنتاج أفلام وفيديو متكامل في مصر ومنطقة الشرق الأوسط وشمال أفريقيا.",
       aboutTitle: "عن الشركة",
       aboutLinks: [
         { href: "/about", label: "من نحن" },
@@ -380,10 +377,10 @@ export const translations = {
       address: "Egyptian Media Production City, Egypt",
       workingHours: "Sunday – Thursday, 9AM – 6PM",
       socialLinks: {
-        instagram: "https://instagram.com",
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        youtube: "https://youtube.com",
+        instagram: "https://www.instagram.com/globaluntoldstory?igsh=dGpjdDJ6cHRkMHB2",
+        facebook: "https://www.facebook.com/theuntoldstory.adv",
+        linkedin: "https://www.linkedin.com/company/the-untold-story-film-production-services/",
+        vimeo: "https://vimeo.com/globaluntoldstory",
       },
     },
     navLinks: [
@@ -599,10 +596,10 @@ export const translations = {
       },
       whyTitle: "Why The Untold Story?",
       whyList: [
-        { icon: "🎬", title: "Full Production Cycle", desc: "From planning and filming to post, localization, and final delivery." },
-        { icon: "🌍", title: "MENA & Global Reach", desc: "Offices in Egypt, Dubai, and Jeddah serving clients worldwide." },
-        { icon: "🇪🇬", title: "On-Ground in Egypt", desc: "Permits, crews, gear, logistics, and locations for international shoots." },
-        { icon: "⚡", title: "Disciplined Execution", desc: "Predictable budgets, premium results, and clear next steps." },
+        { icon: "clapper", title: "Full Production Cycle", desc: "From planning and filming to post, localization, and final delivery." },
+        { icon: "globe", title: "MENA & Global Reach", desc: "Offices in Egypt, Dubai, and Jeddah serving clients worldwide." },
+        { icon: "camera", title: "On-Ground in Egypt", desc: "Permits, crews, gear, logistics, and locations for international shoots." },
+        { icon: "sparkles", title: "Disciplined Execution", desc: "Predictable budgets, premium results, and clear next steps." },
       ],
       ctaTitle: "Get a Quote",
       ctaSub: "Send your brief and we will respond with the right plan and next steps.",
@@ -623,7 +620,6 @@ export const translations = {
           address: "Egyptian Media Production City, Egypt",
           phone: "+201001299639",
           email: "bendary@globaluntoldstory.com",
-          time: "GMT+2",
           status: "Main Office",
         },
         {
@@ -633,7 +629,6 @@ export const translations = {
           country: "UAE",
           address: "Business Bay, Dubai, UAE",
           phone: "+971547711772",
-          time: "GMT+4",
           status: "Regional Office",
         },
         {
@@ -643,7 +638,6 @@ export const translations = {
           country: "KSA",
           address: "Jeddah, Saudi Arabia",
           phone: "+201001299639",
-          time: "GMT+3",
           status: "Regional Office",
         },
       ],

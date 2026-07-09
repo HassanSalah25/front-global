@@ -8,6 +8,41 @@ import type { ServiceDataItem, WhyListItem } from "../lib/data";
 import ServiceCardMedia from "../components/ServiceCardMedia";
 import { tx } from "../lib/i18n";
 
+const cinemaIcons: Record<string, React.ReactNode> = {
+  clapper: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%", display: "block" }}>
+      <path d="M4 4h16v16H4z"/>
+      <path d="M4 8h16"/>
+      <path d="M8 4l-2 4"/>
+      <path d="M12 4l-2 4"/>
+      <path d="M16 4l-2 4"/>
+      <path d="M6 12l2-2"/>
+      <path d="M12 12l2-2"/>
+    </svg>
+  ),
+  globe: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%", display: "block" }}>
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+  ),
+  camera: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%", display: "block" }}>
+      <path d="M2 8a2 2 0 0 1 2-2h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8z"/>
+      <circle cx="12" cy="13" r="4"/>
+      <circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/>
+    </svg>
+  ),
+  sparkles: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%", display: "block" }}>
+      <path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/>
+      <path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z"/>
+      <path d="M5 14l.8 2.2L8 17l-2.2.8L5 20l-.8-2.2L2 17l2.2-.8z"/>
+    </svg>
+  ),
+};
+
 export default function ServicesPage() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -253,7 +288,9 @@ export default function ServicesPage() {
                   borderRadius: "0", padding: 32,
                   border: "1px solid var(--border)", height: "100%",
                 }}>
-                  <div style={{ fontSize: 44, marginBottom: 16 }}>{item.icon}</div>
+                  <div style={{ width: 52, height: 52, marginBottom: 16, color: "#000", display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "60px" }}>
+                    {cinemaIcons[item.icon] || <span style={{ fontSize: 44 }}>{item.icon}</span>}
+                  </div>
                   <h3 style={{ fontWeight: 800, fontSize: 18, color: "var(--text)", marginBottom: 10 }}>{item.title}</h3>
                   <p style={{ color: "var(--text-muted)", fontSize: 14.5, lineHeight: 1.8 }}>{item.desc}</p>
                 </div>

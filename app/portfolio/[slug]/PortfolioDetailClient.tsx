@@ -177,12 +177,12 @@ export default function PortfolioDetailClient() {
               {item.results && (
                 <Reveal direction="up">
                   <div style={{
-                    background: "var(--primary-light)", color: "var(--primary)",
+                    color: "#000",
                     padding: "16px 24px", borderRadius: 0, fontSize: 15.5, fontWeight: 700,
                     display: "flex", alignItems: "flex-start", gap: 12,
                     marginBottom: 36, border: "1px solid rgba(99,102,241,0.2)",
                   }}>
-                    <span style={{ fontSize: 22, flexShrink: 0 }}>📈</span>
+                    {/* <span style={{ fontSize: 22, flexShrink: 0 }}>📈</span> */}
                     <span>{item.results}</span>
                   </div>
                 </Reveal>

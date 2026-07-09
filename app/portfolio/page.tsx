@@ -174,25 +174,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── Client Logos ──────────────────────── */}
-      <section style={{ padding: "40px 24px", background: "var(--bg-card)", borderBottom: "1px solid var(--border)" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-          <span style={{ color: "var(--text-muted)", fontSize: 13, fontWeight: 700, marginLeft: 16 }}>
-            {tx(locale, { ar: "عملنا مع:", en: "Worked with:" })}
-          </span>
-          {clientLogosRow.map((c, i) => (
-            <span key={i} style={{
-              background: "var(--bg-muted)",
-              border: "1px solid var(--border)",
-              borderRadius: 8, padding: "6px 16px",
-              fontSize: 13, fontWeight: 700,
-              color: "var(--text-muted)",
-              transition: "all 0.2s ease",
-            }}
-            className="client-logo-chip"
-            >{c}</span>
-          ))}
-        </div>
-      </section>
+      
 
       {/* ── Filter Strip ──────────────────────── */}
       <section style={{ padding: "40px 24px 0", background: "var(--bg)", display: "flex", justifyContent: "center" }}>
@@ -285,12 +267,12 @@ export default function PortfolioPage() {
                         transition: "transform 0.4s ease",
                         display: "flex", gap: 10,
                       }}>
-                        <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
+                        {/* <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
                           Duration: {proj.duration}
                         </div>
                         <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
                           Budget: {proj.budget}
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

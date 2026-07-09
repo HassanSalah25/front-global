@@ -307,22 +307,7 @@ export default function Home() {
                 </div>
               </Reveal>
 
-              <Reveal direction="up" delay={500}>
-                <div style={{ display: "flex", gap: 16, marginTop: 28, flexWrap: "wrap" }}>
-                  {t.heroData.badges.map((b: string, i: number) => (
-                    <span key={i} style={{
-                      background: "#fff",
-                      border: "1px solid var(--border)",
-                      borderRadius: 0,
-                      padding: "8px 18px",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: "var(--text-muted)",
-                      boxShadow: "var(--shadow-sm)"
-                    }}>{b}</span>
-                  ))}
-                </div>
-              </Reveal>
+              
             </div>
 
             {/* Hero Image */}
@@ -486,7 +471,7 @@ export default function Home() {
                       unoptimized
                       style={{
                         width: 48,
-                        height: 48,
+                        height: 75,
                         borderRadius: "0",
                         objectFit: "cover",
                         border: "2px solid var(--primary-light)"

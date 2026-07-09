@@ -86,8 +86,6 @@ export default function BlogPostClient() {
   const authorName = post.author ?? post.authorName;
   const authorImage = resolveMediaUrl(post.author_image ?? post.authorImage) || undefined;
   const featuredImage = resolveMediaUrl(post.featured_image ?? post.featuredImage) || undefined;
-  const readTime =
-    post.read_time ?? (post.readTimeMinutes ? `${post.readTimeMinutes} min` : undefined);
 
   return (
     <div>
@@ -170,7 +168,7 @@ export default function BlogPostClient() {
                   <div style={{ fontWeight: 700, fontSize: 14, color: "#fff" }}>{authorName}</div>
                 )}
                 <div style={{ fontSize: 12, color: "#64748b" }}>
-                  {post.date}{readTime ? ` · ${readTime}` : ""}
+                  {post.date}
                 </div>
               </div>
             </div>
@@ -195,16 +193,14 @@ export default function BlogPostClient() {
       <section style={{ padding: "64px 24px 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 860, margin: "0 auto" }}>
           {post.body ? (
-            <Reveal direction="up">
-              <div
-                className="blog-body"
-                style={{
-                  color: "var(--text-muted)",
-                  fontSize: 17, lineHeight: 1.9,
-                }}
-                dangerouslySetInnerHTML={{ __html: post.body }}
-              />
-            </Reveal>
+            <div
+              className="blog-body"
+              style={{
+                color: "var(--text)",
+                fontSize: 17, lineHeight: 1.9,
+              }}
+              dangerouslySetInnerHTML={{ __html: post.body }}
+            />
           ) : (
             <p style={{ color: "var(--text-muted)", fontSize: 17, lineHeight: 1.9 }}>
               {post.excerpt}

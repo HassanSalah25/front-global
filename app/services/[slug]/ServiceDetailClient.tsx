@@ -603,6 +603,7 @@ export default function ServiceDetailClient() {
           font-size: 13px;
           font-weight: 700;
           letter-spacing: 0.03em;
+          display:none;
         }
 
         /* ── Reflection bar ── */

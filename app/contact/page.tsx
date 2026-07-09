@@ -4,23 +4,31 @@ import { useState, useEffect, Suspense, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Mail, MapPin, CheckCircle, Building, Clock, MessageSquare, ShieldCheck, Briefcase } from "lucide-react";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
 import type { InfoItem as OfficeItem } from "../lib/data";
 import { pickLocalized, tx } from "../lib/i18n";
 
+const whyUsIcons: Record<string, React.ReactNode> = {
+  clock: <Clock size={22} strokeWidth={1.5} />,
+  messageSquare: <MessageSquare size={22} strokeWidth={1.5} />,
+  shield: <ShieldCheck size={22} strokeWidth={1.5} />,
+  briefcase: <Briefcase size={22} strokeWidth={1.5} />,
+};
+
 const whyContactUs = {
   ar: [
-    { icon: "", title: "رد خلال ساعة", desc: "فريقنا جاهز للرد على استفساراتك خلال ساعة واحدة في أيام العمل" },
-    { icon: "", title: "استشارة مجانية", desc: "احصل على استشارة تسويقية مجانية مدتها 30 دقيقة مع أحد خبرائنا" },
-    { icon: "", title: "سرية تامة", desc: "معلوماتك ومشروعك محمي بالكامل وفق أعلى معايير الخصوصية" },
-    { icon: "", title: "خبرة تزيد عن 9 سنوات", desc: "فريق من الخبراء المتخصصين في كل مجالات التسويق الرقمي" },
+    { icon: "clock", title: "رد خلال ساعة", desc: "فريقنا جاهز للرد على استفساراتك خلال ساعة واحدة في أيام العمل" },
+    { icon: "messageSquare", title: "استشارة مجانية", desc: "احصل على استشارة تسويقية مجانية مدتها 30 دقيقة مع أحد خبرائنا" },
+    { icon: "shield", title: "سرية تامة", desc: "معلوماتك ومشروعك محمي بالكامل وفق أعلى معايير الخصوصية" },
+    { icon: "briefcase", title: "خبرة تزيد عن 9 سنوات", desc: "فريق من الخبراء المتخصصين في كل مجالات التسويق الرقمي" },
   ],
   en: [
-    { icon: "", title: "1-Hour Response", desc: "Our team is ready to answer your inquiries within one hour on business days" },
-    { icon: "", title: "Free Consultation", desc: "Get a free 30-minute marketing consultation with one of our experts" },
-    { icon: "", title: "Full Confidentiality", desc: "Your information and project are fully protected under the highest privacy standards" },
-    { icon: "", title: "9+ Years Experience", desc: "A team of specialists in all areas of digital marketing" },
+    { icon: "clock", title: "1-Hour Response", desc: "Our team is ready to answer your inquiries within one hour on business days" },
+    { icon: "messageSquare", title: "Free Consultation", desc: "Get a free 30-minute marketing consultation with one of our experts" },
+    { icon: "shield", title: "Full Confidentiality", desc: "Your information and project are fully protected under the highest privacy standards" },
+    { icon: "briefcase", title: "9+ Years Experience", desc: "A team of specialists in all areas of digital marketing" },
   ],
 };
 
@@ -96,7 +104,9 @@ function ContactPageContent() {
             maxWidth: 520,
             boxShadow: "0 24px 60px rgba(99,102,241,0.15)",
           }}>
-            <div style={{ fontSize: 80, marginBottom: 24, animation: "pop-in 0.5s cubic-bezier(0.16,1,0.3,1)" }}>🎉</div>
+            <div style={{ marginBottom: 24, animation: "pop-in 0.5s cubic-bezier(0.16,1,0.3,1)", color: "#000", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <CheckCircle size={72} strokeWidth={1.5} />
+            </div>
             <h2 style={{ fontWeight: 900, fontSize: 28, color: "var(--text)", marginBottom: 14 }}>{t.common.successTitle}</h2>
             <p style={{ color: "var(--text-muted)", fontSize: 16, lineHeight: 1.85, marginBottom: 36 }}>
               {tx(locale, {
@@ -201,10 +211,10 @@ function ContactPageContent() {
                 }}
                 className="office-chip"
                 >
-                  <span style={{ fontSize: 22 }}>{office.flag}</span>
+                  <MapPin size={20} strokeWidth={1.5} style={{ color: "#a5b4fc", flexShrink: 0 }} />
                   <div style={{ textAlign: "start" }}>
                     <div style={{ fontWeight: 700, fontSize: 14, color: "#fff" }}>{office.title}</div>
-                    <div style={{ fontSize: 11, color: "#64748b" }}>{office.status} · {office.time}</div>
+                    <div style={{ fontSize: 11, color: "#64748b" }}>{office.status}</div>
                   </div>
                 </div>
               ))}
@@ -223,7 +233,14 @@ function ContactPageContent() {
                   display: "flex", alignItems: "flex-start", gap: 16,
                   padding: "20px 0",
                 }}>
-               
+                  <div style={{
+                    width: 44, height: 44, flexShrink: 0,
+                    background: "var(--primary-light)",
+                    borderRadius: 12, display: "flex", alignItems: "center",
+                    justifyContent: "center", color: "var(--primary)",
+                  }}>
+                    {whyUsIcons[item.icon] || null}
+                  </div>
                   <div>
                     <h3 style={{ fontWeight: 800, fontSize: 16, color: "var(--text)", marginBottom: 6 }}>{item.title}</h3>
                     <p style={{ color: "var(--text-muted)", fontSize: 13.5, lineHeight: 1.75 }}>{item.desc}</p>
@@ -267,8 +284,10 @@ function ContactPageContent() {
                   width: 44, height: 44, flexShrink: 0,
                   background: "var(--primary-light)",
                   borderRadius: 12, display: "flex", alignItems: "center",
-                  justifyContent: "center", fontSize: 22,
-                }}>📧</div>
+                  justifyContent: "center",
+                }}>
+                  <Mail size={22} strokeWidth={1.5} style={{ color: "var(--primary)" }} />
+                </div>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 12.5, color: "var(--text-muted)", marginBottom: 4 }}>
                     {tx(locale, { ar: "البريد الإلكتروني", en: "Email Address" })}
@@ -295,8 +314,10 @@ function ContactPageContent() {
                     width: 44, height: 44, flexShrink: 0,
                     background: "var(--primary-light)",
                     borderRadius: 12, display: "flex", alignItems: "center",
-                    justifyContent: "center", fontSize: 22,
-                  }}>{office.flag}</div>
+                    justifyContent: "center",
+                  }}>
+                    <MapPin size={22} strokeWidth={1.5} style={{ color: "var(--primary)" }} />
+                  </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                     <div style={{ fontWeight: 800, fontSize: 15.5, color: "var(--text)" }}>{office.title}</div>
                     <div>
@@ -490,7 +511,9 @@ function ContactPageContent() {
                 }}
                 className="office-card"
                 >
-                  <div style={{ fontSize: 44, marginBottom: 16 }}>{office.flag}</div>
+                  <div style={{ fontSize: 44, marginBottom: 16, color: i === 0 ? "#fff" : "var(--primary)" }}>
+                    <Building size={44} strokeWidth={1.2} />
+                  </div>
                   <h3 style={{ fontWeight: 900, fontSize: 20, color: i === 0 ? "#fff" : "var(--text)", marginBottom: 6 }}>{office.title}</h3>
                   <p style={{ color: i === 0 ? "rgba(255,255,255,0.75)" : "var(--text-muted)", fontSize: 14, marginBottom: 10, lineHeight: 1.6 }}>{office.address}</p>
                   <a href={`tel:${office.phone.replace(/\s/g, "")}`} style={{
