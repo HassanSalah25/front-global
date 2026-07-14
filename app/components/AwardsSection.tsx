@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
-import ClientLogosStrip from "./ClientLogosStrip";
 import { normalizeLocale, pickLocalized, type Locale } from "../lib/i18n";
 
 // Cinema-themed SVG icons (realistic silhouettes)
@@ -126,13 +125,6 @@ export default function AwardsSection({ locale = "en" }: { locale?: Locale | str
               {d.subtitle}
             </p>
           </Reveal>
-
-          <Reveal direction="up" delay={280}>
-            <div style={{ marginTop: 48, width: "100%" }}>
-              <ClientLogosStrip variant="dark" />
-            </div>
-          </Reveal>
-
         </div>
 
         {/* Awards Grid */}

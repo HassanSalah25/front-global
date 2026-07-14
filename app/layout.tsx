@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PartnersSection from "./components/PartnersSection";
 import { LanguageProvider } from "./components/LanguageContext";
 import AppShell from "./components/AppShell";
 import WhatsAppFloatButton from "./components/WhatsAppFloatButton";
@@ -29,6 +30,7 @@ export default function RootLayout({
           <AppShell>
             <Navbar />
             <main>{children}</main>
+            <PartnersSection />
             <Footer />
             <WhatsAppFloatButton />
           </AppShell>
