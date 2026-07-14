@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
-import ClientLogosStrip from "../components/ClientLogosStrip";
 import type { StatDataItem, ValueItem, TeamMember } from "../lib/data";
 import { fetchAbout, resolveMediaUrl } from "../lib/api";
 import type { AboutPayload, ApiLocale } from "../lib/api";
@@ -750,23 +749,6 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Partners Strip ────────────────────── */}
-      <section style={{ padding: "64px 24px", background: "var(--bg-card)", borderTop: "1px solid var(--border)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <Reveal direction="down">
-            <div style={{ textAlign: "center", marginBottom: 32 }}>
-              <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p>
-              <h2 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 900, color: "var(--text)", margin: 0 }}>
-                {ad.partnersTitle}
-              </h2>
-            </div>
-          </Reveal>
-          <Reveal direction="up" delay={100}>
-            <ClientLogosStrip variant="light" />
-          </Reveal>
         </div>
       </section>
 
