@@ -6,7 +6,7 @@ import { useLanguage } from "./LanguageContext";
 
 export default function TrustedBySection() {
   const { t } = useLanguage();
-  const { partnersBadge, partnersTitle } = t.aboutData;
+  const { partnersTitle } = t.aboutData;
 
   return (
     <section
@@ -46,18 +46,6 @@ export default function TrustedBySection() {
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
         <Reveal direction="down">
           <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <p
-              style={{
-                color: "rgba(255,255,255,0.55)",
-                fontSize: 13,
-                fontWeight: 700,
-                letterSpacing: 1.2,
-                textTransform: "uppercase",
-                marginBottom: 12,
-              }}
-            >
-              {partnersBadge}
-            </p>
             <h2
               style={{
                 fontSize: "clamp(1.6rem, 3vw, 2.2rem)",

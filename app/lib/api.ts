@@ -205,6 +205,15 @@ export interface AboutPayload {
   values?: Array<{ icon: string; title: string; desc?: string; description?: string }>;
   stats?: Array<{ value: string; label: string; icon?: string }>;
   partnerLabels?: string[];
+  expertise?: Array<{
+    tag: string;
+    tag_ar?: string;
+    tagAr?: string;
+    title?: string;
+    video?: string;
+    video_url?: string;
+    poster?: string;
+  }>;
 }
 
 export interface PortfolioItem {

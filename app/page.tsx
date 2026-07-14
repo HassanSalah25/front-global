@@ -207,22 +207,6 @@ export default function Home() {
             alignItems: "center",
           }} className="hero-split">
             <div style={{ textAlign: "start" }} className="hero-text">
-              <Reveal direction="down">
-                <span style={{
-                  display: "inline-block",
-                  background: "var(--primary-light)",
-                  color: "var(--primary)",
-                  fontWeight: 700,
-                  fontSize: 14,
-                  padding: "8px 22px",
-                  borderRadius: 0,
-                  marginBottom: 24,
-                  boxShadow: "0 4px 12px rgba(99, 102, 241, 0.08)"
-                }}>
-                  {t.heroData.badge}
-                </span>
-              </Reveal>
-              
               <Reveal direction="up" delay={100}>
                 <h1 style={{
                   fontSize: "clamp(2.5rem, 5vw, 3.8rem)",

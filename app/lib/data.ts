@@ -209,7 +209,7 @@ export const translations = {
       visionTitle: "رؤيتنا",
       visionDesc: "صناعة تجارب سينمائية تأسر وتُحرّك وتبقى مع الجمهور — من الشرارة الأولى إلى الإطار الأخير.",
       valuesBadge: "ما الذي نقدمه",
-      valuesTitle: "إنتاج شامل بإتقان",
+      valuesTitle: "نقدّم إنتاجاً شاملاً بإتقان",
       valuesList: [
         { icon: "🎬", title: "دورة إنتاج متكاملة", desc: "من الفكرة إلى الإطار النهائي، نتولى كل مرحلة بدقة ولمسة مميزة." },
         { icon: "🌐", title: "إنتاج متعدد اللغات", desc: "إنتاج جاهز للعالم عبر اللغات والأسواق — نغطيه بالكامل." },
@@ -558,7 +558,7 @@ export const translations = {
       visionTitle: "Our Vision",
       visionDesc: "To craft cinematic experiences that captivate, move, and stay with audiences — from the first spark to the final frame.",
       valuesBadge: "What We Offer",
-      valuesTitle: "End-to-End Production Excellence",
+      valuesTitle: "We Offer End-to-End Production Excellence",
       valuesList: [
         { icon: "🎬", title: "Full Production Cycle", desc: "From concept to final frame, we handle every stage with precision and flair." },
         { icon: "🌐", title: "Multilingual Production", desc: "Global-ready production across languages and markets — we've got you covered." },
