@@ -177,16 +177,16 @@ function ContactPageContent() {
       }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(99,102,241,0.15) 1.5px, transparent 1.5px)", backgroundSize: "36px 36px", pointerEvents: "none" }} />
         <div style={{ position: "relative" }}>
-          <Reveal direction="down">
+          {/* <Reveal direction="down">
             <span style={{
               display: "inline-block",
-              background: "#56565f",
-              border: "1px solid #56565f",
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgb(255 255 255 / 40%)",
               color: "#fff",
               fontWeight: 700, fontSize: 13,
-              padding: "6px 20px", borderRadius: 0, marginBottom: 20,
+              padding: "6px 20px", borderRadius: 20, marginBottom: 20,
             }}>{cp.badge}</span>
-          </Reveal>
+          </Reveal> */}
           <Reveal direction="up" delay={100}>
             <h1 style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 900, color: "#fff", marginBottom: 20, lineHeight: 1.1 }}>
               {cp.title}

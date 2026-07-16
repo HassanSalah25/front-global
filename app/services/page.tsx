@@ -112,11 +112,11 @@ export default function ServicesPage() {
       <section style={{ padding: "90px 24px 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <Reveal direction="down">
+            {/* <Reveal direction="down">
               <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 18px", borderRadius: 0, marginBottom: 16 }}>
                 {sp.gridBadge}
               </span>
-            </Reveal>
+            </Reveal> */}
             <Reveal direction="up" delay={100}>
               <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)", marginBottom: 12 }}>
                 {sp.gridTitle}

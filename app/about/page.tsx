@@ -332,16 +332,16 @@ export default function AboutPage() {
           }} />
         ))}
         <div style={{ position: "relative" }}>
-          <Reveal direction="down">
+          {/* <Reveal direction="down">
             <span style={{
               display: "inline-block",
-              background: "#c0c5cc",
+              background: "rgba(255, 255, 255, 0.08)",
               border: "1px solid rgb(255 255 255 / 40%)",
-              color: "#000",
+              color: "#fff",
               fontWeight: 700, fontSize: 13,
-              padding: "6px 20px", borderRadius: 0, marginBottom: 20,
+              padding: "6px 20px", borderRadius: 20, marginBottom: 20,
             }}>{ad.badge}</span>
-          </Reveal>
+          </Reveal> */}
           <Reveal direction="up" delay={100}>
             <h1 style={{ fontSize: "clamp(2.4rem, 5vw, 4rem)", fontWeight: 900, color: "#fff", marginBottom: 20, lineHeight: 1.1 }}>
               {ad.title}
@@ -393,8 +393,8 @@ export default function AboutPage() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  background: "#c0c5cc",
-                  color: "#fff",
+                  background: "rgb(255 255 255)",
+                  color: "#000",
                   fontWeight: 700,
                   fontSize: 13,
                   padding: "5px 16px",
@@ -508,7 +508,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 72 }}>
             <Reveal direction="down">
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 16 }}>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#f1f5f9", color: "#000", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 16 }}>
                 <ViewfinderIcon size={16} />
                 {tx(locale, { ar: "مسيرتنا عبر السنين", en: "Our Journey" })}
               </span>
@@ -568,10 +568,10 @@ export default function AboutPage() {
                   <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="timeline-col-center">
                     <div style={{
                       width: 20, height: 20,
-                      background: "linear-gradient(135deg, var(--primary), var(--accent))",
+                      background: "linear-gradient(135deg, #000000, #000000)",
                       borderRadius: "0",
                       border: "3px solid var(--bg-muted)",
-                      boxShadow: "0 0 0 4px rgba(99,102,241,0.2)",
+                      boxShadow: "#e9292c6b 0px 0px 0px 4px",
                       zIndex: 1,
                     }} />
                   </div>

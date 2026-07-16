@@ -230,7 +230,7 @@ export default function BlogPage() {
                   color: "#fff", padding: "6px 16px", borderRadius: 0,
                   fontSize: 12, fontWeight: 700,
                 }}>
-                  ⭐ {tx(locale, { ar: "المقالة المميزة", en: "Featured Post" })}
+                  {tx(locale, { ar: "المقالة المميزة", en: "Featured Post" })}
                 </div>
               </div>
 

@@ -153,9 +153,9 @@ export default function ServiceDetailClient() {
 
           <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
             <span style={{
-              background: "rgba(99,102,241,0.25)",
-              border: "1px solid rgba(99,102,241,0.5)",
-              color: "#a5b4fc", padding: "5px 16px",
+              background: "#56565f",
+              border: "1px solid #707070",
+              color: "#fff", padding: "5px 16px",
               borderRadius: 0, fontSize: 12, fontWeight: 700,
             }}>
                {tx(locale, { ar: "خدمة", en: "Service" })}
@@ -521,12 +521,12 @@ export default function ServiceDetailClient() {
           position: relative;
           width: 100%;
           max-width: 860px;
-          border-radius: 20px;
+          border-radius: 0px;
           overflow: hidden;
-          box-shadow:
-            0 0 0 1px rgba(99,102,241,0.18),
-            0 8px 40px rgba(0,0,0,0.6),
-            0 32px 80px rgba(99,102,241,0.12);
+          // box-shadow:
+          //   0 0 0 1px rgba(99,102,241,0.18),
+          //   0 8px 40px rgba(0,0,0,0.6),
+          //   0 32px 80px rgba(99,102,241,0.12);
           background: #0d0d1a;
         }
 
@@ -590,6 +590,7 @@ export default function ServiceDetailClient() {
           border-radius: 100px;
           white-space: nowrap;
           box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+          display:none;
         }
         .badge-dot {
           width: 8px; height: 8px;
@@ -608,14 +609,14 @@ export default function ServiceDetailClient() {
 
         /* ── Reflection bar ── */
         .service-img-reflection {
-          height: 3px;
-          background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(99,102,241,0.6) 25%,
-            rgba(168,85,247,0.6) 50%,
-            rgba(99,102,241,0.6) 75%,
-            transparent 100%
-          );
+          // height: 3px;
+          // background: linear-gradient(90deg,
+          //   transparent 0%,
+          //   rgba(99,102,241,0.6) 25%,
+          //   rgba(168,85,247,0.6) 50%,
+          //   rgba(99,102,241,0.6) 75%,
+          //   transparent 100%
+          // );
         }
 
         /* ── Misc ── */
