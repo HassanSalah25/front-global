@@ -177,7 +177,7 @@ export default function PortfolioPage() {
       
 
       {/* ── Filter Strip ──────────────────────── */}
-      <section style={{ padding: "40px 24px 0", background: "var(--bg)", display: "flex", justifyContent: "center" }}>
+      {/* <section style={{ padding: "40px 24px 0", background: "var(--bg)", display: "flex", justifyContent: "center" }}>
         <Reveal direction="up">
           <div style={{
             display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center",
@@ -204,7 +204,7 @@ export default function PortfolioPage() {
             ))}
           </div>
         </Reveal>
-      </section>
+      </section> */}
 
       {/* ── Portfolio Grid ────────────────────── */}
       <section style={{ padding: "48px 24px 100px", background: "var(--bg)" }}>
@@ -218,7 +218,7 @@ export default function PortfolioPage() {
           >
             {filtered.map((proj, i) => (
               <Reveal key={proj.id} delay={i * 80} direction="up">
-                  <div
+                  <Link href={`/portfolio/${proj.slug ?? proj.id}`}
                   onMouseEnter={() => setHoveredProject(proj.id ?? proj.slug)}
                   onMouseLeave={() => setHoveredProject(null)}
                   style={{
@@ -231,6 +231,8 @@ export default function PortfolioPage() {
                     display: "flex",
                     flexDirection: "column",
                     height: "100%",
+                    textDecoration: "none",
+                    color: "inherit",
                   }}
                   className="portfolio-card"
                 >
@@ -247,7 +249,7 @@ export default function PortfolioPage() {
                     />
                     {/* Category tag */}
                     <div style={{
-                      position: "absolute", top: 16, left: isRtlLocale(locale) ? "auto" : 16, right: isRtlLocale(locale) ? 16 : "auto",
+                      position: "absolute", display:"none", top: 16, left: isRtlLocale(locale) ? "auto" : 16, right: isRtlLocale(locale) ? 16 : "auto",
                       background: "linear-gradient(160deg, #dc2528 0%, #000000 50%, #000000e0 100%)", backdropFilter: "blur(6px)",
                       color: "#fff", padding: "5px 14px", borderRadius: 0,
                       fontSize: 12, fontWeight: 700,
@@ -267,12 +269,6 @@ export default function PortfolioPage() {
                         transition: "transform 0.4s ease",
                         display: "flex", gap: 10,
                       }}>
-                        {/* <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
-                          Duration: {proj.duration}
-                        </div>
-                        <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.3)", color: "#fff", padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600 }}>
-                          Budget: {proj.budget}
-                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -295,19 +291,17 @@ export default function PortfolioPage() {
                       <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{proj.results}</span>
                     </div>
                     <div style={{ marginTop: "auto" }}>
-                      <Link href={`/portfolio/${proj.slug ?? proj.id}`} style={{
-                        textDecoration: "none",
+                      <span style={{
                         color: "#000", fontWeight: 700, fontSize: 13.5,
                         display: "inline-flex", alignItems: "center", gap: 6,
-                        transition: "gap 0.2s ease",
                       }}
                       className="portfolio-link"
                       >
                         {tx(locale, { ar: "تفاصيل المشروع", en: "View Project" })} →
-                      </Link>
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -317,7 +311,7 @@ export default function PortfolioPage() {
       {/* ── CTA ───────────────────────────────── */}
       <section style={{
         padding: "100px 24px",
-        background: "linear-gradient(160deg, #dc2528 0%, #000000 50%, #000000e0 100%)",
+        background: "linear-gradient(160deg, #000000 0%, #000000 50%, #000000e0 100%)",
         textAlign: "center",
         position: "relative", overflow: "hidden",
       }}>

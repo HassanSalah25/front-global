@@ -207,7 +207,7 @@ export default function Home() {
             alignItems: "center",
           }} className="hero-split">
             <div style={{ textAlign: "start" }} className="hero-text">
-              <Reveal direction="down">
+              {/* <Reveal direction="down">
                 <span style={{
                   display: "inline-block",
                   background: "var(--primary-light)",
@@ -221,7 +221,7 @@ export default function Home() {
                 }}>
                   {t.heroData.badge}
                 </span>
-              </Reveal>
+              </Reveal> */}
               
               <Reveal direction="up" delay={100}>
                 <h1 style={{
@@ -348,9 +348,9 @@ export default function Home() {
       <section style={{ padding: "100px 24px", background: "#fff" }}>
         <div style={{ maxWidth: 1150, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <Reveal direction="down">
+            {/* <Reveal direction="down">
               <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "6px 18px", borderRadius: 0, marginBottom: 16 }}>{hd.servicesBadge}</span>
-            </Reveal>
+            </Reveal> */}
             <Reveal direction="up" delay={100}>
               <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)", marginBottom: 16 }}>{hd.servicesTitle}</h2>
             </Reveal>
@@ -395,9 +395,7 @@ export default function Home() {
       <section style={{ padding: "100px 24px", background: "#fff" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <Reveal direction="down">
-              <span style={{ display: "inline-block", background: "var(--accent-light)", color: "#92400e", fontWeight: 700, fontSize: 13, padding: "6px 18px", borderRadius: 0, marginBottom: 16 }}>{t.processData.badge}</span>
-            </Reveal>
+            
             <Reveal direction="up" delay={100}>
               <h2 style={{ fontSize: "clamp(2rem, 3.5vw, 2.8rem)", fontWeight: 900, color: "var(--text)" }}>{t.processData.title}</h2>
             </Reveal>
@@ -450,7 +448,7 @@ export default function Home() {
                 }}
                 className="testimonial-card"
                 >
-                  <div style={{ color: "var(--accent)", fontSize: 20, marginBottom: 16 }}>{"★".repeat(item.rating)}</div>
+                  {/* <div style={{ color: "var(--accent)", fontSize: 20, marginBottom: 16 }}>{"★".repeat(item.rating)}</div> */}
                   <p style={{ color: "var(--text)", fontSize: 15.5, lineHeight: 1.85, marginBottom: 28, flexGrow: 1 }}>{`\"${item.text}\"`}</p>
                   
                   <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: "auto" }}>
@@ -582,7 +580,7 @@ export default function Home() {
             <h2 style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.2rem)", fontWeight: 900, color: "#fff", marginBottom: 20 }}>{hd.ctaBannerTitle}</h2>
           </Reveal>
           <Reveal direction="up" delay={100}>
-            <p style={{ color: "#c7d2fe", fontSize: 18.5, marginBottom: 44, lineHeight: 1.8 }}>
+            <p style={{ color: "#ffffff", fontSize: 18.5, marginBottom: 44, lineHeight: 1.8 }}>
               {hd.ctaBannerText}
             </p>
           </Reveal>

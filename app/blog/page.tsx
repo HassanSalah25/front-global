@@ -140,7 +140,7 @@ export default function BlogPage() {
         <div style={{ position: "absolute", bottom: -60, left: "10%", width: 300, height: 300, background: "radial-gradient(circle, rgba(233,41,44,0.08), transparent)", borderRadius: "0%", pointerEvents: "none" }} />
 
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center", position: "relative" }}>
-          <Reveal direction="down">
+          {/* <Reveal direction="down">
             <span style={{
               display: "inline-block",
               background: "rgba(99,102,241,0.2)",
@@ -151,7 +151,7 @@ export default function BlogPage() {
             }}>
               {blog.badge}
             </span>
-          </Reveal>
+          </Reveal> */}
           <Reveal direction="up" delay={100}>
             <h1 style={{
               fontSize: "clamp(2.4rem, 5vw, 4rem)",
@@ -176,12 +176,12 @@ export default function BlogPage() {
                   onClick={() => setActiveTag(i === 0 ? "all" : tag)}
                   style={{
                     background: (i === 0 ? activeTag === "all" : activeTag === tag)
-                      ? "rgba(99,102,241,0.35)"
+                      ? "#919eab"
                       : "rgba(255,255,255,0.06)",
                     border: `1px solid ${(i === 0 ? activeTag === "all" : activeTag === tag)
-                      ? "rgba(99,102,241,0.6)"
+                      ? "#919eab"
                       : "rgba(255,255,255,0.12)"}`,
-                    color: (i === 0 ? activeTag === "all" : activeTag === tag) ? "#a5b4fc" : "#94a3b8",
+                    color: (i === 0 ? activeTag === "all" : activeTag === tag) ? "#ffffff" : "#94a3b8",
                     padding: "8px 20px", borderRadius: 0,
                     fontSize: 13, fontWeight: 600, cursor: "pointer",
                     transition: "all 0.25s ease",
@@ -456,7 +456,7 @@ export default function BlogPage() {
       </section>
 
       {/* ── Resources Strip ───────────────────── */}
-      <section style={{ padding: "80px 24px", background: "var(--bg)" }}>
+      {/* <section style={{ padding: "80px 24px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 900, color: "var(--text)", textAlign: "center", marginBottom: 48 }}>
@@ -500,7 +500,7 @@ export default function BlogPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <style>{`
         .featured-img:hover { transform: scale(1.04) !important; }

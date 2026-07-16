@@ -91,16 +91,7 @@ export default function ServicesPage() {
           pointerEvents: "none",
         }} />
         <div style={{ position: "relative" }}>
-          <Reveal direction="down">
-            <span style={{
-              display: "inline-block",
-              background: "rgba(99,102,241,0.25)",
-              border: "1px solid rgba(99,102,241,0.5)",
-              color: "#a5b4fc",
-              fontWeight: 700, fontSize: 13,
-              padding: "6px 20px", borderRadius: 0, marginBottom: 20,
-            }}>{sp.badge}</span>
-          </Reveal>
+          
           <Reveal direction="up" delay={100}>
             <h1 style={{
               fontSize: "clamp(2.4rem, 5vw, 4rem)",
@@ -339,7 +330,7 @@ export default function ServicesPage() {
           </h2>
         </Reveal>
         <Reveal direction="up" delay={100}>
-          <p style={{ color: "#c7d2fe", fontSize: 18, marginBottom: 44, maxWidth: 540, margin: "0 auto 44px" }}>{sp.ctaSub}</p>
+          <p style={{ color: "#ffffff", fontSize: 18, marginBottom: 44, maxWidth: 540, margin: "0 auto 44px" }}>{sp.ctaSub}</p>
         </Reveal>
         <Reveal direction="up" delay={200}>
           <Link href="/contact" style={{

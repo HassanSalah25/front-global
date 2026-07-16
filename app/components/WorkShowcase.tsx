@@ -111,7 +111,7 @@ export default function WorkShowcase({ locale = "en", title }: { locale?: Locale
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 60, flexWrap: "wrap", gap: 24 }}>
           <div>
-            <Reveal direction="down">
+            {/* <Reveal direction="down">
               <span style={{
                 display: "inline-block",
                 background: "var(--primary-light)",
@@ -124,7 +124,7 @@ export default function WorkShowcase({ locale = "en", title }: { locale?: Locale
               }}>
                 {cleanBadge}
               </span>
-            </Reveal>
+            </Reveal> */}
             <Reveal direction="up" delay={100}>
               <h2 style={{
                 fontSize: "clamp(2rem, 3.5vw, 2.8rem)",

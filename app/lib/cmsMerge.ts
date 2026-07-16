@@ -104,7 +104,9 @@ export function mergeLayoutIntoTranslation(
   return {
     ...base,
     siteConfig: { ...base.siteConfig, ...siteConfig },
-    navLinks: layout.nav_links?.length ? layout.nav_links : base.navLinks,
+    navLinks: (layout.nav_links?.length ? layout.nav_links : base.navLinks).filter(
+      (link) => link.href !== "/blog"
+    ),
     footer: {
       ...base.footer,
       ...footer,
@@ -251,7 +253,7 @@ export function mapHeroSlides(slides: Array<Record<string, unknown>>): CmsHeroSl
 export function mapWorkShowcase(data: Record<string, unknown>): CmsWorkShowcase | null {
   if (!data?.projects) return null;
 
-  const colors = ["#d02225", "#f59e0b", "#10b981", "#6366f1"];
+  const colors = ["#000", "#000", "#000", "#000"];
 
   return {
     badge: String(data.badge ?? ""),

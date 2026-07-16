@@ -180,9 +180,9 @@ function ContactPageContent() {
           <Reveal direction="down">
             <span style={{
               display: "inline-block",
-              background: "rgba(99,102,241,0.2)",
-              border: "1px solid rgba(99,102,241,0.4)",
-              color: "#a5b4fc",
+              background: "#56565f",
+              border: "1px solid #56565f",
+              color: "#fff",
               fontWeight: 700, fontSize: 13,
               padding: "6px 20px", borderRadius: 0, marginBottom: 20,
             }}>{cp.badge}</span>
@@ -211,7 +211,7 @@ function ContactPageContent() {
                 }}
                 className="office-chip"
                 >
-                  <MapPin size={20} strokeWidth={1.5} style={{ color: "#a5b4fc", flexShrink: 0 }} />
+                  <MapPin size={20} strokeWidth={1.5} style={{ color: "#56565f", flexShrink: 0 }} />
                   <div style={{ textAlign: "start" }}>
                     <div style={{ fontWeight: 700, fontSize: 14, color: "#fff" }}>{office.title}</div>
                     <div style={{ fontSize: 11, color: "#64748b" }}>{office.status}</div>

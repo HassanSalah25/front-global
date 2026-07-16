@@ -278,9 +278,9 @@ export default function AboutPage() {
           <Reveal direction="down">
             <span style={{
               display: "inline-block",
-              background: "rgba(99,102,241,0.2)",
-              border: "1px solid rgba(99,102,241,0.4)",
-              color: "#fff",
+              background: "#c0c5cc",
+              border: "1px solid rgb(255 255 255 / 40%)",
+              color: "#000",
               fontWeight: 700, fontSize: 13,
               padding: "6px 20px", borderRadius: 0, marginBottom: 20,
             }}>{ad.badge}</span>
@@ -310,9 +310,7 @@ export default function AboutPage() {
                 <div key={i} style={{ textAlign: "center" }}>
                   <div style={{
                     fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900,
-                    background: "linear-gradient(135deg, #6366f1, #a5b4fc)",
                     color:"#fff",
-                    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
                     lineHeight: 1,
                   }}>{s.value}</div>
                   <div style={{ color: "#fff", fontSize: 13, fontWeight: 600, marginTop: 6, maxWidth: 160 }}>{s.label}</div>
@@ -338,8 +336,8 @@ export default function AboutPage() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  background: "var(--accent-light)",
-                  color: "#92400e",
+                  background: "#c0c5cc",
+                  color: "#fff",
                   fontWeight: 700,
                   fontSize: 13,
                   padding: "5px 16px",
@@ -402,7 +400,7 @@ export default function AboutPage() {
                     }}
                   />
                   {/* Floating badge on image */}
-                  <div style={{
+                  {/* <div style={{
                     position: "absolute", bottom: 20, right: 20,
                     background: "rgba(255,255,255,0.95)",
                     backdropFilter: "blur(12px)",
@@ -419,7 +417,7 @@ export default function AboutPage() {
                       </div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)" }}>The Untold Story</div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </Reveal>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
@@ -567,8 +565,8 @@ export default function AboutPage() {
               <Reveal direction="up" delay={200}>
                 <p style={{ color: "var(--text-muted)", fontSize: 15.5, lineHeight: 1.9, marginBottom: 36 }}>
                   {tx(locale, {
-                    ar: "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات — بإتقان ولمسة مميزة.",
-                    en: "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format — with precision and flair.",
+                    ar: "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات بإتقان ولمسة مميزة.",
+                    en: "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format with precision and flair.",
                   })}
                 </p>
               </Reveal>
@@ -664,9 +662,9 @@ export default function AboutPage() {
       <section style={{ padding: "90px 24px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1050, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <Reveal direction="down">
-              <span style={{ display: "inline-block", background: "var(--primary-light)", color: "var(--primary)", fontWeight: 700, fontSize: 13, padding: "5px 18px", borderRadius: 0, marginBottom: 16 }}>{ad.valuesBadge}</span>
-            </Reveal>
+            {/* <Reveal direction="down">
+              <span style={{ display: "inline-block", background: "#fff", color: "#000", fontWeight: 700, fontSize: 13, padding: "5px 18px", borderRadius: 0, marginBottom: 16 }}>{ad.valuesBadge}</span>
+            </Reveal> */}
             <Reveal direction="up" delay={100}>
               <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 900, color: "var(--text)" }}>{ad.valuesTitle}</h2>
             </Reveal>
@@ -758,7 +756,7 @@ export default function AboutPage() {
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <Reveal direction="down">
             <div style={{ textAlign: "center", marginBottom: 32 }}>
-              <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p>
+              {/* <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p> */}
               <h2 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 900, color: "var(--text)", margin: 0 }}>
                 {ad.partnersTitle}
               </h2>
