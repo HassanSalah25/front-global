@@ -790,14 +790,7 @@ export default function AboutPage() {
       <section style={{ padding: "90px 24px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1050, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
-<<<<<<< HEAD
-            {/* <Reveal direction="down">
-              <span style={{ display: "inline-block", background: "#fff", color: "#000", fontWeight: 700, fontSize: 13, padding: "5px 18px", borderRadius: 0, marginBottom: 16 }}>{ad.valuesBadge}</span>
-            </Reveal> */}
-            <Reveal direction="up" delay={100}>
-=======
             <Reveal direction="up">
->>>>>>> 15b1c4343f727b8759553724961d4f7b37af9de2
               <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 900, color: "var(--text)" }}>{ad.valuesTitle}</h2>
             </Reveal>
           </div>
@@ -883,26 +876,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-<<<<<<< HEAD
-      {/* ── Partners Strip ────────────────────── */}
-      <section style={{ padding: "64px 24px", background: "var(--bg-card)", borderTop: "1px solid var(--border)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <Reveal direction="down">
-            <div style={{ textAlign: "center", marginBottom: 32 }}>
-              {/* <p style={{ color: "var(--text-muted)", fontSize: 14, fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>{ad.partnersBadge}</p> */}
-              <h2 style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", fontWeight: 900, color: "var(--text)", margin: 0 }}>
-                {ad.partnersTitle}
-              </h2>
-            </div>
-          </Reveal>
-          <Reveal direction="up" delay={100}>
-            <ClientLogosStrip variant="light" />
-          </Reveal>
-        </div>
-      </section>
 
-=======
->>>>>>> 15b1c4343f727b8759553724961d4f7b37af9de2
       <style>{`
         @keyframes spin-slow { to { transform: rotate(360deg); } }
         @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
