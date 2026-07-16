@@ -247,15 +247,7 @@ export default function PortfolioPage() {
                         transition: "transform 0.5s ease",
                       }}
                     />
-                    {/* Category tag */}
-                    <div style={{
-                      position: "absolute", display:"none", top: 16, left: isRtlLocale(locale) ? "auto" : 16, right: isRtlLocale(locale) ? 16 : "auto",
-                      background: "linear-gradient(160deg, #dc2528 0%, #000000 50%, #000000e0 100%)", backdropFilter: "blur(6px)",
-                      color: "#fff", padding: "5px 14px", borderRadius: 0,
-                      fontSize: 12, fontWeight: 700,
-                    }}>
-                      {activeCats.find(c => c.id === proj.category)?.label}
-                    </div>
+
                     {/* Hover overlay */}
                         <div style={{
                           position: "absolute", inset: 0,
@@ -311,11 +303,10 @@ export default function PortfolioPage() {
       {/* ── CTA ───────────────────────────────── */}
       <section style={{
         padding: "100px 24px",
-        background: "linear-gradient(160deg, #000000 0%, #000000 50%, #000000e0 100%)",
+        background: "#000",
         textAlign: "center",
         position: "relative", overflow: "hidden",
       }}>
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(rgba(99,102,241,0.1) 1px, transparent 1px)", backgroundSize: "40px 40px", pointerEvents: "none" }} />
         <div style={{ position: "relative" }}>
           <Reveal direction="down">
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900, color: "#fff", marginBottom: 16 }}>
@@ -330,12 +321,11 @@ export default function PortfolioPage() {
           <Reveal direction="up" delay={200}>
             <Link href="/contact" style={{
               textDecoration: "none",
-              background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
+              background: "var(--primary)",
               color: "#fff", padding: "16px 48px",
               borderRadius: 14, fontWeight: 800, fontSize: 17,
               display: "inline-block",
-              boxShadow: "0 8px 28px #dc2528",
-              transition: "all 0.25s ease",
+              transition: "background 0.2s ease",
             }}
             className="portfolio-cta-btn"
             >
@@ -352,7 +342,7 @@ export default function PortfolioPage() {
         }
         .client-logo-chip:hover { border-color: var(--primary) !important; color: var(--primary) !important; background: var(--primary-light) !important; }
         .portfolio-link:hover { gap: 10px !important; }
-        .portfolio-cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(99,102,241,0.5) !important; }
+        .portfolio-cta-btn:hover { background: var(--primary-dark) !important; }
         @media (max-width: 500px) {
           .filter-strip { border-radius: 20px !important; width: 100%; }
           .portfolio-grid { grid-template-columns: 1fr !important; }

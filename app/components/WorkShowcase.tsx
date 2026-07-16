@@ -228,7 +228,7 @@ export default function WorkShowcase({ locale = "en", title }: { locale?: Locale
           {/* الكلام تحت الصورة بشكل عصري */}
           <div style={{ padding: "0 4px" }}>
             <span style={{
-              color: proj.color,
+              color: /industrial\s*production/i.test(proj.category) ? "#000" : proj.color,
               fontSize: 11,
               fontWeight: 800,
               textTransform: "uppercase",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import TrustedBySection from "./components/TrustedBySection";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./components/LanguageContext";
 import AppShell from "./components/AppShell";
@@ -29,6 +30,7 @@ export default function RootLayout({
           <AppShell>
             <Navbar />
             <main>{children}</main>
+            <TrustedBySection />
             <Footer />
             <WhatsAppFloatButton />
           </AppShell>

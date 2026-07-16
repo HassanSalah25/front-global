@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../components/LanguageContext";
 import Reveal from "../components/Reveal";
-import ClientLogosStrip from "../components/ClientLogosStrip";
 import type { StatDataItem, ValueItem, TeamMember } from "../lib/data";
 import { fetchAbout, resolveMediaUrl } from "../lib/api";
 import type { AboutPayload, ApiLocale } from "../lib/api";
@@ -153,6 +152,45 @@ const skillsData = {
   ],
 };
 
+const expertiseCategories = [
+  { key: "commercials", tag: "Commercials", tagAr: "إعلانات", video: "/expertise/pepsico.mp4", title: "PepsiCo", poster: "" },
+  { key: "documentaries", tag: "Documentaries", tagAr: "وثائقيات", video: "/expertise/clorox.mp4", title: "Clorox", poster: "" },
+  { key: "branded-films", tag: "Branded Films", tagAr: "أفلام علامات", video: "/expertise/rose-kids.mp4", title: "Rose Kids", poster: "" },
+  { key: "live-events", tag: "Live Events", tagAr: "فعاليات حية", video: "/expertise/pepsi-how-do-you-like-it.mp4", title: "Pepsi", poster: "" },
+  { key: "podcasts", tag: "Podcasts", tagAr: "بودكاست", video: "/expertise/best-beef.mp4", title: "Best Beef", poster: "" },
+  { key: "motion-cgi", tag: "Motion/CGI", tagAr: "موشن/CGI", video: "/expertise/pepsico.mp4", title: "PepsiCo", poster: "" },
+];
+
+function normalizeExpertiseTag(tag: string) {
+  return tag.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function buildExpertiseList(cmsExpertise?: AboutPayload["expertise"]) {
+  const cmsByTag = new Map(
+    (cmsExpertise ?? []).map((item) => [
+      normalizeExpertiseTag(item.tag ?? ""),
+      {
+        title: item.title,
+        tagAr: item.tag_ar ?? item.tagAr,
+        video: resolveMediaUrl(item.video ?? item.video_url ?? ""),
+        poster: resolveMediaUrl(item.poster),
+      },
+    ])
+  );
+
+  return expertiseCategories.map((category) => {
+    const cms = cmsByTag.get(normalizeExpertiseTag(category.tag));
+
+    return {
+      ...category,
+      tagAr: cms?.tagAr || category.tagAr,
+      title: cms?.title || category.title,
+      video: cms?.video || category.video,
+      poster: cms?.poster || category.poster,
+    };
+  });
+}
+
 function SkillBar({ label, percent, color, delay }: { label: string; percent: number; color: string; delay: number }) {
   const [animated, setAnimated] = useState(false);
   return (
@@ -198,6 +236,16 @@ export default function AboutPage() {
   const ad = t.aboutData;
   const [hoveredTeam, setHoveredTeam] = useState<number | null>(null);
   const [cmsAbout, setCmsAbout] = useState<AboutPayload | null>(null);
+  const [activeExpertise, setActiveExpertise] = useState(0);
+  const expertiseVideoRef = useRef<HTMLVideoElement>(null);
+  const expertiseInteractedRef = useRef(false);
+
+  useEffect(() => {
+    if (!expertiseInteractedRef.current) return;
+    const el = expertiseVideoRef.current;
+    if (!el) return;
+    void el.play().catch(() => {});
+  }, [activeExpertise]);
 
   useEffect(() => {
     fetchAbout(locale as ApiLocale)
@@ -219,6 +267,15 @@ export default function AboutPage() {
       ? cmsAbout.skills.map((s) => ({ ...s, color: s.color ?? "#6366f1" }))
       : null) ??
     pickLocalized(skillsData, locale);
+
+  const expertiseList = buildExpertiseList(cmsAbout?.expertise);
+  const activeExpertiseItem = expertiseList[activeExpertise] ?? expertiseList[0];
+
+  useEffect(() => {
+    if (activeExpertise >= expertiseList.length) {
+      setActiveExpertise(0);
+    }
+  }, [expertiseList.length, activeExpertise]);
 
   const teamList: TeamMember[] = cmsAbout?.team?.length
     ? cmsAbout.team.map((member) => ({
@@ -310,7 +367,7 @@ export default function AboutPage() {
                 <div key={i} style={{ textAlign: "center" }}>
                   <div style={{
                     fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900,
-                    color:"#fff",
+                    color: "#fff",
                     lineHeight: 1,
                   }}>{s.value}</div>
                   <div style={{ color: "#fff", fontSize: 13, fontWeight: 600, marginTop: 6, maxWidth: 160 }}>{s.label}</div>
@@ -548,8 +605,8 @@ export default function AboutPage() {
 
       {/* ── Skills/Expertise ──────────────────── */}
       <section style={{ padding: "100px 24px", background: "var(--bg)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }} className="skills-split">
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 56, alignItems: "center" }} className="skills-split">
             <div>
               <Reveal direction="down">
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#000", fontWeight: 700, fontSize: 13, padding: "6px 20px", borderRadius: 0, marginBottom: 20 }}>
@@ -565,32 +622,103 @@ export default function AboutPage() {
               <Reveal direction="up" delay={200}>
                 <p style={{ color: "var(--text-muted)", fontSize: 15.5, lineHeight: 1.9, marginBottom: 36 }}>
                   {tx(locale, {
-                    ar: "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات بإتقان ولمسة مميزة.",
-                    en: "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format with precision and flair.",
+                    ar: "فريقنا يمتلك الأدوات والخبرة لإنتاج مرئيات جريئة لا تُنسى عبر كل التنسيقات — بإتقان ولمسة مميزة. اضغط على أي تخصص لمشاهدة نموذج من أعمالنا.",
+                    en: "Our team possesses the tools and expertise to produce bold, unforgettable visuals across every format — with precision and flair. Tap a specialty to preview our work.",
                   })}
                 </p>
               </Reveal>
               <Reveal direction="up" delay={300}>
                 <div style={{
-                  display: "flex", gap: 16, flexWrap: "wrap",
+                  display: "flex", gap: 12, flexWrap: "wrap",
                 }}>
-                  {["Commercials", "Documentaries", "Branded Films", "Live Events", "Podcasts", "Motion/CGI"].map((tag, i) => (
-                    <span key={i} style={{
-                      background: "#f5f5f5",
-                      color: "#000",
-                      padding: "8px 18px",
-                      borderRadius: 0,
-                      fontSize: 13,
-                      fontWeight: 700,
-                      border: "1px solid rgba(99,102,241,0.2)",
-                    }}>
-                      {tag}
-                    </span>
-                  ))}
+                  {expertiseList.map((item, i) => {
+                    const active = activeExpertise === i;
+                    return (
+                      <button
+                        key={item.key}
+                        type="button"
+                        onClick={() => {
+                          expertiseInteractedRef.current = true;
+                          setActiveExpertise(i);
+                        }}
+                        style={{
+                          background: active ? "#0a0a0a" : "#f5f5f5",
+                          color: active ? "#fff" : "#000",
+                          padding: "8px 18px",
+                          borderRadius: 0,
+                          fontSize: 13,
+                          fontWeight: 700,
+                          border: active ? "1px solid #0a0a0a" : "1px solid rgba(0,0,0,0.12)",
+                          cursor: "pointer",
+                          transition: "background 0.2s, color 0.2s, border-color 0.2s",
+                        }}
+                      >
+                        {locale === "ar" ? item.tagAr : item.tag}
+                      </button>
+                    );
+                  })}
                 </div>
               </Reveal>
             </div>
-            
+
+            <Reveal direction="left" delay={200}>
+              <div
+                style={{
+                  position: "relative",
+                  background: "#0a0a0a",
+                  overflow: "hidden",
+                  aspectRatio: "16 / 9",
+                  boxShadow: "0 24px 60px rgba(0,0,0,0.22)",
+                }}
+              >
+                {activeExpertiseItem?.video ? (
+                  <>
+                    <video
+                      key={activeExpertiseItem.video}
+                      ref={expertiseVideoRef}
+                      src={activeExpertiseItem.video}
+                      poster={activeExpertiseItem.poster || undefined}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        background: "#000",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        padding: "14px 18px",
+                        background: "linear-gradient(rgba(0,0,0,0.7), transparent)",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      <p style={{ color: "#fff", fontWeight: 800, fontSize: 14, margin: 0 }}>
+                        {locale === "ar" ? activeExpertiseItem.tagAr : activeExpertiseItem.tag}
+                        <span style={{ fontWeight: 500, opacity: 0.75 }}>
+                          {" · "}
+                          {activeExpertiseItem.title}
+                        </span>
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <div style={{ height: "100%", display: "grid", placeItems: "center", color: "rgba(255,255,255,0.55)", padding: 24, textAlign: "center" }}>
+                    {tx(locale, {
+                      ar: `لا يوجد فيديو لـ ${activeExpertiseItem?.tagAr ?? "هذا التخصص"} بعد`,
+                      en: `No video for ${activeExpertiseItem?.tag ?? "this specialty"} yet`,
+                    })}
+                  </div>
+                )}
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -662,10 +790,14 @@ export default function AboutPage() {
       <section style={{ padding: "90px 24px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1050, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
+<<<<<<< HEAD
             {/* <Reveal direction="down">
               <span style={{ display: "inline-block", background: "#fff", color: "#000", fontWeight: 700, fontSize: 13, padding: "5px 18px", borderRadius: 0, marginBottom: 16 }}>{ad.valuesBadge}</span>
             </Reveal> */}
             <Reveal direction="up" delay={100}>
+=======
+            <Reveal direction="up">
+>>>>>>> 15b1c4343f727b8759553724961d4f7b37af9de2
               <h2 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.5rem)", fontWeight: 900, color: "var(--text)" }}>{ad.valuesTitle}</h2>
             </Reveal>
           </div>
@@ -751,6 +883,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* ── Partners Strip ────────────────────── */}
       <section style={{ padding: "64px 24px", background: "var(--bg-card)", borderTop: "1px solid var(--border)" }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
@@ -768,6 +901,8 @@ export default function AboutPage() {
         </div>
       </section>
 
+=======
+>>>>>>> 15b1c4343f727b8759553724961d4f7b37af9de2
       <style>{`
         @keyframes spin-slow { to { transform: rotate(360deg); } }
         @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
