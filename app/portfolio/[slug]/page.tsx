@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import PortfolioDetailClient from "./PortfolioDetailClient";
+import { getSeoData, buildMetadata } from "../../lib/seo";
+import StructuredData from "../../components/StructuredData";
 import { fetchPortfolio } from "../../lib/api";
 import type { PortfolioItem } from "../../lib/api";
 import { SUPPORTED_LOCALES } from "../../lib/i18n";
+
+const FALLBACK = {
+  title: "Portfolio | Untold Agency",
+  description: "Explore our recent campaigns and creative work.",
+};
 
 // Slugs from the static fallback list so these always have a page even if the
 // API is unreachable at build time.
@@ -36,6 +44,28 @@ export async function generateStaticParams() {
   return Array.from(collected).map((slug) => ({ slug }));
 }
 
-export default function PortfolioDetailPage() {
-  return <PortfolioDetailClient />;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const seo = await getSeoData("portfolio", slug);
+  return buildMetadata(seo, `/portfolio/${slug}`, FALLBACK);
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const seo = await getSeoData("portfolio", slug);
+
+  return (
+    <>
+      <StructuredData data={seo?.structuredData} />
+      <PortfolioDetailClient />
+    </>
+  );
 }

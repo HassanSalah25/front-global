@@ -47,7 +47,7 @@ export default function BlogPostClient() {
             margin: "0 auto 20px",
           }} />
           <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-            {tx(locale, { ar: "جارٍ التحميل...", en: "Loading..." })}
+            {tx(locale, { ar: "╪¼╪º╪▒┘ì ╪º┘ä╪¬╪¡┘à┘è┘ä...", en: "Loading..." })}
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -61,13 +61,13 @@ export default function BlogPostClient() {
         minHeight: "60vh", display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center", gap: 24, padding: "40px 24px",
       }}>
-        <div style={{ fontSize: 72 }}>📭</div>
+        <div style={{ fontSize: 72 }}>≡ƒô¡</div>
         <h1 style={{ color: "var(--text)", fontSize: 28, fontWeight: 900, textAlign: "center" }}>
-          {tx(locale, { ar: "المقالة غير موجودة", en: "Post Not Found" })}
+          {tx(locale, { ar: "╪º┘ä┘à┘é╪º┘ä╪⌐ ╪║┘è╪▒ ┘à┘ê╪¼┘ê╪»╪⌐", en: "Post Not Found" })}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
           {tx(locale, {
-            ar: "لم نتمكن من العثور على هذه المقالة.",
+            ar: "┘ä┘à ┘å╪¬┘à┘â┘å ┘à┘å ╪º┘ä╪╣╪½┘ê╪▒ ╪╣┘ä┘ë ┘ç╪░┘ç ╪º┘ä┘à┘é╪º┘ä╪⌐.",
             en: "We couldn't find this article.",
           })}
         </p>
@@ -77,7 +77,7 @@ export default function BlogPostClient() {
           color: "#fff", padding: "12px 28px", borderRadius: 0,
           fontWeight: 700, fontSize: 15, textDecoration: "none",
         }}>
-          ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
+          ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä┘à╪»┘ê┘å╪⌐", en: "Back to Blog" })}
         </Link>
       </div>
     );
@@ -89,7 +89,7 @@ export default function BlogPostClient() {
 
   return (
     <div>
-      {/* ── Hero ──────────────────────────────────────────── */}
+      {/* ΓöÇΓöÇ Hero ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       <section style={{
         background: "#0a0a0a",
         padding: "80px 24px 60px",
@@ -111,7 +111,7 @@ export default function BlogPostClient() {
               fontWeight: 600, fontSize: 14, marginBottom: 32,
               transition: "color 0.2s ease",
             }} className="back-link">
-              ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
+              ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä┘à╪»┘ê┘å╪⌐", en: "Back to Blog" })}
             </Link>
           </Reveal>
 
@@ -176,7 +176,7 @@ export default function BlogPostClient() {
         </div>
       </section>
 
-      {/* ── Featured Image ───────────────────────────────── */}
+      {/* ΓöÇΓöÇ Featured Image ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       {featuredImage && (
         <div style={{ background: "var(--bg-muted)", overflow: "hidden" }}>
           <div style={{ maxWidth: 860, margin: "0 auto", position: "relative", height: 440 }}>
@@ -189,7 +189,7 @@ export default function BlogPostClient() {
         </div>
       )}
 
-      {/* ── Body Content ─────────────────────────────────── */}
+      {/* ΓöÇΓöÇ Body Content ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       <section style={{ padding: "64px 24px 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 860, margin: "0 auto" }}>
           {post.body ? (
@@ -220,7 +220,7 @@ export default function BlogPostClient() {
               fontWeight: 700, fontSize: 15,
               transition: "gap 0.2s ease",
             }} className="back-link-bottom">
-              ← {tx(locale, { ar: "العودة إلى المدونة", en: "Back to Blog" })}
+              ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä┘à╪»┘ê┘å╪⌐", en: "Back to Blog" })}
             </Link>
             <Link href="/contact" style={{
               background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
@@ -229,7 +229,7 @@ export default function BlogPostClient() {
               boxShadow: "0 4px 16px rgba(99,102,241,0.25)",
               transition: "all 0.25s ease",
             }} className="contact-cta">
-              {tx(locale, { ar: "تواصل معنا", en: "Contact Us" })} →
+              {tx(locale, { ar: "╪¬┘ê╪º╪╡┘ä ┘à╪╣┘å╪º", en: "Contact Us" })} ΓåÆ
             </Link>
           </div>
         </div>

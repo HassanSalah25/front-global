@@ -47,7 +47,7 @@ export default function PortfolioDetailClient() {
             margin: "0 auto 20px",
           }} />
           <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
-            {tx(locale, { ar: "جارٍ التحميل...", en: "Loading..." })}
+            {tx(locale, { ar: "╪¼╪º╪▒┘ì ╪º┘ä╪¬╪¡┘à┘è┘ä...", en: "Loading..." })}
           </p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -61,13 +61,13 @@ export default function PortfolioDetailClient() {
         minHeight: "60vh", display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center", gap: 24, padding: "40px 24px",
       }}>
-        <div style={{ fontSize: 72 }}>🗂️</div>
+        <div style={{ fontSize: 72 }}>≡ƒùé∩╕Å</div>
         <h1 style={{ color: "var(--text)", fontSize: 28, fontWeight: 900, textAlign: "center" }}>
-          {tx(locale, { ar: "المشروع غير موجود", en: "Project Not Found" })}
+          {tx(locale, { ar: "╪º┘ä┘à╪┤╪▒┘ê╪╣ ╪║┘è╪▒ ┘à┘ê╪¼┘ê╪»", en: "Project Not Found" })}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16 }}>
           {tx(locale, {
-            ar: "لم نتمكن من العثور على هذا المشروع.",
+            ar: "┘ä┘à ┘å╪¬┘à┘â┘å ┘à┘å ╪º┘ä╪╣╪½┘ê╪▒ ╪╣┘ä┘ë ┘ç╪░╪º ╪º┘ä┘à╪┤╪▒┘ê╪╣.",
             en: "We couldn't find this project.",
           })}
         </p>
@@ -77,7 +77,7 @@ export default function PortfolioDetailClient() {
           color: "#fff", padding: "12px 28px", borderRadius: 0,
           fontWeight: 700, fontSize: 15, textDecoration: "none",
         }}>
-          ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
+          ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä╪ú╪╣┘à╪º┘ä", en: "Back to Portfolio" })}
         </Link>
       </div>
     );
@@ -89,7 +89,7 @@ export default function PortfolioDetailClient() {
 
   return (
     <div>
-      {/* ── Hero ──────────────────────────────────────────── */}
+      {/* ΓöÇΓöÇ Hero ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       <section style={{
         background: "#0a0a0a",
         padding: "80px 24px 60px",
@@ -116,7 +116,7 @@ export default function PortfolioDetailClient() {
               fontWeight: 600, fontSize: 14, marginBottom: 32,
               transition: "color 0.2s ease",
             }} className="back-link">
-              ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
+              ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä╪ú╪╣┘à╪º┘ä", en: "Back to Portfolio" })}
             </Link>
           </Reveal>
 
@@ -142,7 +142,7 @@ export default function PortfolioDetailClient() {
           {item.client && (
             <Reveal direction="up" delay={200}>
               <p style={{ color: "#94a3b8", fontSize: 17, fontWeight: 600 }}>
-                {tx(locale, { ar: "العميل:", en: "Client:" })}{" "}
+                {tx(locale, { ar: "╪º┘ä╪╣┘à┘è┘ä:", en: "Client:" })}{" "}
                 <span style={{ color: "#e2e8f0" }}>{item.client}</span>
               </p>
             </Reveal>
@@ -150,7 +150,7 @@ export default function PortfolioDetailClient() {
         </div>
       </section>
 
-      {/* ── Featured Image ───────────────────────────────── */}
+      {/* ΓöÇΓöÇ Featured Image ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       {featuredImg && (
         <div style={{ background: "var(--bg-muted)", overflow: "hidden" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", height: 500 }}>
@@ -163,7 +163,7 @@ export default function PortfolioDetailClient() {
         </div>
       )}
 
-      {/* ── Main Content ─────────────────────────────────── */}
+      {/* ΓöÇΓöÇ Main Content ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */}
       <section style={{ padding: "72px 24px 100px", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{
@@ -182,7 +182,7 @@ export default function PortfolioDetailClient() {
                     display: "flex", alignItems: "flex-start", gap: 12,
                     marginBottom: 36, border: "1px solid rgba(99,102,241,0.2)",
                   }}>
-                    {/* <span style={{ fontSize: 22, flexShrink: 0 }}>📈</span> */}
+                    {/* <span style={{ fontSize: 22, flexShrink: 0 }}>≡ƒôê</span> */}
                     <span>{item.results}</span>
                   </div>
                 </Reveal>
@@ -208,7 +208,7 @@ export default function PortfolioDetailClient() {
                     fontWeight: 800, fontSize: 18, color: "var(--text)",
                     marginBottom: 20,
                   }}>
-                    {tx(locale, { ar: "النتائج الرئيسية", en: "Key Results" })}
+                    {tx(locale, { ar: "╪º┘ä┘å╪¬╪º╪ª╪¼ ╪º┘ä╪▒╪ª┘è╪│┘è╪⌐", en: "Key Results" })}
                   </h3>
                   <div style={{
                     display: "grid",
@@ -248,14 +248,14 @@ export default function PortfolioDetailClient() {
                   marginBottom: 24, paddingBottom: 16,
                   borderBottom: "1px solid var(--border)",
                 }}>
-                  {tx(locale, { ar: "تفاصيل المشروع", en: "Project Details" })}
+                  {tx(locale, { ar: "╪¬┘ü╪º╪╡┘è┘ä ╪º┘ä┘à╪┤╪▒┘ê╪╣", en: "Project Details" })}
                 </h3>
 
                 {[
-                  { label: tx(locale, { ar: "العميل", en: "Client" }), value: item.client },
-                  { label: tx(locale, { ar: "الفئة", en: "Category" }), value: item.category },
-                  { label: tx(locale, { ar: "المدة", en: "Duration" }), value: item.duration },
-                  { label: tx(locale, { ar: "الميزانية", en: "Budget" }), value: item.budget },
+                  { label: tx(locale, { ar: "╪º┘ä╪╣┘à┘è┘ä", en: "Client" }), value: item.client },
+                  { label: tx(locale, { ar: "╪º┘ä┘ü╪ª╪⌐", en: "Category" }), value: item.category },
+                  { label: tx(locale, { ar: "╪º┘ä┘à╪»╪⌐", en: "Duration" }), value: item.duration },
+                  { label: tx(locale, { ar: "╪º┘ä┘à┘è╪▓╪º┘å┘è╪⌐", en: "Budget" }), value: item.budget },
                 ].filter((d) => d.value).map((detail, i) => (
                   <div key={i} style={{
                     display: "flex", justifyContent: "space-between",
@@ -282,7 +282,7 @@ export default function PortfolioDetailClient() {
                   boxShadow: "0 4px 16px rgba(99,102,241,0.25)",
                   transition: "all 0.25s ease",
                 }} className="detail-cta">
-                  {tx(locale, { ar: "ابدأ مشروعاً مشابهاً", en: "Start a Similar Project" })} →
+                  {tx(locale, { ar: "╪º╪¿╪»╪ú ┘à╪┤╪▒┘ê╪╣╪º┘ï ┘à╪┤╪º╪¿┘ç╪º┘ï", en: "Start a Similar Project" })} ΓåÆ
                 </Link>
               </div>
             </Reveal>
@@ -296,7 +296,7 @@ export default function PortfolioDetailClient() {
                   fontWeight: 800, fontSize: 24, color: "var(--text)",
                   marginBottom: 32, paddingBottom: 16, borderBottom: "1px solid var(--border)",
                 }}>
-                  {tx(locale, { ar: "معرض الصور", en: "Project Gallery" })}
+                  {tx(locale, { ar: "┘à╪╣╪▒╪╢ ╪º┘ä╪╡┘ê╪▒", en: "Project Gallery" })}
                 </h2>
               </Reveal>
               <div style={{
@@ -332,7 +332,7 @@ export default function PortfolioDetailClient() {
               color: "var(--primary)", textDecoration: "none",
               fontWeight: 700, fontSize: 15, transition: "gap 0.2s ease",
             }} className="back-link-bottom">
-              ← {tx(locale, { ar: "العودة إلى الأعمال", en: "Back to Portfolio" })}
+              ΓåÉ {tx(locale, { ar: "╪º┘ä╪╣┘ê╪»╪⌐ ╪Ñ┘ä┘ë ╪º┘ä╪ú╪╣┘à╪º┘ä", en: "Back to Portfolio" })}
             </Link>
           </div>
         </div>

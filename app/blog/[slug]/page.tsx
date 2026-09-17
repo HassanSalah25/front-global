@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import BlogPostClient from "./BlogPostClient";
+import { getSeoData, buildMetadata } from "../../lib/seo";
+import StructuredData from "../../components/StructuredData";
 import { fetchBlog } from "../../lib/api";
 import type { BlogPost } from "../../lib/api";
 import { SUPPORTED_LOCALES } from "../../lib/i18n";
+
+const FALLBACK = {
+  title: "Blog | Untold Agency",
+  description: "Insights, case studies, and news from our team.",
+};
 
 // Pre-render a static page for every blog slug known at build time.
 // New posts added to the backend after a build won't have a static page
@@ -30,6 +38,28 @@ export async function generateStaticParams() {
   }
 }
 
-export default function BlogPostPage() {
-  return <BlogPostClient />;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const seo = await getSeoData("blog", slug);
+  return buildMetadata(seo, `/blog/${slug}`, FALLBACK);
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const seo = await getSeoData("blog", slug);
+
+  return (
+    <>
+      <StructuredData data={seo?.structuredData} />
+      <BlogPostClient />
+    </>
+  );
 }

@@ -302,6 +302,22 @@ export function fetchTestimonials(locale: ApiLocale = "en") {
   return apiFetch<Array<Record<string, unknown>> | { data: Array<Record<string, unknown>> }>("/testimonials", { locale });
 }
 
-export function fetchSeo(type: string, slug: string, locale: ApiLocale = "en") {
-  return apiFetch<Record<string, unknown>>(`/seo/${type}/${slug}`, { locale });
+export interface SeoData {
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  ogTitle?: string | null;
+  ogDescription?: string | null;
+  ogImageUrl?: string | null;
+  twitterTitle?: string | null;
+  twitterDescription?: string | null;
+  twitterImageUrl?: string | null;
+  canonicalUrl?: string | null;
+  robots?: string | null;
+  structuredData?: unknown;
+}
+
+export type SeoType = "page" | "blog" | "service" | "portfolio";
+
+export function fetchSeo(type: SeoType, slug: string, locale: ApiLocale = "en") {
+  return apiFetch<SeoData>(`/seo/${type}/${slug}`, { locale });
 }
